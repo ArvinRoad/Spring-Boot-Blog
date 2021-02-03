@@ -10,6 +10,12 @@
 | application-pro.yml | SpringBoot开发环境配置文件(生产环境下配置) |
 | application-dev.yml | SpringBoot开发环境配置文件(开发环境下配置) |
 | logback-spring.xml | 日志模块配置文件 |
+| 404.html | 404错误页面 |
+| 505.html | 505错误页面 |
+| IndexController.java | Web控制器 |
+| ControllerExceptionHandler.java | BeBug拦截器 |
+| NotFoundException.java | 异常类，业务相关（如果没有页面报错404） |
+
 
 项目配置(Jar包)
 ```xml
@@ -221,4 +227,115 @@ logging:
 
 server:
   port: 808
+```
+### 异常处理
+
+IndexController.java Web控制器
+```java
+package com.cxkj.bolg.web;
+
+import com.cxkj.bolg.NotFoundException;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+
+/**
+ *  Created by Arvin on 2021/2/3.
+ */
+@Controller
+public class IndexController {
+    @GetMapping("/")
+    public String index(){
+        String bolg = null;
+        if (bolg == null){
+            throw  new NotFoundException("博客不存在");
+        }
+        return "index";
+    }
+
+}
+```
+ControllerExceptionHandler.java BeBug拦截器
+```java
+package com.cxkj.bolg.handler;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.core.annotation.AnnotationUtils;
+import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.servlet.ModelAndView;
+
+import javax.servlet.http.HttpServletRequest;
+
+/**
+ *  Created by Arvin on 2021/2/3.
+ */
+@ControllerAdvice
+public class ControllerExceptionHandler {
+    private final Logger logger = LoggerFactory.getLogger(this.getClass());
+
+    @ExceptionHandler(Exception.class)
+    public ModelAndView exceptionHandler(HttpServletRequest request,Exception e) throws Exception {
+        logger.error("Requst URL : {},Exception : {}", request.getRequestURI(),e);
+
+        if (AnnotationUtils.findAnnotation(e.getClass(), ResponseStatus.class) != null){
+            throw e;
+        }
+        ModelAndView mv = new ModelAndView();
+        mv.addObject("url",request.getRequestURI());
+        mv.addObject("exception",e);
+        mv.setViewName("error/error");
+        return mv;
+    }
+}
+```
+error.html BeBug页面
+```html
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+
+    <head>
+        <meta charset="UTF-8">
+        <title>BeBug</title>
+    </head>
+
+    <body>
+        <h1>BeBug</h1>
+        <div>
+            <div th:utext="'&lt;!--'" th:remove="tag"></div>
+            <div th:utext="'Failed Request URL : ' + ${url}" th:remove="tag"></div>
+            <div th:utext="'Exception message : ' + ${exception.message}" th:remove="tag"></div>
+            <ul th:remove="tag">
+                <li th:each="st : ${exception.stackTrace}" th:remove="tag"><span th:utext="${st}" th:remove="tag"></span></li>
+            </ul>
+            <div th:utext="'--&gt;'" th:remove="tag"></div>
+        </div>
+    </body>
+
+</html>
+```
+NotFoundException.java 异常类，业务相关（如果没有页面报错404）
+```java
+package com.cxkj.bolg;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.ResponseStatus;
+
+/**
+ *  Created by Arvin on 2021/2/3.
+ */
+@ResponseStatus(HttpStatus.NOT_FOUND)
+public class NotFoundException extends RuntimeException{
+    public NotFoundException() {
+    }
+
+    public NotFoundException(String message) {
+        super(message);
+    }
+
+    public NotFoundException(String message, Throwable cause) {
+        super(message, cause);
+    }
+}
 ```

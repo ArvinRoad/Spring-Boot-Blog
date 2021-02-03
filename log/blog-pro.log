@@ -1,5 +1,0 @@
-2021-02-03 21:46:56.869  INFO 10488 --- [restartedMain] com.cxkj.bolg.BolgApplication            : Starting BolgApplication using Java 1.8.0_275 on DESKTOP-JSMG0SS with PID 10488 (F:\Spring-Boot-bolg\target\classes started by Arvin in F:\Spring-Boot-bolg)
-2021-02-03 21:46:56.871  INFO 10488 --- [restartedMain] com.cxkj.bolg.BolgApplication            : The following profiles are active: pro
-2021-02-03 21:46:58.122  WARN 10488 --- [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
-2021-02-03 21:46:58.262  WARN 10488 --- [restartedMain] ion$DefaultTemplateResolverConfiguration : Cannot find template location: classpath:/templates/ (please add some templates or check your Thymeleaf configuration)
-2021-02-03 21:46:58.340  INFO 10488 --- [restartedMain] com.cxkj.bolg.BolgApplication            : Started BolgApplication in 1.808 seconds (JVM running for 2.321)
