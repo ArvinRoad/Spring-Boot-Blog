@@ -25,7 +25,11 @@
 | IndexController.java | Web控制器 |
 | ControllerExceptionHandler.java | BeBug拦截器 |
 | NotFoundException.java | 异常类，业务相关（如果没有页面报错404） |
-
+| Bolg.java | Bolg实体类 |
+| Type.java | 分类实体类 |
+| Tag.java | 标签实体类 |
+| Comment.java | 评论实体类 |
+| User.java | 用户实体类 |
 
 项目配置(Jar包)
 ```xml
@@ -572,4 +576,584 @@ public class IndexController {
     </body>
 
 </html>
+```
+
+### 实体设计
+bolg.java 博客实体类
+```java
+package com.cxkj.bolg.pojo;
+
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
+/**
+ *  Created by Arvin on 2021/2/4.
+ */
+@Entity
+@Table(name = "t_bolg")
+public class Bolg {
+
+    @Id
+    @GeneratedValue
+    private Long id;
+
+    private String title;
+    private String content;
+    private String firstPicture;
+    private String flag;
+    private Integer views;
+    private boolean appreciation;
+    private boolean shareStatement;
+    private boolean commentabled;
+    private boolean published;
+    private boolean recommend;
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date createTime;
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date updateTime;
+
+    @ManyToOne
+    private Type type;
+
+    @ManyToMany(cascade = {CascadeType.PERSIST})
+    private List<Tag> tags = new ArrayList<>();
+
+    @ManyToOne
+    private User user;
+
+    @OneToMany(mappedBy = "bolg")
+    private List<Comment> comments = new ArrayList<>();
+
+    public Bolg() {
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    public String getFirstPicture() {
+        return firstPicture;
+    }
+
+    public void setFirstPicture(String firstPicture) {
+        this.firstPicture = firstPicture;
+    }
+
+    public String getFlag() {
+        return flag;
+    }
+
+    public void setFlag(String flag) {
+        this.flag = flag;
+    }
+
+    public Integer getViews() {
+        return views;
+    }
+
+    public void setViews(Integer views) {
+        this.views = views;
+    }
+
+    public boolean isAppreciation() {
+        return appreciation;
+    }
+
+    public void setAppreciation(boolean appreciation) {
+        this.appreciation = appreciation;
+    }
+
+    public boolean isShareStatement() {
+        return shareStatement;
+    }
+
+    public void setShareStatement(boolean shareStatement) {
+        this.shareStatement = shareStatement;
+    }
+
+    public boolean isCommentabled() {
+        return commentabled;
+    }
+
+    public void setCommentabled(boolean commentabled) {
+        this.commentabled = commentabled;
+    }
+
+    public boolean isPublished() {
+        return published;
+    }
+
+    public void setPublished(boolean published) {
+        this.published = published;
+    }
+
+    public boolean isRecommend() {
+        return recommend;
+    }
+
+    public void setRecommend(boolean recommend) {
+        this.recommend = recommend;
+    }
+
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
+
+    public Date getUpdateTime() {
+        return updateTime;
+    }
+
+    public void setUpdateTime(Date updateTime) {
+        this.updateTime = updateTime;
+    }
+
+    public Type getType() {
+        return type;
+    }
+
+    public void setType(Type type) {
+        this.type = type;
+    }
+
+    public List<Tag> getTags() {
+        return tags;
+    }
+
+    public void setTags(List<Tag> tags) {
+        this.tags = tags;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public List<Comment> getComments() {
+        return comments;
+    }
+
+    public void setComments(List<Comment> comments) {
+        this.comments = comments;
+    }
+
+    @Override
+    public String toString() {
+        return "Bolg{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", content='" + content + '\'' +
+                ", firstPicture='" + firstPicture + '\'' +
+                ", flag='" + flag + '\'' +
+                ", views=" + views +
+                ", appreciation=" + appreciation +
+                ", shareStatement=" + shareStatement +
+                ", commentabled=" + commentabled +
+                ", published=" + published +
+                ", recommend=" + recommend +
+                ", createTime=" + createTime +
+                ", updateTime=" + updateTime +
+                '}';
+    }
+}
+```
+Type.java 分类实体类
+```java
+package com.cxkj.bolg.pojo;
+
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ *  Created by Arvin on 2021/2/4.
+ */
+@Entity
+@Table(name = "t_type")
+public class Type {
+
+    @Id
+    @GeneratedValue
+    private Long id;
+    private String name;
+
+    @OneToMany(mappedBy = "type")
+    private List<Bolg> bolgs = new ArrayList<>();
+
+    public Type() {
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public List<Bolg> getBolgs() {
+        return bolgs;
+    }
+
+    public void setBolgs(List<Bolg> bolgs) {
+        this.bolgs = bolgs;
+    }
+
+    @Override
+    public String toString() {
+        return "Type{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                '}';
+    }
+}
+```
+Tag.java 标签实体类
+```java
+package com.cxkj.bolg.pojo;
+
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ *  Created by Arvin on 2021/2/4.
+ */
+@Entity
+@Table(name = "t_tag")
+public class Tag {
+
+    @Id
+    @GeneratedValue
+    private Long id;
+    private String name;
+
+    @ManyToMany(mappedBy = "tags")
+    private List<Bolg> bolgs = new ArrayList<>();
+
+    public Tag() {
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public List<Bolg> getBolgs() {
+        return bolgs;
+    }
+
+    public void setBolgs(List<Bolg> bolgs) {
+        this.bolgs = bolgs;
+    }
+
+    @Override
+    public String toString() {
+        return "Tag{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                '}';
+    }
+}
+```
+Comment.java 评论实体类
+```java
+package com.cxkj.bolg.pojo;
+
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
+/**
+ *  Created by Arvin on 2021/2/4.
+ */
+@Entity
+@Table(name = "t_comment")
+public class Comment {
+
+    @Id
+    @GeneratedValue
+    private Long id;
+    private String nickname;
+    private String email;
+    private String content;
+    private String avatar;
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date createTime;
+
+    @ManyToOne
+    private Bolg bolg;
+
+    @OneToMany(mappedBy = "parentComment")
+    private List<Comment> replyComments = new ArrayList<>();
+    @ManyToOne
+    private Comment parentComment;
+
+    public Comment() {
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getNickname() {
+        return nickname;
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
+    }
+
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
+
+    public Bolg getBolg() {
+        return bolg;
+    }
+
+    public void setBolg(Bolg bolg) {
+        this.bolg = bolg;
+    }
+
+    public List<Comment> getReplyComments() {
+        return replyComments;
+    }
+
+    public void setReplyComments(List<Comment> replyComments) {
+        this.replyComments = replyComments;
+    }
+
+    public Comment getParentComment() {
+        return parentComment;
+    }
+
+    public void setParentComment(Comment parentComment) {
+        this.parentComment = parentComment;
+    }
+
+    @Override
+    public String toString() {
+        return "Comment{" +
+                "id=" + id +
+                ", nickname='" + nickname + '\'' +
+                ", email='" + email + '\'' +
+                ", content='" + content + '\'' +
+                ", avatar='" + avatar + '\'' +
+                ", createTime=" + createTime +
+                '}';
+    }
+}
+```
+User.java 用户实体类
+```java
+package com.cxkj.bolg.pojo;
+
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
+/**
+ *  Created by Arvin on 2021/2/4.
+ */
+@Entity
+@Table(name = "t_user")
+public class User {
+
+    @Id
+    @GeneratedValue
+    private Long id;
+    private String nickname;
+    private String username;
+    private String password;
+    private String email;
+    private String avatar;
+    private Integer type;
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date CreateTime;
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date updateTime;
+
+    @OneToMany(mappedBy = "user")
+    private List<Bolg> bolgs = new ArrayList<>();
+
+    public User() {
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getNickname() {
+        return nickname;
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
+    }
+
+    public Integer getType() {
+        return type;
+    }
+
+    public void setType(Integer type) {
+        this.type = type;
+    }
+
+    public Date getCreateTime() {
+        return CreateTime;
+    }
+
+    public void setCreateTime(Date createTime) {
+        CreateTime = createTime;
+    }
+
+    public Date getUpdateTime() {
+        return updateTime;
+    }
+
+    public void setUpdateTime(Date updateTime) {
+        this.updateTime = updateTime;
+    }
+
+    public List<Bolg> getBolgs() {
+        return bolgs;
+    }
+
+    public void setBolgs(List<Bolg> bolgs) {
+        this.bolgs = bolgs;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", nickname='" + nickname + '\'' +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", email='" + email + '\'' +
+                ", avatar='" + avatar + '\'' +
+                ", type=" + type +
+                ", CreateTime=" + CreateTime +
+                ", updateTime=" + updateTime +
+                '}';
+    }
+}
 ```
