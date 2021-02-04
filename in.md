@@ -12,6 +12,16 @@
 | logback-spring.xml | 日志模块配置文件 |
 | 404.html | 404错误页面 |
 | 505.html | 505错误页面 |
+| error.html | BeBug页面 |
+| bolgs.html | 后台管理页面 |
+| bolgs-input.html | 博客后台发布页面 |
+| about.html | 关于我页面 |
+| archives.html | 归档页面 |
+| bolg.html | 博客详情页面 |
+| index.html | 博客首页 |
+| tags.html | 标签页面 |
+| type.html | 分类页面 |
+| _fragments.html | 动态页面 定义Thymeleaf片段 |
 | IndexController.java | Web控制器 |
 | ControllerExceptionHandler.java | BeBug拦截器 |
 | NotFoundException.java | 异常类，业务相关（如果没有页面报错404） |
@@ -419,5 +429,147 @@ public class LogAspect {
 ```
 IndexController.java
 ```java
+package com.cxkj.bolg.web;
 
+import com.cxkj.bolg.NotFoundException;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+
+/**
+ *  Created by Arvin on 2021/2/3.
+ */
+@Controller
+public class IndexController {
+    @GetMapping("/{id}/{name}")
+    public String index(@PathVariable Integer id,@PathVariable String name){
+            /*String bolg = null;
+            if (bolg == null){
+                throw  new NotFoundException("博客不存在");
+            }*/
+        System.out.println("------ Index ------");
+        return "index";
+    }
+}
+```
+
+### 页面处理
+IndexController.java Web控制器
+```java
+package com.cxkj.bolg.web;
+
+import com.cxkj.bolg.NotFoundException;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+
+/**
+ *  Created by Arvin on 2021/2/3.
+ */
+@Controller
+public class IndexController {
+    @GetMapping("/")
+    public String index(){
+            /*String bolg = null;
+            if (bolg == null){
+                throw  new NotFoundException("博客不存在");
+            }*/
+        return "index";
+    }
+
+}
+```
+动态页面 定义Thymeleaf片段
+```html
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+
+    <head th:fragment="head(title)">
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1.0">
+        <title th:replace="${title}">详情</title>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
+        <link rel="stylesheet" href="../static/css/typo.css" th:href = "@{/css/typo.css}">
+        <link rel="stylesheet" href="../static/css/animate.css" th:href = "@{/css/animate.css}">
+        <link rel="stylesheet" href="../static/lib/prism/prism.css" th:href = "@{/lib/prism/prism.css}">
+        <link rel="stylesheet" href="../static/lib/tocbot/tocbot.css" th:href = "@{/lib/tocbot/tocbot.css}">
+        <link rel="stylesheet" href="../static/css/meCs.css" th:href = "@{/css/meCs.css}">
+    </head>
+
+    <body>
+
+        <!--导航-->
+        <nav th:fragment="menu(n)" class="ui inverted attached segment m-padded-tb-mini m-shadow-small">
+            <div class="ui container">
+                <div class="ui inverted secondary stackable menu">
+                    <h2 class="ui teal header item">Guest Island</h2>
+                    <a href="#" class="m-item item m-mobile-hide" th:classappend="${n==1} ? 'active'"><i class="home icon"></i>首页</a>
+                    <a href="#" class="m-item item m-mobile-hide" th:classappend="${n==2} ? 'active'"><i class="idea icon"></i>分类</a>
+                    <a href="#" class="m-item item m-mobile-hide" th:classappend="${n==3} ? 'active'"><i class="tags icon"></i>标签</a>
+                    <a href="#" class="m-item item m-mobile-hide" th:classappend="${n==4} ? 'active'"><i class="clone icon"></i>归档</a>
+                    <a href="#" class="m-item item m-mobile-hide" th:classappend="${n==5} ? 'active'"><i class="info icon"></i>关于我</a>
+                    <!--搜索栏-->
+                    <div class="right m-item item m-mobile-hide">
+                        <div class="ui icon inverted transparent input">
+                            <input type="text" placeholder="Search......">
+                            <i class="search link icon"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <a href="#" class="ui menu toggle black icon button m-right-top m-mobile-show">
+                <i class="sidebar icon"></i>
+            </a>
+        </nav>
+
+        <!--底部-->
+        <footer th:fragment="footer" class="ui inverted vertical segment m-padded-tb-massivs">
+            <div class="ui center aligned container">
+                <div class="ui inverted divided stackable grid">
+                    <div class="three wide column">
+                        <div class="ui inverted link list">
+                            <div class="item">
+                                <img src="../static/images/WX_Arvin.jpg" th:src = "@{/images/WX_Arvin.jpg}" class="ui rounded image" alt="Guest Island" style="width: 100px">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="three wide column">
+                        <h4 class="ui inverted header m-text-thin m-text-spaced">最新博客</h4>
+                        <div class="ui inverted link list">
+                            <a href="#" class="item">用户故事 (User Story) </a>
+                            <a href="#" class="item">关于脑机的那些事</a>
+                            <a href="#" class="item">2021年计划</a>
+                        </div>
+                    </div>
+                    <div class="three wide column">
+                        <h4 class="ui inverted header m-text-thin m-text-spaced">关于我</h4>
+                        <div class="ui inverted link list">
+                            <a href="#" class="item">Email: 2644266656@qq.com</a>
+                            <a href="#" class="item">QQ: 2644266656</a>
+                        </div>
+                    </div>
+                    <div class="seven wide column">
+                        <h4 class="ui inverted header m-text-thin m-text-spaced">Guest Island</h4>
+                        <p class="m-text-thin m-text-spaced m-opacity-mini">南有孤岛北有亡梦，南柯一梦终是虚无。</p>
+                    </div>
+                </div>
+                <div class="ui inverted section divider"></div>
+                <p class="m-text-thin m-text-spaced m-opacity-tiny">Copyright &copy; 2020-2021 Guest Island Personal blog</p>
+            </div>
+        </footer>
+
+        <!--script-->
+        <th:block th:fragment="script">
+            <script src="https://cdn.jsdelivr.net/npm/jquery@3.2/dist/jquery.min.js"></script>
+            <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
+            <script src="//cdn.jsdelivr.net/npm/jquery.scrollto@2.1.2/jquery.scrollTo.min.js"></script>
+            <script src="../static/lib/prism/prism.js" th:src="@{/lib/prism/prism.js}"></script>
+            <script src="../static/lib/tocbot/tocbot.min.js" th:src="@{/lib/tocbot/tocbot.min.js}"></script>
+            <script src="../static/lib/qrcode/qrcode.min.js" th:src="@{/lib/qrcode/qrcode.min.js}"></script>
+            <script src="../static/lib/waypoints/jquery.waypoints.min.js" th:src="@{/lib/waypoints/jquery.waypoints.min.js}"></script>
+        </th:block>
+
+    </body>
+
+</html>
 ```
