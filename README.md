@@ -1,5 +1,4 @@
 # 基于Spring Boot网站架构参考
-
 文件说明：
 
 |  文件名称   | 文件说明  |
@@ -25,6 +24,9 @@
 | _fragments.html | 动态页面 定义Thymeleaf片段 |
 | IndexController.java | Web控制器 |
 | LoginController.java | WEB登录模块控制器 |
+| BlogController.java | Bolg后台页面权限过滤管理类 |
+| LongInterceptor.java | Bolg后台页面权限(登录过滤)类 |
+| WebConfig.html | Bolg后台页面权限(拦截配置) 类|
 | ControllerExceptionHandler.java | BeBug拦截器 |
 | NotFoundException.java | 异常类，业务相关（如果没有页面报错404） |
 | Bolg.java | Bolg实体类 |
@@ -35,6 +37,7 @@
 | UserService.java | User登录业务逻辑处理接口类 |
 | UserServiceImpl.java | User登录业务逻辑处理实现类 |
 | UserRepository.java | 引用SpringJPA SQL操作接口 |
+| MD5Utils.java | MD5加密类 |
 
 项目配置(Jar包)
 ```xml
@@ -129,7 +132,7 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/bolg?useSSL=false&useUnicode=true&characterEncoding=utf-8
     username: root
-    password: 1917723401Syc
+    password: 123456789
 ```
 JPA的连接配置
 ```yml
@@ -209,7 +212,7 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/bolg?useSSL=false&useUnicode=true&characterEncoding=utf-8
     username: root
-    password: 1917723401Syc
+    password: 123456789
 
   jpa:
     hibernate:
@@ -230,7 +233,7 @@ spring:
     driver-class-name: com.mysql.jdbc.Driver
     url: jdbc:mysql://localhost:3306/bolg?useSSL=false&useUnicode=true&characterEncoding=utf-8
     username: root
-    password: 1917723401Syc
+    password: 123456789
 
   jpa:
     hibernate:
@@ -1271,5 +1274,160 @@ public class LoginController {
         session.removeAttribute("user");
         return "redirect:/admin";
     }
+}
+```
+### MD5加密
+MD5Utils.java MD5加密工具类
+```java
+package com.cxkj.bolg.util;
+
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+
+/**
+ *  Created by Arvin on 2021/2/5.
+ *
+ *  MD5加密类
+ * @parm str 要加密的字符串
+ * @return 加密后的字符串
+ */
+
+public class MD5Utils {
+
+    public static String code(String str){
+
+        try {
+            MessageDigest md = MessageDigest.getInstance("MD5");
+            md.update(str.getBytes());
+            byte[] bytesDigest = md.digest();
+            int i;
+            StringBuffer buffer = new StringBuffer("");
+            for (int offset = 0;offset<bytesDigest.length;offset++){
+                i = bytesDigest[offset];
+                if (i<0)
+                    i+= 256;
+                if (i<16)
+                    buffer.append("0");
+                buffer.append(Integer.toHexString(i));
+            }
+            //32位加密
+            return buffer.toString();
+            //16位加密
+            //return buffer.toString().substring(8,20);
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+            return null;
+        }
+
+    }
+    
+    //加密测试Main方法
+    public static void main(String[] args) {
+        System.out.println(code("123456789"));
+    }
+}
+```
+UserServiceImpl.java
+```java
+package com.cxkj.bolg.service;
+
+import com.cxkj.bolg.dao.UserRepository;
+import com.cxkj.bolg.pojo.User;
+import com.cxkj.bolg.util.MD5Utils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+/**
+ *  Created by Arvin on 2021/2/5.
+ */
+@Service
+public class UserServiceImpl implements UserService{
+
+    @Autowired
+    private UserRepository userRepository;
+
+    @Override
+    public User checkUser(String username, String password) {
+        User user = userRepository.findByUsernameAndPassword(username, MD5Utils.code(password));
+        return user;
+    }
+
+}
+```
+BlogController.java 博客后台页面权限过滤管理类
+```java
+package com.cxkj.bolg.web.admin;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+/**
+ *  Created by Arvin on 2021/2/5.
+ */
+@Controller
+@RequestMapping("/admin")
+public class BlogController {
+
+    @GetMapping("/bolgs")
+    public String bolgs(){
+        return "/admin/bolgs";
+    }
+
+}
+```
+LongInterceptor.java Bolg后台页面权限(登录过滤)类
+```java
+package com.cxkj.bolg.interceptor;
+
+import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+/**
+ *  Created by Arvin on 2021/2/5.
+ */
+
+public class LongInterceptor extends WebMvcConfigurerAdapter {
+
+    //WebMvcConfigurerAdapter这个也过时了
+    
+    @Override
+    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+
+        if (request.getSession().getAttribute("user") == null){
+            response.sendRedirect("/admin");
+            return false;
+        }
+
+        return true;
+    }
+}
+```
+WebConfig.java Bolg后台页面权限(拦截配置)类
+```java
+package com.cxkj.bolg.interceptor;
+
+
+import org.springframework.context.annotation.Configuration;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+
+/**
+ *  Created by Arvin on 2021/2/5.
+ */
+@Configuration
+public class WebConfig extends WebMvcConfigurerAdapter {
+
+    //WebMvcConfigurerAdapter这个过时了
+    
+    @Override
+    public void addInterceptors(InterceptorRegistry registry) {
+        registry.addInterceptor(new LongInterceptor()).addPathPatterns("/admin/**")
+                .excludePathPatterns("/admin")
+                .excludePathPatterns("/admin/login");
+    }
+
 }
 ```

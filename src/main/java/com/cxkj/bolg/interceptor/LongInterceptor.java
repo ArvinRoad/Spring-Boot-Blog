@@ -1,0 +1,24 @@
+package com.cxkj.bolg.interceptor;
+
+import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+/**
+ *  Created by Arvin on 2021/2/5.
+ */
+
+public class LongInterceptor extends HandlerInterceptorAdapter {
+
+    @Override
+    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+
+        if (request.getSession().getAttribute("user") == null){
+            response.sendRedirect("/admin");
+            return false;
+        }
+
+        return true;
+    }
+}
