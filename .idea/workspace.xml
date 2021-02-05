@@ -14,6 +14,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="HTML File" />
+        <option value="Interface" />
         <option value="Class" />
       </list>
     </option>
@@ -38,7 +39,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/main/resources/static" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/main/resources/templates/admin" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -52,6 +53,7 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="F:\Spring-Boot-bolg\src\main\resources\templates\admin" />
       <recent name="F:\Spring-Boot-bolg\src\main\resources\static" />
       <recent name="F:\Spring-Boot-bolg\src\main\resources\templates" />
       <recent name="F:\Spring-Boot-bolg\src\main\resources" />
@@ -88,6 +90,8 @@
       <workItem from="1612350183538" duration="26699000" />
       <workItem from="1612431288956" duration="2484000" />
       <workItem from="1612433811577" duration="20717000" />
+      <workItem from="1612457150141" duration="251000" />
+      <workItem from="1612498020973" duration="7720000" />
     </task>
     <servers />
   </component>

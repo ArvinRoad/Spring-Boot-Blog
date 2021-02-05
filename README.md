@@ -21,8 +21,10 @@
 | index.html | 博客首页 |
 | tags.html | 标签页面 |
 | type.html | 分类页面 |
+| login.html | 登录页面 |
 | _fragments.html | 动态页面 定义Thymeleaf片段 |
 | IndexController.java | Web控制器 |
+| LoginController.java | WEB登录模块控制器 |
 | ControllerExceptionHandler.java | BeBug拦截器 |
 | NotFoundException.java | 异常类，业务相关（如果没有页面报错404） |
 | Bolg.java | Bolg实体类 |
@@ -30,6 +32,9 @@
 | Tag.java | 标签实体类 |
 | Comment.java | 评论实体类 |
 | User.java | 用户实体类 |
+| UserService.java | User登录业务逻辑处理接口类 |
+| UserServiceImpl.java | User登录业务逻辑处理实现类 |
+| UserRepository.java | 引用SpringJPA SQL操作接口 |
 
 项目配置(Jar包)
 ```xml
@@ -1154,6 +1159,117 @@ public class User {
                 ", CreateTime=" + CreateTime +
                 ", updateTime=" + updateTime +
                 '}';
+    }
+}
+```
+### 后台登录业务
+UserService.java User登录业务逻辑处理接口类
+```java
+package com.cxkj.bolg.service;
+
+import com.cxkj.bolg.pojo.User;
+
+/**
+ *  Created by Arvin on 2021/2/5.
+ */
+
+public interface UserService {
+    
+    User checkUser(String username,String password);
+}
+```
+UserServiceImpl.java User登录业务逻辑处理实现类
+```java
+package com.cxkj.bolg.service;
+
+import com.cxkj.bolg.dao.UserRepository;
+import com.cxkj.bolg.pojo.User;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+/**
+ *  Created by Arvin on 2021/2/5.
+ */
+@Service
+public class UserServiceImpl implements UserService{
+    
+    @Autowired
+    private UserRepository userRepository;
+    
+    @Override
+    public User checkUser(String username, String password) {
+        User user = userRepository.findByUsernameAndPassword(username,password);
+        return user;
+    }
+    
+}
+```
+UserRepository.java 引用SpringJPA SQL操作接口
+```java
+package com.cxkj.bolg.dao;
+
+import com.cxkj.bolg.pojo.User;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+/**
+ *  Created by Arvin on 2021/2/5.
+ */
+
+public interface UserRepository extends JpaRepository<User,Long> {
+    
+    User findByUsernameAndPassword(String username,String password);
+}
+```
+LoginController.java WEB登录模块控制器
+```java
+package com.cxkj.bolg.web.admin;
+
+import com.cxkj.bolg.pojo.User;
+import com.cxkj.bolg.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import javax.servlet.http.HttpSession;
+
+/**
+ *  Created by Arvin on 2021/2/5.
+ */
+@Controller
+@RequestMapping("/admin")
+public class LoginController {
+    
+    @Autowired
+    private UserService userService;
+    
+    @GetMapping
+    public String loginPage(){
+        return "admin/login";
+    }
+    
+    @PostMapping("/login")
+    public String login(@RequestParam String username, @RequestParam String password, HttpSession session, RedirectAttributes attributes){
+        User user = userService.checkUser(username,password);
+        if (user != null){
+            user.setPassword(null);
+            session.setAttribute("user",user);
+            return "admin/index";
+        }else {
+            attributes.addFlashAttribute("message","用户名和密码存在异常错误");
+            return "redirect:/admin";
+        }
+        
+    }
+    
+    @GetMapping("/logout")
+    public String logout(HttpSession session){
+        session.removeAttribute("user");
+        return "redirect:/admin";
     }
 }
 ```
