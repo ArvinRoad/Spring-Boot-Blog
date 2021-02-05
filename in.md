@@ -14,6 +14,8 @@
 | error.html | BeBug页面 |
 | bolgs.html | 后台管理页面 |
 | bolgs-input.html | 博客后台发布页面 |
+| type.html | 后台分类管理页面 |
+| type-input.html | 后台分类新增页面 |
 | about.html | 关于我页面 |
 | archives.html | 归档页面 |
 | bolg.html | 博客详情页面 |
@@ -25,6 +27,7 @@
 | IndexController.java | Web控制器 |
 | LoginController.java | WEB登录模块控制器 |
 | BlogController.java | Bolg后台页面权限过滤管理类 |
+| TypeController.java | Web层分类模块操作 |
 | LongInterceptor.java | Bolg后台页面权限(登录过滤)类 |
 | WebConfig.html | Bolg后台页面权限(拦截配置) 类|
 | ControllerExceptionHandler.java | BeBug拦截器 |
@@ -36,7 +39,10 @@
 | User.java | 用户实体类 |
 | UserService.java | User登录业务逻辑处理接口类 |
 | UserServiceImpl.java | User登录业务逻辑处理实现类 |
+| TypeService.java | 分类业务逻辑处理接口 |
+| TypeServiceImpl.java | 分类业务逻辑处理实现类 |
 | UserRepository.java | 引用SpringJPA SQL操作接口 |
+| TypeRepository.java | 分类业务处理 SQL操作接口 |
 | MD5Utils.java | MD5加密类 |
 
 项目配置(Jar包)
@@ -1483,5 +1489,138 @@ public class WebConfig implements WebMvcConfigurer {
                 .excludePathPatterns("/admin/login");
     }
 
+}
+```
+### 分类业务处理
+TypeService.java 分类业务逻辑处理接口
+```java
+package com.cxkj.bolg.service;
+
+import com.cxkj.bolg.pojo.Type;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
+/**
+ *  Created by Arvin on 2021/2/6.
+ */
+
+public interface TypeService {
+    
+    Type saveType(Type type);
+    
+    Type getType(Long id);
+    
+    Page<Type> listType(Pageable pageable);
+    
+    Type updateType(Long id,Type type);
+    
+    void deleteType(Long id);
+}
+```
+TypeServiceImpl.java 分类业务逻辑处理实现类
+```java
+package com.cxkj.bolg.service;
+
+import com.cxkj.bolg.NotFoundException;
+import com.cxkj.bolg.dao.TypeRepository;
+import com.cxkj.bolg.pojo.Type;
+import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+/**
+ *  Created by Arvin on 2021/2/6.
+ */
+@Service
+public class TypeServiceImpl implements TypeService{
+
+    @Autowired
+    private TypeRepository typeRepository;
+
+    @Transactional
+    @Override
+    public Type saveType(Type type) {
+        return typeRepository.save(type);
+    }
+
+    @Transactional
+    @Override
+    public Type getType(Long id) {
+        return typeRepository.findById(id).get();
+    }
+
+    @Transactional
+    @Override
+    public Page<Type> listType(Pageable pageable) {
+        return typeRepository.findAll(pageable);
+    }
+
+    @Transactional
+    @Override
+    public Type updateType(Long id, Type type) {
+        Type t = typeRepository.findById(id).get();
+        if (t == null){
+            throw new NotFoundException("您查找的信息不存在");
+        }
+        BeanUtils.copyProperties(type,t);
+        return typeRepository.save(t);
+    }
+
+    @Transactional
+    @Override
+    public void deleteType(Long id) {
+        typeRepository.deleteById(id);
+    }
+}
+```
+TypeRepository.java 分类业务 SQL操作接口
+```java
+package com.cxkj.bolg.dao;
+
+import com.cxkj.bolg.pojo.Type;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+/**
+ *  Created by Arvin on 2021/2/6.
+ */
+
+public interface TypeRepository extends JpaRepository<Type,Long> {
+
+}
+```
+TypeController.java Web层操作
+```java
+package com.cxkj.bolg.web.admin;
+
+import com.cxkj.bolg.service.TypeService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+/**
+ *  Created by Arvin on 2021/2/6.
+ */
+@Controller
+@RequestMapping("/admin")
+public class TypeController {
+
+    @Autowired
+    private TypeService typeService;
+
+    @GetMapping("/types")
+    public String types(@PageableDefault(size = 10,sort = {"id"},direction = Sort.Direction.DESC)
+                                    Pageable pageable, Model model){
+
+        model.addAttribute("page",typeService.listType(pageable));
+        return "/admin/types";
+    }
 }
 ```
