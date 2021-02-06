@@ -1,0 +1,16 @@
+POST http://localhost:8081/admin/types/{id}
+
+###
+
+POST http://localhost:8081/admin/types/{{id}}
+
+###
+
+POST http://localhost:8081/admin/types
+
+###
+
+POST http://localhost:8081/admin/types/{{id}}
+
+###
+

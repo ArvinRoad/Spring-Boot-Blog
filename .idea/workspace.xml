@@ -91,16 +91,24 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
+    <configuration default="true" type="ArquillianTestNG" factoryName="" nameIsGenerated="true">
       <option name="arquillianRunConfiguration">
         <value>
           <option name="containerStateName" value="" />
         </value>
       </option>
-      <option name="TEST_OBJECT" value="class" />
+      <option name="TEST_OBJECT" value="CLASS" />
+      <properties />
+      <listeners />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
+    </configuration>
+    <configuration name="generated-requests#5" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" path="$APPLICATION_CONFIG_DIR$/scratches/generated-requests.http" index="5" runType="运行单个请求">
+      <method v="2" />
+    </configuration>
+    <configuration name="generated-requests#6" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" path="$APPLICATION_CONFIG_DIR$/scratches/generated-requests.http" index="6" runType="运行单个请求">
+      <method v="2" />
     </configuration>
     <configuration name="BolgApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
       <module name="Spring-Boot-bolg" />
@@ -111,6 +119,8 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="HTTP 请求.generated-requests#6" />
+        <item itemvalue="HTTP 请求.generated-requests#5" />
         <item itemvalue="应用程序.MD5Utils" />
       </list>
     </recent_temporary>
@@ -132,7 +142,8 @@
       <workItem from="1612603956932" duration="7741000" />
       <workItem from="1612618075254" duration="1506000" />
       <workItem from="1612619801636" duration="408000" />
-      <workItem from="1612621292871" duration="12437000" />
+      <workItem from="1612621292871" duration="16441000" />
+      <workItem from="1612640691254" duration="364000" />
     </task>
     <servers />
   </component>
