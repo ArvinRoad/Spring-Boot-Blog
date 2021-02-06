@@ -30,6 +30,13 @@
       <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
     </file-type-list>
   </component>
+  <component name="GithubPullRequestsUISettings">
+    <option name="hiddenUrls">
+      <set>
+        <option value="https://github.com/ArvinRoad/Spring-Boot-bolg" />
+      </set>
+    </option>
+  </component>
   <component name="ProjectId" id="1ny6rYNeKAdnDQYuUieYVaRS9XX" />
   <component name="ProjectViewState">
     <option name="autoscrollToSource" value="true" />
@@ -58,6 +65,8 @@
     <property name="project.structure.proportion" value="0.0" />
     <property name="project.structure.side.proportion" value="0.49947312" />
     <property name="restartRequiresConfirmation" value="false" />
+    <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
+    <property name="settings.editor.selected.configurable" value="spring.boot" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -82,15 +91,13 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration default="true" type="ArquillianTestNG" factoryName="" nameIsGenerated="true">
+    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
       <option name="arquillianRunConfiguration">
         <value>
           <option name="containerStateName" value="" />
         </value>
       </option>
-      <option name="TEST_OBJECT" value="CLASS" />
-      <properties />
-      <listeners />
+      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -121,7 +128,11 @@
       <workItem from="1612433811577" duration="20717000" />
       <workItem from="1612457150141" duration="251000" />
       <workItem from="1612498020973" duration="8700000" />
-      <workItem from="1612525874447" duration="19658000" />
+      <workItem from="1612525874447" duration="20263000" />
+      <workItem from="1612603956932" duration="7741000" />
+      <workItem from="1612618075254" duration="1506000" />
+      <workItem from="1612619801636" duration="408000" />
+      <workItem from="1612621292871" duration="12437000" />
     </task>
     <servers />
   </component>
@@ -178,5 +189,9 @@
         </breakpoint>
       </breakpoints>
     </breakpoint-manager>
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
   </component>
 </project>

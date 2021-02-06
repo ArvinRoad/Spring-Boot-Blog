@@ -1,6 +1,7 @@
 package com.cxkj.bolg.pojo;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,6 +15,7 @@ public class Type {
     @Id
     @GeneratedValue
     private Long id;
+    @NotBlank(message = "程序员大大，分类名称不能为空哦Σ( °△°|||)")
     private String name;
 
     @OneToMany(mappedBy = "type")

@@ -36,7 +36,7 @@ public class LoginController {
             session.setAttribute("user",user);
             return "admin/index";
         }else {
-            attributes.addFlashAttribute("message","用户名和密码存在异常错误");
+            attributes.addFlashAttribute("message","用户名和密码存在异常错误(๑¯ิε ¯ิ๑)");
             return "redirect:/admin";
         }
 

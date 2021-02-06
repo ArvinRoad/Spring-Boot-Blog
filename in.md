@@ -123,6 +123,19 @@
 
 </project>
 ```
+后面导入的Jar包(新版本原因曾经的Jar不包含了)
+```xml
+<dependency>
+    <groupId>javax.validation</groupId>
+    <artifactId>validation-api</artifactId>
+</dependency>
+
+<dependency>
+    <groupId>org.hibernate</groupId>
+    <artifactId>hibernate-validator</artifactId>
+    <version>6.0.13.Final</version>
+</dependency>
+```
 ### Application.yml配置文件
 
 thymeleaf模板配置
@@ -804,6 +817,7 @@ Type.java 分类实体类
 package com.cxkj.bolg.pojo;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -817,6 +831,7 @@ public class Type {
     @Id
     @GeneratedValue
     private Long id;
+    @NotBlank(message = "分类名称不能为空哦")
     private String name;
 
     @OneToMany(mappedBy = "type")
@@ -1505,15 +1520,17 @@ import org.springframework.data.domain.Pageable;
  */
 
 public interface TypeService {
-    
+
     Type saveType(Type type);
-    
+
     Type getType(Long id);
-    
+
+    Type getTypeByName(String name);
+
     Page<Type> listType(Pageable pageable);
-    
+
     Type updateType(Long id,Type type);
-    
+
     void deleteType(Long id);
 }
 ```
@@ -1552,6 +1569,11 @@ public class TypeServiceImpl implements TypeService{
         return typeRepository.findById(id).get();
     }
 
+    @Override
+    public Type getTypeByName(String name) {
+        return typeRepository.findByName(name);
+    }
+
     @Transactional
     @Override
     public Page<Type> listType(Pageable pageable) {
@@ -1563,7 +1585,7 @@ public class TypeServiceImpl implements TypeService{
     public Type updateType(Long id, Type type) {
         Type t = typeRepository.findById(id).get();
         if (t == null){
-            throw new NotFoundException("您查找的信息不存在");
+            throw new NotFoundException("您查找的信息不存在(︶︹︺)");
         }
         BeanUtils.copyProperties(type,t);
         return typeRepository.save(t);
@@ -1589,12 +1611,14 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface TypeRepository extends JpaRepository<Type,Long> {
 
+    Type findByName(String name);
 }
 ```
 TypeController.java Web层操作
 ```java
 package com.cxkj.bolg.web.admin;
 
+import com.cxkj.bolg.pojo.Type;
 import com.cxkj.bolg.service.TypeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
@@ -1602,8 +1626,13 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import javax.validation.Valid;
 
 /**
  *  Created by Arvin on 2021/2/6.
@@ -1617,10 +1646,35 @@ public class TypeController {
 
     @GetMapping("/types")
     public String types(@PageableDefault(size = 10,sort = {"id"},direction = Sort.Direction.DESC)
-                                    Pageable pageable, Model model){
+                                Pageable pageable, Model model){
 
         model.addAttribute("page",typeService.listType(pageable));
         return "/admin/types";
     }
+
+    @GetMapping("/types/input")
+    public String input(Model model){
+        model.addAttribute("type",new Type());
+        return "/admin/types-input";
+    }
+
+    @PostMapping("/types")
+    public String post(@Valid Type type, BindingResult result, RedirectAttributes attributes){
+        Type typename = typeService.getTypeByName(type.getName());
+        if (typename != null){
+            result.rejectValue("name","nameError","管理员大大，这个分类已经有了。((٩(//̀Д/́/)۶))做人要专一哦！");
+        }
+        if (result.hasErrors()){
+            return "/admin/types-input";
+        }
+        Type t =  typeService.saveType(type);
+        if (t == null){
+            attributes.addFlashAttribute("message","操作失败 ﾍ(;´Д｀ﾍ),管理员大大重新试下吧");
+        }else {
+            attributes.addFlashAttribute("message","操作成功 ≖‿≖✧ 快去发布新内容吧");
+        }
+        return "redirect:../admin/types";
+    }
+
 }
 ```

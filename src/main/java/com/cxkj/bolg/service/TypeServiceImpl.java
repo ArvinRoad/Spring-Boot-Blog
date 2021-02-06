@@ -31,6 +31,11 @@ public class TypeServiceImpl implements TypeService{
         return typeRepository.findById(id).get();
     }
 
+    @Override
+    public Type getTypeByName(String name) {
+        return typeRepository.findByName(name);
+    }
+
     @Transactional
     @Override
     public Page<Type> listType(Pageable pageable) {
@@ -42,7 +47,7 @@ public class TypeServiceImpl implements TypeService{
     public Type updateType(Long id, Type type) {
         Type t = typeRepository.findById(id).get();
         if (t == null){
-            throw new NotFoundException("您查找的信息不存在");
+            throw new NotFoundException("您查找的信息不存在(︶︹︺)");
         }
         BeanUtils.copyProperties(type,t);
         return typeRepository.save(t);
