@@ -1700,5 +1700,12 @@ public class TypeController {
         }
         return "redirect:../types";
     }
+
+    @GetMapping("/types/{id}/delete")
+    public String delete(@PathVariable Long id,RedirectAttributes attributes){
+        typeService.deleteType(id);
+        attributes.addFlashAttribute("message","删除成功,可能是管理员大大不喜欢它了吧(.◕ฺˇд ˇ◕ฺ)");
+        return "redirect:../";
+    }
 }
 ```
