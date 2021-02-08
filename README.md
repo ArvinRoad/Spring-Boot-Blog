@@ -28,6 +28,7 @@
 | LoginController.java | WEB登录模块控制器 |
 | BlogController.java | Bolg后台页面权限过滤管理类 |
 | TypeController.java | Web层分类模块操作 |
+| TagController.java | Web层标签模块操作 |
 | LongInterceptor.java | Bolg后台页面权限(登录过滤)类 |
 | WebConfig.html | Bolg后台页面权限(拦截配置) 类|
 | ControllerExceptionHandler.java | BeBug拦截器 |
@@ -41,8 +42,11 @@
 | UserServiceImpl.java | User登录业务逻辑处理实现类 |
 | TypeService.java | 分类业务逻辑处理接口 |
 | TypeServiceImpl.java | 分类业务逻辑处理实现类 |
+| TagService.java | 标签业务逻辑处理接口 |
+| TagServiceImpl.java | 标签业务逻辑处理实现类 |
 | UserRepository.java | 引用SpringJPA SQL操作接口 |
 | TypeRepository.java | 分类业务处理 SQL操作接口 |
+| TagRepository.java | 标签业务处理 SQL操作接口 |
 | MD5Utils.java | MD5加密类 |
 
 项目配置(Jar包)
@@ -1706,6 +1710,178 @@ public class TypeController {
         typeService.deleteType(id);
         attributes.addFlashAttribute("message","删除成功,可能是管理员大大不喜欢它了吧(.◕ฺˇд ˇ◕ฺ)");
         return "redirect:../";
+    }
+}
+```
+### 标签业务处理
+TagService.java 标签业务逻辑处理接口
+```java
+package com.cxkj.bolg.service;
+
+import com.cxkj.bolg.pojo.Tag;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
+/**
+ *  Created by Arvin on 2021/2/7.
+ */
+
+public interface TagService {
+
+    Tag saveTag(Tag tag);
+    
+    Tag getTag(Long id);
+    
+    Tag getTagByName(String name);
+    
+    Page<Tag> listTag(Pageable pageable);
+    
+    Tag updateTag(Long id,Tag tag);
+    
+    void deleteTag(Long id);
+}
+```
+TagServiceImpl.java 标签业务逻辑处理实现类
+
+```java
+package com.cxkj.bolg.service;
+
+import com.cxkj.bolg.NotFoundException;
+import com.cxkj.bolg.dao.TagRepository;
+import com.cxkj.bolg.pojo.Tag;
+import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.transaction.annotation.Transactional;
+
+/**
+ *  Created by Arvin on 2021/2/7.
+ */
+
+public class TagServiceImpl implements TagService {
+
+    @Autowired
+    private TagRepository tagRepository;
+
+    @Transactional
+    @Override
+    public Tag saveTag(Tag tag) {
+        return tagRepository.save(tag);
+    }
+
+    @Transactional
+    @Override
+    public Tag getTag(Long id) {
+        return tagRepository.findById(id).get();
+    }
+
+    @Transactional
+    @Override
+    public Tag getTagByName(String name) {
+        return tagRepository.findByName(name);
+    }
+
+    @Transactional
+    @Override
+    public Page<Tag> listTag(Pageable pageable) {
+        return tagRepository.findAll(pageable);
+    }
+
+    @Transactional
+    @Override
+    public Tag updateTag(Long id, Tag tag) {
+        Tag t = tagRepository.findById(id).get();
+        if (t == null) {
+            throw new NotFoundException("您查找的信息不存在(︶︹︺)");
+        }
+        BeanUtils.copyProperties(tag, t);
+        return tagRepository.save(t);
+    }
+
+    @Transactional
+    @Override
+    public void deleteTag(Long id) {
+        tagRepository.deleteById(id);
+    }
+}
+```
+TagRepository.java 标签业务 SQL操作接口
+```java
+package com.cxkj.bolg.dao;
+
+import com.cxkj.bolg.pojo.Tag;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+/**
+ *  Created by Arvin on 2021/2/7.
+ */
+
+public interface TagRepository extends JpaRepository<Tag,Long> {
+    
+    Tag findByName(String name);
+}
+```
+TagController.java WEB操作
+```java
+package com.cxkj.bolg.service;
+
+import com.cxkj.bolg.NotFoundException;
+import com.cxkj.bolg.dao.TagRepository;
+import com.cxkj.bolg.pojo.Tag;
+import org.springframework.beans.BeanUtils;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+/**
+ *  Created by Arvin on 2021/2/7.
+ */
+@Service
+public class TagServiceImpl implements TagService{
+
+    private TagRepository tagRepository;
+
+    @Transactional
+    @Override
+    public Tag saveTag(Tag tag) {
+        return tagRepository.save(tag);
+    }
+
+    @Transactional
+    @Override
+    public Tag getTag(Long id) {
+        return tagRepository.findById(id).get();
+    }
+
+    @Transactional
+    @Override
+    public Tag getTagByName(String name) {
+        return tagRepository.findByName(name);
+    }
+
+    @Transactional
+    @Override
+    public Page<Tag> listTag(Pageable pageable) {
+        return tagRepository.findAll(pageable);
+    }
+
+    @Transactional
+    @Override
+    public Tag updateTag(Long id, Tag tag) {
+        Tag t = tagRepository.findById(id).get();
+        if (t == null){
+            throw new NotFoundException("您查找的信息不存在(︶︹︺)");
+        }
+        BeanUtils.copyProperties(tag,t);
+        return tagRepository.save(t);
+    }
+
+    @Transactional
+    @Override
+    public void deleteTag(Long id) {
+        tagRepository.deleteById(id);
     }
 }
 ```

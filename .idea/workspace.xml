@@ -48,13 +48,13 @@
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="RequestMappingsPanelOrder0" value="0" />
     <property name="RequestMappingsPanelOrder1" value="1" />
-    <property name="RequestMappingsPanelWidth0" value="75" />
-    <property name="RequestMappingsPanelWidth1" value="75" />
+    <property name="RequestMappingsPanelWidth0" value="15" />
+    <property name="RequestMappingsPanelWidth1" value="15" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/main/resources/templates/admin" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -70,8 +70,8 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="F:\Spring-Boot-bolg" />
       <recent name="F:\Spring-Boot-bolg\src\main\resources\templates\admin" />
+      <recent name="F:\Spring-Boot-bolg" />
       <recent name="F:\Spring-Boot-bolg\src\main\resources\static" />
       <recent name="F:\Spring-Boot-bolg\src\main\resources\templates" />
       <recent name="F:\Spring-Boot-bolg\src\main\resources" />
@@ -91,15 +91,13 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration default="true" type="ArquillianTestNG" factoryName="" nameIsGenerated="true">
+    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
       <option name="arquillianRunConfiguration">
         <value>
           <option name="containerStateName" value="" />
         </value>
       </option>
-      <option name="TEST_OBJECT" value="CLASS" />
-      <properties />
-      <listeners />
+      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -108,6 +106,9 @@
       <method v="2" />
     </configuration>
     <configuration name="generated-requests#6" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" path="$APPLICATION_CONFIG_DIR$/scratches/generated-requests.http" index="6" runType="运行单个请求">
+      <method v="2" />
+    </configuration>
+    <configuration name="generated-requests#9" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" path="$APPLICATION_CONFIG_DIR$/scratches/generated-requests.http" index="9" runType="运行单个请求">
       <method v="2" />
     </configuration>
     <configuration name="BolgApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
@@ -119,6 +120,7 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="HTTP 请求.generated-requests#9" />
         <item itemvalue="HTTP 请求.generated-requests#6" />
         <item itemvalue="HTTP 请求.generated-requests#5" />
         <item itemvalue="应用程序.MD5Utils" />
@@ -144,6 +146,10 @@
       <workItem from="1612619801636" duration="408000" />
       <workItem from="1612621292871" duration="16441000" />
       <workItem from="1612640691254" duration="905000" />
+      <workItem from="1612668339045" duration="5560000" />
+      <workItem from="1612673991505" duration="2396000" />
+      <workItem from="1612688829811" duration="2237000" />
+      <workItem from="1612750375103" duration="4188000" />
     </task>
     <servers />
   </component>
@@ -178,6 +184,11 @@
             </State>
           </value>
         </entry>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
       </map>
     </option>
     <option name="OPEN_GENERIC_TABS">
@@ -198,6 +209,11 @@
           <properties class="org.springframework.expression.spel.SpelEvaluationException" package="org.springframework.expression.spel" />
           <option name="timeStamp" value="2" />
         </breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/cxkj/bolg/service/TagServiceImpl.java</url>
+          <line>42</line>
+          <option name="timeStamp" value="3" />
+        </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
   </component>
