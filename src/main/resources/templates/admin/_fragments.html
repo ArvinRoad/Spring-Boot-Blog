@@ -27,8 +27,8 @@
                 <div class="right m-item m-mobile-hide menu">
                     <div class="ui dropdown item">
                         <div class="text">
-                            <img src="https://picsum.photos/id/1027/100/100" alt="头像" class="ui avatar image">
-                            Guest Island
+                            <img src="https://picsum.photos/id/1027/100/100" alt="头像" class="ui avatar image" th:src="@{${session.user.avatar}}">
+                            <span th:text="${session.user.nickname}">Guest Island</span>
                         </div>
                         <i class="dropdown icon"></i>
                         <div class="menu">
