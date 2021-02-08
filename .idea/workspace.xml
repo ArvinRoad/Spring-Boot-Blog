@@ -48,8 +48,8 @@
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="RequestMappingsPanelOrder0" value="0" />
     <property name="RequestMappingsPanelOrder1" value="1" />
-    <property name="RequestMappingsPanelWidth0" value="15" />
-    <property name="RequestMappingsPanelWidth1" value="15" />
+    <property name="RequestMappingsPanelWidth0" value="75" />
+    <property name="RequestMappingsPanelWidth1" value="75" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
@@ -83,7 +83,7 @@
       <module name="Spring-Boot-bolg" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.cxkj.bolg.util.*" />
+          <option name="PATTERN" value="com.cxkj.blog.util.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -91,13 +91,15 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
+    <configuration default="true" type="ArquillianTestNG" factoryName="" nameIsGenerated="true">
       <option name="arquillianRunConfiguration">
         <value>
           <option name="containerStateName" value="" />
         </value>
       </option>
-      <option name="TEST_OBJECT" value="class" />
+      <option name="TEST_OBJECT" value="CLASS" />
+      <properties />
+      <listeners />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -113,7 +115,7 @@
     </configuration>
     <configuration name="BolgApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
       <module name="Spring-Boot-bolg" />
-      <option name="SPRING_BOOT_MAIN_CLASS" value="com.cxkj.bolg.BolgApplication" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.cxkj.blog.BlogApplication" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -150,6 +152,7 @@
       <workItem from="1612673991505" duration="2396000" />
       <workItem from="1612688829811" duration="2237000" />
       <workItem from="1612750375103" duration="4188000" />
+      <workItem from="1612772979764" duration="3558000" />
     </task>
     <servers />
   </component>
@@ -210,7 +213,7 @@
           <option name="timeStamp" value="2" />
         </breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/cxkj/bolg/service/TagServiceImpl.java</url>
+          <url>file://$PROJECT_DIR$/src/main/java/com/cxkj/blog/service/TagServiceImpl.java</url>
           <line>42</line>
           <option name="timeStamp" value="3" />
         </line-breakpoint>

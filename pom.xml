@@ -11,9 +11,9 @@
     </parent>
 
     <groupId>com.cxkj</groupId>
-    <artifactId>bolg</artifactId>
+    <artifactId>blog</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>bolg</name>
+    <name>blog</name>
     <description>Demo project for Spring Boot</description>
 
     <properties>

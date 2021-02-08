@@ -7,7 +7,7 @@
       <DefaultTmpEngine>InnoDB</DefaultTmpEngine>
       <DefaultCasing>lower/lower</DefaultCasing>
     </root>
-    <schema id="2" parent="1" name="bolg">
+    <schema id="2" parent="1" name="blog">
       <Current>1</Current>
       <Collation>utf8_general_ci</Collation>
     </schema>
@@ -910,8 +910,8 @@ SELECT|sys.sys_config
 </ObjectGrants>
     </user>
     <table id="284" parent="2" name="hibernate_sequence"/>
-    <table id="285" parent="2" name="t_bolg"/>
-    <table id="286" parent="2" name="t_bolg_tags"/>
+    <table id="285" parent="2" name="t_blog"/>
+    <table id="286" parent="2" name="t_blog_tags"/>
     <table id="287" parent="2" name="t_comment"/>
     <table id="288" parent="2" name="t_tag"/>
     <table id="289" parent="2" name="t_type"/>
@@ -986,11 +986,11 @@ SELECT|sys.sys_config
       <Position>15</Position>
       <DataType>bigint|0s</DataType>
     </column>
-    <index id="307" parent="285" name="FKp4vvef4hfqoovrctsct0707uw">
+    <index id="307" parent="285" name="FK292449gwg5yf7ocdlmswv9w4j">
       <ColNames>type_id</ColNames>
       <Type>btree</Type>
     </index>
-    <index id="308" parent="285" name="FK8nbihde5o3ptof2weuhjht6gi">
+    <index id="308" parent="285" name="FK8ky5rrsxh01nkhctmo7d48p82">
       <ColNames>user_id</ColNames>
       <Type>btree</Type>
     </index>
@@ -999,17 +999,17 @@ SELECT|sys.sys_config
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <foreign-key id="310" parent="285" name="FKp4vvef4hfqoovrctsct0707uw">
+    <foreign-key id="310" parent="285" name="FK292449gwg5yf7ocdlmswv9w4j">
       <ColNames>type_id</ColNames>
       <RefTableName>t_type</RefTableName>
       <RefColNames>id</RefColNames>
     </foreign-key>
-    <foreign-key id="311" parent="285" name="FK8nbihde5o3ptof2weuhjht6gi">
+    <foreign-key id="311" parent="285" name="FK8ky5rrsxh01nkhctmo7d48p82">
       <ColNames>user_id</ColNames>
       <RefTableName>t_user</RefTableName>
       <RefColNames>id</RefColNames>
     </foreign-key>
-    <column id="312" parent="286" name="bolgs_id">
+    <column id="312" parent="286" name="blogs_id">
       <Position>1</Position>
       <DataType>bigint|0s</DataType>
       <NotNull>1</NotNull>
@@ -1019,20 +1019,20 @@ SELECT|sys.sys_config
       <DataType>bigint|0s</DataType>
       <NotNull>1</NotNull>
     </column>
-    <index id="314" parent="286" name="FKd12y5bd9r17i3pmwcyd1t4p6l">
-      <ColNames>bolgs_id</ColNames>
+    <index id="314" parent="286" name="FKh4pacwjwofrugxa9hpwaxg6mr">
+      <ColNames>blogs_id</ColNames>
       <Type>btree</Type>
     </index>
-    <index id="315" parent="286" name="FK1p780c70mx1p9sd073rykvl3m">
+    <index id="315" parent="286" name="FK5feau0gb4lq47fdb03uboswm8">
       <ColNames>tags_id</ColNames>
       <Type>btree</Type>
     </index>
-    <foreign-key id="316" parent="286" name="FKd12y5bd9r17i3pmwcyd1t4p6l">
-      <ColNames>bolgs_id</ColNames>
-      <RefTableName>t_bolg</RefTableName>
+    <foreign-key id="316" parent="286" name="FKh4pacwjwofrugxa9hpwaxg6mr">
+      <ColNames>blogs_id</ColNames>
+      <RefTableName>t_blog</RefTableName>
       <RefColNames>id</RefColNames>
     </foreign-key>
-    <foreign-key id="317" parent="286" name="FK1p780c70mx1p9sd073rykvl3m">
+    <foreign-key id="317" parent="286" name="FK5feau0gb4lq47fdb03uboswm8">
       <ColNames>tags_id</ColNames>
       <RefTableName>t_tag</RefTableName>
       <RefColNames>id</RefColNames>
@@ -1062,7 +1062,7 @@ SELECT|sys.sys_config
       <Position>6</Position>
       <DataType>varchar(255)|0s</DataType>
     </column>
-    <column id="324" parent="287" name="bolg_id">
+    <column id="324" parent="287" name="blog_id">
       <Position>7</Position>
       <DataType>bigint|0s</DataType>
     </column>
@@ -1070,8 +1070,8 @@ SELECT|sys.sys_config
       <Position>8</Position>
       <DataType>bigint|0s</DataType>
     </column>
-    <index id="326" parent="287" name="FKnpp3a7l7it7abk3f5yi4roo5i">
-      <ColNames>bolg_id</ColNames>
+    <index id="326" parent="287" name="FKke3uogd04j4jx316m1p51e05u">
+      <ColNames>blog_id</ColNames>
       <Type>btree</Type>
     </index>
     <index id="327" parent="287" name="FK4jj284r3pb7japogvo6h72q95">
@@ -1083,9 +1083,9 @@ SELECT|sys.sys_config
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <foreign-key id="329" parent="287" name="FKnpp3a7l7it7abk3f5yi4roo5i">
-      <ColNames>bolg_id</ColNames>
-      <RefTableName>t_bolg</RefTableName>
+    <foreign-key id="329" parent="287" name="FKke3uogd04j4jx316m1p51e05u">
+      <ColNames>blog_id</ColNames>
+      <RefTableName>t_blog</RefTableName>
       <RefColNames>id</RefColNames>
     </foreign-key>
     <foreign-key id="330" parent="287" name="FK4jj284r3pb7japogvo6h72q95">

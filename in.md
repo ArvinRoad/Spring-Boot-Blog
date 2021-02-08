@@ -12,13 +12,13 @@
 | 404.html | 404错误页面 |
 | 505.html | 505错误页面 |
 | error.html | BeBug页面 |
-| bolgs.html | 后台管理页面 |
-| bolgs-input.html | 博客后台发布页面 |
+| blogs.html | 后台管理页面 |
+| blogs-input.html | 博客后台发布页面 |
 | type.html | 后台分类管理页面 |
 | type-input.html | 后台分类新增页面 |
 | about.html | 关于我页面 |
 | archives.html | 归档页面 |
-| bolg.html | 博客详情页面 |
+| blog.html | 博客详情页面 |
 | index.html | 博客首页 |
 | tags.html | 标签页面 |
 | type.html | 分类页面 |
@@ -26,14 +26,14 @@
 | _fragments.html | 动态页面 定义Thymeleaf片段 |
 | IndexController.java | Web控制器 |
 | LoginController.java | WEB登录模块控制器 |
-| BlogController.java | Bolg后台页面权限过滤管理类 |
+| BlogController.java | Blog后台页面权限过滤管理类 |
 | TypeController.java | Web层分类模块操作 |
 | TagController.java | Web层标签模块操作 |
-| LongInterceptor.java | Bolg后台页面权限(登录过滤)类 |
-| WebConfig.html | Bolg后台页面权限(拦截配置) 类|
+| LongInterceptor.java | Blog后台页面权限(登录过滤)类 |
+| WebConfig.html | Blog后台页面权限(拦截配置) 类|
 | ControllerExceptionHandler.java | BeBug拦截器 |
 | NotFoundException.java | 异常类，业务相关（如果没有页面报错404） |
-| Bolg.java | Bolg实体类 |
+| Blog.java | Blog实体类 |
 | Type.java | 分类实体类 |
 | Tag.java | 标签实体类 |
 | Comment.java | 评论实体类 |
@@ -64,9 +64,9 @@
     </parent>
 
     <groupId>com.cxkj</groupId>
-    <artifactId>bolg</artifactId>
+    <artifactId>blog</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>bolg</name>
+    <name>blog</name>
     <description>Demo project for Spring Boot</description>
 
     <properties>
@@ -153,7 +153,7 @@ spring:
 ```yml
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/bolg?useSSL=false&useUnicode=true&characterEncoding=utf-8
+    url: jdbc:mysql://localhost:3306/blog?useSSL=false&useUnicode=true&characterEncoding=utf-8
     username: root
     password: 123456789
 ```
@@ -233,7 +233,7 @@ spring:
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/bolg?useSSL=false&useUnicode=true&characterEncoding=utf-8
+    url: jdbc:mysql://localhost:3306/blog?useSSL=false&useUnicode=true&characterEncoding=utf-8
     username: root
     password: 123456789
 
@@ -254,7 +254,7 @@ logging:
 spring:
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/bolg?useSSL=false&useUnicode=true&characterEncoding=utf-8
+    url: jdbc:mysql://localhost:3306/blog?useSSL=false&useUnicode=true&characterEncoding=utf-8
     username: root
     password: 123456789
 
@@ -277,9 +277,9 @@ server:
 
 IndexController.java Web控制器
 ```java
-package com.cxkj.bolg.web;
+package com.cxkj.blog.web;
 
-import com.cxkj.bolg.NotFoundException;
+import com.cxkj.blog.NotFoundException;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
@@ -290,8 +290,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class IndexController {
     @GetMapping("/")
     public String index(){
-        String bolg = null;
-        if (bolg == null){
+        String blog = null;
+        if (blog == null){
             throw  new NotFoundException("博客不存在");
         }
         return "index";
@@ -301,7 +301,7 @@ public class IndexController {
 ```
 ControllerExceptionHandler.java BeBug拦截器
 ```java
-package com.cxkj.bolg.handler;
+package com.cxkj.blog.handler;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -362,7 +362,7 @@ error.html BeBug页面
 ```
 NotFoundException.java 异常类，业务相关（如果没有页面报错404）
 ```java
-package com.cxkj.bolg;
+package com.cxkj.blog;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -389,7 +389,7 @@ public class NotFoundException extends RuntimeException{
 
 LogAspect.java 接口记录日志AOP类
 ```java
-package com.cxkj.bolg.aspect;
+package com.cxkj.blog.aspect;
 
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.*;
@@ -411,7 +411,7 @@ public class LogAspect {
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
-    @Pointcut("execution(* com.cxkj.bolg.web.*.*(..))")
+    @Pointcut("execution(* com.cxkj.blog.web.*.*(..))")
     public void log(){}
 
     @Before("log()")
@@ -464,9 +464,9 @@ public class LogAspect {
 ```
 IndexController.java
 ```java
-package com.cxkj.bolg.web;
+package com.cxkj.blog.web;
 
-import com.cxkj.bolg.NotFoundException;
+import com.cxkj.blog.NotFoundException;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -478,8 +478,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 public class IndexController {
     @GetMapping("/{id}/{name}")
     public String index(@PathVariable Integer id,@PathVariable String name){
-            /*String bolg = null;
-            if (bolg == null){
+            /*String blog = null;
+            if (blog == null){
                 throw  new NotFoundException("博客不存在");
             }*/
         System.out.println("------ Index ------");
@@ -491,9 +491,9 @@ public class IndexController {
 ### 页面处理
 IndexController.java Web控制器
 ```java
-package com.cxkj.bolg.web;
+package com.cxkj.blog.web;
 
-import com.cxkj.bolg.NotFoundException;
+import com.cxkj.blog.NotFoundException;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -505,8 +505,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 public class IndexController {
     @GetMapping("/")
     public String index(){
-            /*String bolg = null;
-            if (bolg == null){
+            /*String blog = null;
+            if (blog == null){
                 throw  new NotFoundException("博客不存在");
             }*/
         return "index";
@@ -610,9 +610,10 @@ public class IndexController {
 ```
 
 ### 实体设计
-bolg.java 博客实体类
+blog.java 博客实体类
+
 ```java
-package com.cxkj.bolg.pojo;
+package com.cxkj.blog.pojo;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -623,8 +624,8 @@ import java.util.List;
  *  Created by Arvin on 2021/2/4.
  */
 @Entity
-@Table(name = "t_bolg")
-public class Bolg {
+@Table(name = "t_blog")
+public class Blog {
 
     @Id
     @GeneratedValue
@@ -654,10 +655,10 @@ public class Bolg {
     @ManyToOne
     private User user;
 
-    @OneToMany(mappedBy = "bolg")
+    @OneToMany(mappedBy = "blog")
     private List<Comment> comments = new ArrayList<>();
 
-    public Bolg() {
+    public Blog() {
     }
 
     public Long getId() {
@@ -798,7 +799,7 @@ public class Bolg {
 
     @Override
     public String toString() {
-        return "Bolg{" +
+        return "Blog{" +
                 "id=" + id +
                 ", title='" + title + '\'' +
                 ", content='" + content + '\'' +
@@ -817,8 +818,9 @@ public class Bolg {
 }
 ```
 Type.java 分类实体类
+
 ```java
-package com.cxkj.bolg.pojo;
+package com.cxkj.blog.pojo;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -839,7 +841,7 @@ public class Type {
     private String name;
 
     @OneToMany(mappedBy = "type")
-    private List<Bolg> bolgs = new ArrayList<>();
+    private List<Blog> blogs = new ArrayList<>();
 
     public Type() {
     }
@@ -860,12 +862,12 @@ public class Type {
         this.name = name;
     }
 
-    public List<Bolg> getBolgs() {
-        return bolgs;
+    public List<Blog> getBlogs() {
+        return blogs;
     }
 
-    public void setBolgs(List<Bolg> bolgs) {
-        this.bolgs = bolgs;
+    public void setBlogs(List<Blog> blogs) {
+        this.blogs = blogs;
     }
 
     @Override
@@ -878,8 +880,9 @@ public class Type {
 }
 ```
 Tag.java 标签实体类
+
 ```java
-package com.cxkj.bolg.pojo;
+package com.cxkj.blog.pojo;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -898,7 +901,7 @@ public class Tag {
     private String name;
 
     @ManyToMany(mappedBy = "tags")
-    private List<Bolg> bolgs = new ArrayList<>();
+    private List<Blog> blogs = new ArrayList<>();
 
     public Tag() {
     }
@@ -919,12 +922,12 @@ public class Tag {
         this.name = name;
     }
 
-    public List<Bolg> getBolgs() {
-        return bolgs;
+    public List<Blog> getBlogs() {
+        return blogs;
     }
 
-    public void setBolgs(List<Bolg> bolgs) {
-        this.bolgs = bolgs;
+    public void setBlogs(List<Blog> blogs) {
+        this.blogs = blogs;
     }
 
     @Override
@@ -937,8 +940,9 @@ public class Tag {
 }
 ```
 Comment.java 评论实体类
+
 ```java
-package com.cxkj.bolg.pojo;
+package com.cxkj.blog.pojo;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -963,7 +967,7 @@ public class Comment {
     private Date createTime;
 
     @ManyToOne
-    private Bolg bolg;
+    private Blog blog;
 
     @OneToMany(mappedBy = "parentComment")
     private List<Comment> replyComments = new ArrayList<>();
@@ -1021,12 +1025,12 @@ public class Comment {
         this.createTime = createTime;
     }
 
-    public Bolg getBolg() {
-        return bolg;
+    public Blog getBlog() {
+        return blog;
     }
 
-    public void setBolg(Bolg bolg) {
-        this.bolg = bolg;
+    public void setBlog(Blog blog) {
+        this.blog = blog;
     }
 
     public List<Comment> getReplyComments() {
@@ -1059,8 +1063,9 @@ public class Comment {
 }
 ```
 User.java 用户实体类
+
 ```java
-package com.cxkj.bolg.pojo;
+package com.cxkj.blog.pojo;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -1089,7 +1094,7 @@ public class User {
     private Date updateTime;
 
     @OneToMany(mappedBy = "user")
-    private List<Bolg> bolgs = new ArrayList<>();
+    private List<Blog> blogs = new ArrayList<>();
 
     public User() {
     }
@@ -1166,12 +1171,12 @@ public class User {
         this.updateTime = updateTime;
     }
 
-    public List<Bolg> getBolgs() {
-        return bolgs;
+    public List<Blog> getBlogs() {
+        return blogs;
     }
 
-    public void setBolgs(List<Bolg> bolgs) {
-        this.bolgs = bolgs;
+    public void setBlogs(List<Blog> blogs) {
+        this.blogs = blogs;
     }
 
     @Override
@@ -1192,10 +1197,11 @@ public class User {
 ```
 ### 后台登录业务
 UserService.java User登录业务逻辑处理接口类
-```java
-package com.cxkj.bolg.service;
 
-import com.cxkj.bolg.pojo.User;
+```java
+package com.cxkj.blog.service;
+
+import com.cxkj.blog.pojo.User;
 
 /**
  *  Created by Arvin on 2021/2/5.
@@ -1207,11 +1213,12 @@ public interface UserService {
 }
 ```
 UserServiceImpl.java User登录业务逻辑处理实现类
-```java
-package com.cxkj.bolg.service;
 
-import com.cxkj.bolg.dao.UserRepository;
-import com.cxkj.bolg.pojo.User;
+```java
+package com.cxkj.blog.service;
+
+import com.cxkj.blog.dao.UserRepository;
+import com.cxkj.blog.pojo.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -1233,10 +1240,11 @@ public class UserServiceImpl implements UserService{
 }
 ```
 UserRepository.java 引用SpringJPA SQL操作接口
-```java
-package com.cxkj.bolg.dao;
 
-import com.cxkj.bolg.pojo.User;
+```java
+package com.cxkj.blog.dao;
+
+import com.cxkj.blog.pojo.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**
@@ -1249,11 +1257,12 @@ public interface UserRepository extends JpaRepository<User,Long> {
 }
 ```
 LoginController.java WEB登录模块控制器
-```java
-package com.cxkj.bolg.web.admin;
 
-import com.cxkj.bolg.pojo.User;
-import com.cxkj.bolg.service.UserService;
+```java
+package com.cxkj.blog.web.admin;
+
+import com.cxkj.blog.pojo.User;
+import com.cxkj.blog.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -1303,8 +1312,9 @@ public class LoginController {
 ```
 ### MD5加密
 MD5Utils.java MD5加密工具类
+
 ```java
-package com.cxkj.bolg.util;
+package com.cxkj.blog.util;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -1353,12 +1363,13 @@ public class MD5Utils {
 }
 ```
 UserServiceImpl.java
-```java
-package com.cxkj.bolg.service;
 
-import com.cxkj.bolg.dao.UserRepository;
-import com.cxkj.bolg.pojo.User;
-import com.cxkj.bolg.util.MD5Utils;
+```java
+package com.cxkj.blog.service;
+
+import com.cxkj.blog.dao.UserRepository;
+import com.cxkj.blog.pojo.User;
+import com.cxkj.blog.util.MD5Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -1380,8 +1391,9 @@ public class UserServiceImpl implements UserService{
 }
 ```
 BlogController.java 博客后台页面权限过滤管理类
+
 ```java
-package com.cxkj.bolg.web.admin;
+package com.cxkj.blog.web.admin;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -1394,16 +1406,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/admin")
 public class BlogController {
 
-    @GetMapping("/bolgs")
-    public String bolgs(){
-        return "/admin/bolgs";
+    @GetMapping("/blogs")
+    public String blogs() {
+        return "blogs";
     }
 
 }
 ```
-LongInterceptor.java Bolg后台页面权限(登录过滤)类
+LongInterceptor.java Blog后台页面权限(登录过滤)类
+
 ```java
-package com.cxkj.bolg.interceptor;
+package com.cxkj.blog.interceptor;
 
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
@@ -1430,9 +1443,10 @@ public class LongInterceptor extends WebMvcConfigurerAdapter {
     }
 }
 ```
-WebConfig.java Bolg后台页面权限(拦截配置)类
+WebConfig.java Blog后台页面权限(拦截配置)类
+
 ```java
-package com.cxkj.bolg.interceptor;
+package com.cxkj.blog.interceptor;
 
 
 import org.springframework.context.annotation.Configuration;
@@ -1457,9 +1471,10 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 }
 ```
 ### 关于弃用类整改
-LongInterceptor.java Bolg后台页面权限(登录过滤)类
+LongInterceptor.java Blog后台页面权限(登录过滤)类
+
 ```java
-package com.cxkj.bolg.interceptor;
+package com.cxkj.blog.interceptor;
 
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
@@ -1485,9 +1500,10 @@ public class LongInterceptor implements HandlerInterceptor {
     }
 }
 ```
-WebConfig.java Bolg后台页面权限(拦截配置)类
+WebConfig.java Blog后台页面权限(拦截配置)类
+
 ```java
-package com.cxkj.bolg.interceptor;
+package com.cxkj.blog.interceptor;
 
 
 
@@ -1512,10 +1528,11 @@ public class WebConfig implements WebMvcConfigurer {
 ```
 ### 分类业务处理
 TypeService.java 分类业务逻辑处理接口
-```java
-package com.cxkj.bolg.service;
 
-import com.cxkj.bolg.pojo.Type;
+```java
+package com.cxkj.blog.service;
+
+import com.cxkj.blog.pojo.Type;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -1539,12 +1556,13 @@ public interface TypeService {
 }
 ```
 TypeServiceImpl.java 分类业务逻辑处理实现类
-```java
-package com.cxkj.bolg.service;
 
-import com.cxkj.bolg.NotFoundException;
-import com.cxkj.bolg.dao.TypeRepository;
-import com.cxkj.bolg.pojo.Type;
+```java
+package com.cxkj.blog.service;
+
+import com.cxkj.blog.NotFoundException;
+import com.cxkj.blog.dao.TypeRepository;
+import com.cxkj.blog.pojo.Type;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -1603,10 +1621,11 @@ public class TypeServiceImpl implements TypeService{
 }
 ```
 TypeRepository.java 分类业务 SQL操作接口
-```java
-package com.cxkj.bolg.dao;
 
-import com.cxkj.bolg.pojo.Type;
+```java
+package com.cxkj.blog.dao;
+
+import com.cxkj.blog.pojo.Type;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**
@@ -1619,11 +1638,12 @@ public interface TypeRepository extends JpaRepository<Type,Long> {
 }
 ```
 TypeController.java Web层操作
-```java
-package com.cxkj.bolg.web.admin;
 
-import com.cxkj.bolg.pojo.Type;
-import com.cxkj.bolg.service.TypeService;
+```java
+package com.cxkj.blog.web.admin;
+
+import com.cxkj.blog.pojo.Type;
+import com.cxkj.blog.service.TypeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -1715,10 +1735,11 @@ public class TypeController {
 ```
 ### 标签业务处理
 TagService.java 标签业务逻辑处理接口
-```java
-package com.cxkj.bolg.service;
 
-import com.cxkj.bolg.pojo.Tag;
+```java
+package com.cxkj.blog.service;
+
+import com.cxkj.blog.pojo.Tag;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -1744,11 +1765,11 @@ public interface TagService {
 TagServiceImpl.java 标签业务逻辑处理实现类
 
 ```java
-package com.cxkj.bolg.service;
+package com.cxkj.blog.service;
 
-import com.cxkj.bolg.NotFoundException;
-import com.cxkj.bolg.dao.TagRepository;
-import com.cxkj.bolg.pojo.Tag;
+import com.cxkj.blog.NotFoundException;
+import com.cxkj.blog.dao.TagRepository;
+import com.cxkj.blog.pojo.Tag;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -1807,10 +1828,11 @@ public class TagServiceImpl implements TagService {
 }
 ```
 TagRepository.java 标签业务 SQL操作接口
-```java
-package com.cxkj.bolg.dao;
 
-import com.cxkj.bolg.pojo.Tag;
+```java
+package com.cxkj.blog.dao;
+
+import com.cxkj.blog.pojo.Tag;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**
@@ -1823,12 +1845,13 @@ public interface TagRepository extends JpaRepository<Tag,Long> {
 }
 ```
 TagController.java WEB操作
-```java
-package com.cxkj.bolg.service;
 
-import com.cxkj.bolg.NotFoundException;
-import com.cxkj.bolg.dao.TagRepository;
-import com.cxkj.bolg.pojo.Tag;
+```java
+package com.cxkj.blog.service;
+
+import com.cxkj.blog.NotFoundException;
+import com.cxkj.blog.dao.TagRepository;
+import com.cxkj.blog.pojo.Tag;
 import org.springframework.beans.BeanUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
