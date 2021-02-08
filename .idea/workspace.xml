@@ -104,15 +104,13 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration default="true" type="ArquillianTestNG" factoryName="" nameIsGenerated="true">
+    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
       <option name="arquillianRunConfiguration">
         <value>
           <option name="containerStateName" value="" />
         </value>
       </option>
-      <option name="TEST_OBJECT" value="CLASS" />
-      <properties />
-      <listeners />
+      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -166,12 +164,18 @@
       <workItem from="1612673991505" duration="2396000" />
       <workItem from="1612688829811" duration="2237000" />
       <workItem from="1612750375103" duration="4188000" />
-      <workItem from="1612772979764" duration="4847000" />
+      <workItem from="1612772979764" duration="7893000" />
+      <workItem from="1612782961418" duration="164000" />
+      <workItem from="1612783138743" duration="1582000" />
+      <workItem from="1612788479545" duration="9999000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="UnknownFeatures">
+    <option featureType="com.intellij.fileTypeFactory" implementationName="*.log" />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
@@ -226,11 +230,6 @@
           <properties class="org.springframework.expression.spel.SpelEvaluationException" package="org.springframework.expression.spel" />
           <option name="timeStamp" value="2" />
         </breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/cxkj/blog/service/TagServiceImpl.java</url>
-          <line>42</line>
-          <option name="timeStamp" value="3" />
-        </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
   </component>

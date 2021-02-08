@@ -43,10 +43,14 @@
 | TypeService.java | 分类业务逻辑处理接口 |
 | TypeServiceImpl.java | 分类业务逻辑处理实现类 |
 | TagService.java | 标签业务逻辑处理接口 |
+| BlogService.java | 博客业务逻辑处理接口 |
+| BlogServiceImpl.java | 博客业务逻辑处理实现类 |
 | TagServiceImpl.java | 标签业务逻辑处理实现类 |
 | UserRepository.java | 引用SpringJPA SQL操作接口 |
 | TypeRepository.java | 分类业务处理 SQL操作接口 |
 | TagRepository.java | 标签业务处理 SQL操作接口 |
+| BlogRepository.java | 博客业务处理 SQL操作接口 |
+| BlogQuery.java | 博客搜索查询类 |
 | MD5Utils.java | MD5加密类 |
 
 项目配置(Jar包)
@@ -1536,6 +1540,8 @@ import com.cxkj.blog.pojo.Type;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import java.util.List;
+
 /**
  *  Created by Arvin on 2021/2/6.
  */
@@ -1549,6 +1555,8 @@ public interface TypeService {
     Type getTypeByName(String name);
 
     Page<Type> listType(Pageable pageable);
+
+    List<Type> listType();
 
     Type updateType(Long id,Type type);
 
@@ -1569,6 +1577,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 /**
  *  Created by Arvin on 2021/2/6.
@@ -1600,6 +1610,11 @@ public class TypeServiceImpl implements TypeService{
     @Override
     public Page<Type> listType(Pageable pageable) {
         return typeRepository.findAll(pageable);
+    }
+
+    @Override
+    public List<Type> listType() {
+        return typeRepository.findAll();
     }
 
     @Transactional
@@ -1905,6 +1920,175 @@ public class TagServiceImpl implements TagService{
     @Override
     public void deleteTag(Long id) {
         tagRepository.deleteById(id);
+    }
+}
+```
+### 博客业务处理
+BlogService.java 博客业务处理逻辑接口
+```java
+package com.cxkj.blog.service;
+
+import com.cxkj.blog.pojo.Blog;
+import com.cxkj.blog.vo.BlogQuery;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
+/**
+ *  Created by Arvin on 2021/2/8.
+ */
+
+public interface BlogService {
+
+    Blog getBlog(Long id);
+
+    Page<Blog> listBlog(Pageable pageable, BlogQuery blogQuery);
+
+    Blog saveBlog(Blog blog);
+
+    Blog updateBlog(Long id,Blog blog);
+
+    void deleteBlog(Long id);
+}
+```
+BlogServiceImpl.java 博客业务处理逻辑实现类
+```java
+package com.cxkj.blog.service;
+
+import com.cxkj.blog.NotFoundException;
+import com.cxkj.blog.dao.BlogRepository;
+import com.cxkj.blog.pojo.Blog;
+import com.cxkj.blog.pojo.Type;
+import com.cxkj.blog.vo.BlogQuery;
+import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
+import org.springframework.stereotype.Service;
+
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ *  Created by Arvin on 2021/2/8.
+ */
+@Service
+public class BlogServiceImpl implements BlogService{
+
+    @Autowired
+    private BlogRepository blogRepository;
+
+    @Override
+    public Blog getBlog(Long id) {
+        return blogRepository.findById(id).get();
+    }
+
+    @Override
+    public Page<Blog> listBlog(Pageable pageable, BlogQuery blogQuery) {
+
+        return blogRepository.findAll(new Specification<Blog>() {
+            @Override
+            public Predicate toPredicate(Root<Blog> root, CriteriaQuery<?> criteriaQuery, CriteriaBuilder criteriaBuilder) {
+                List<Predicate> predicateList = new ArrayList<>();
+                if (!"".equals(blogQuery.getTitle()) && blogQuery.getTitle() != null){
+                    predicateList.add(criteriaBuilder.like(root.<String>get("title"),"%"+blogQuery.getTitle()+"%"));
+                }
+                if (blogQuery.getTypeID() != null){
+                    predicateList.add(criteriaBuilder.equal(root.<Type>get("type").get("id"),blogQuery.getTypeID()));
+                }
+                if (blogQuery.isRecommend()){
+                    predicateList.add(criteriaBuilder.equal(root.<Boolean>get("recommend"),blogQuery.isRecommend()));
+                }
+                criteriaQuery.where(predicateList.toArray(new Predicate[predicateList.size()]));
+                return null;
+            }
+        },pageable);
+    }
+
+    @Override
+    public Blog saveBlog(Blog blog) {
+        return blogRepository.save(blog);
+    }
+
+    @Override
+    public Blog updateBlog(Long id, Blog blog) {
+        Blog b = blogRepository.findById(id).get();
+        if (b == null){
+            throw new NotFoundException("管理员大大,这个博客不存在哦！～(　TロT)σ");
+        }
+        BeanUtils.copyProperties(b,blog);
+        return blogRepository.save(b);
+    }
+
+    @Override
+    public void deleteBlog(Long id) {
+        blogRepository.deleteById(id);
+    }
+}
+```
+BlogRepository.java 博客业务 SQL操作接口
+```java
+package com.cxkj.blog.dao;
+
+import com.cxkj.blog.pojo.Blog;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
+
+/**
+ *  Created by Arvin on 2021/2/8.
+ */
+
+public interface BlogRepository extends JpaRepository<Blog,Long>, JpaSpecificationExecutor<Blog> {
+    
+}
+```
+BlogController.java WEB操作
+```java
+
+```
+BlogQuery.java 博客搜索查询类
+```java
+package com.cxkj.blog.vo;
+
+/**
+ *  Created by Arvin on 2021/2/8.
+ */
+
+public class BlogQuery {
+    
+    private String title;
+    private Long typeID;
+    private boolean recommend;
+
+    public BlogQuery() {
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public Long getTypeID() {
+        return typeID;
+    }
+
+    public void setTypeID(Long typeID) {
+        this.typeID = typeID;
+    }
+
+    public boolean isRecommend() {
+        return recommend;
+    }
+
+    public void setRecommend(boolean recommend) {
+        this.recommend = recommend;
     }
 }
 ```
