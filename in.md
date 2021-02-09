@@ -2047,9 +2047,13 @@ public class BlogServiceImpl implements BlogService{
     @Transactional
     @Override
     public Blog saveBlog(Blog blog) {
-        blog.setCreateTime(new Date());
-        blog.setUpdateTime(new Date());
-        blog.setViews(0);
+        if (blog.getId() == null){
+            blog.setCreateTime(new Date());
+            blog.setUpdateTime(new Date());
+            blog.setViews(0);
+        }else {
+            blog.setUpdateTime(new Date());
+        }
         return blogRepository.save(blog);
     }
 
@@ -2154,7 +2158,7 @@ public class Blog {
     private Long id;
 
     private String title;
-    
+
     @Basic(fetch = FetchType.LAZY)
     @Lob
     private String content;
@@ -2184,7 +2188,7 @@ public class Blog {
     private List<Comment> comments = new ArrayList<>();
 
     @Transient
-    private String tegIds;
+    private String tagIds;
 
     public Blog() {
     }
@@ -2325,12 +2329,34 @@ public class Blog {
         this.comments = comments;
     }
 
-    public String getTegIds() {
-        return tegIds;
+    public String getTagIds() {
+        return tagIds;
     }
 
-    public void setTegIds(String tegIds) {
-        this.tegIds = tegIds;
+    public void setTagIds(String tagIds) {
+        this.tagIds = tagIds;
+    }
+
+    //初始化tagIds方法
+    public void init(){
+        this.tagIds = tagsToIds(this.getTags());
+    }
+    private String tagsToIds(List<Tag> tags){
+        if (!tags.isEmpty()){
+            StringBuffer ids = new StringBuffer();
+            boolean flag = false;
+            for (Tag tag : tags){
+                if (flag){
+                    ids.append(",");
+                }else {
+                    flag = true;
+                }
+                ids.append(tag.getId());
+            }
+            return ids.toString();
+        }else {
+            return tagIds;
+        }
     }
 
     @Override
