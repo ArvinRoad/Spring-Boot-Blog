@@ -55,7 +55,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/main/resources/templates/admin" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -71,11 +71,11 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="F:\Spring-Boot-Blog" />
       <recent name="F:\Spring-Boot-bolg\src\main\resources\templates\admin" />
       <recent name="F:\Spring-Boot-bolg" />
       <recent name="F:\Spring-Boot-bolg\src\main\resources\static" />
       <recent name="F:\Spring-Boot-bolg\src\main\resources\templates" />
-      <recent name="F:\Spring-Boot-bolg\src\main\resources" />
     </key>
   </component>
   <component name="RunManager" selected="Spring Boot.BolgApplication">
@@ -172,7 +172,7 @@
       <workItem from="1612800645944" duration="6345000" />
       <workItem from="1612861737080" duration="2130000" />
       <workItem from="1612865689774" duration="2017000" />
-      <workItem from="1612870105847" duration="27977000" />
+      <workItem from="1612870105847" duration="28544000" />
     </task>
     <servers />
   </component>

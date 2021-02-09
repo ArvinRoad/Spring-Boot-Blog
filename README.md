@@ -43,10 +43,14 @@
 | TypeService.java | 分类业务逻辑处理接口 |
 | TypeServiceImpl.java | 分类业务逻辑处理实现类 |
 | TagService.java | 标签业务逻辑处理接口 |
+| BlogService.java | 博客业务逻辑处理接口 |
+| BlogServiceImpl.java | 博客业务逻辑处理实现类 |
 | TagServiceImpl.java | 标签业务逻辑处理实现类 |
 | UserRepository.java | 引用SpringJPA SQL操作接口 |
 | TypeRepository.java | 分类业务处理 SQL操作接口 |
 | TagRepository.java | 标签业务处理 SQL操作接口 |
+| BlogRepository.java | 博客业务处理 SQL操作接口 |
+| BlogQuery.java | 博客搜索查询类 |
 | MD5Utils.java | MD5加密类 |
 
 项目配置(Jar包)
@@ -276,7 +280,6 @@ server:
 ### 异常处理
 
 IndexController.java Web控制器
-
 ```java
 package com.cxkj.blog.web;
 
@@ -301,7 +304,6 @@ public class IndexController {
 }
 ```
 ControllerExceptionHandler.java BeBug拦截器
-
 ```java
 package com.cxkj.blog.handler;
 
@@ -363,7 +365,6 @@ error.html BeBug页面
 </html>
 ```
 NotFoundException.java 异常类，业务相关（如果没有页面报错404）
-
 ```java
 package com.cxkj.blog;
 
@@ -391,7 +392,6 @@ public class NotFoundException extends RuntimeException{
 ### 日志处理
 
 LogAspect.java 接口记录日志AOP类
-
 ```java
 package com.cxkj.blog.aspect;
 
@@ -467,7 +467,6 @@ public class LogAspect {
 }
 ```
 IndexController.java
-
 ```java
 package com.cxkj.blog.web;
 
@@ -495,7 +494,6 @@ public class IndexController {
 
 ### 页面处理
 IndexController.java Web控制器
-
 ```java
 package com.cxkj.blog.web;
 
@@ -1542,6 +1540,8 @@ import com.cxkj.blog.pojo.Type;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import java.util.List;
+
 /**
  *  Created by Arvin on 2021/2/6.
  */
@@ -1555,6 +1555,8 @@ public interface TypeService {
     Type getTypeByName(String name);
 
     Page<Type> listType(Pageable pageable);
+
+    List<Type> listType();
 
     Type updateType(Long id,Type type);
 
@@ -1575,6 +1577,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 /**
  *  Created by Arvin on 2021/2/6.
@@ -1606,6 +1610,11 @@ public class TypeServiceImpl implements TypeService{
     @Override
     public Page<Type> listType(Pageable pageable) {
         return typeRepository.findAll(pageable);
+    }
+
+    @Override
+    public List<Type> listType() {
+        return typeRepository.findAll();
     }
 
     @Transactional
@@ -1749,6 +1758,8 @@ import com.cxkj.blog.pojo.Tag;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import java.util.List;
+
 /**
  *  Created by Arvin on 2021/2/7.
  */
@@ -1756,15 +1767,19 @@ import org.springframework.data.domain.Pageable;
 public interface TagService {
 
     Tag saveTag(Tag tag);
-    
+
     Tag getTag(Long id);
-    
+
     Tag getTagByName(String name);
-    
+
     Page<Tag> listTag(Pageable pageable);
-    
+
+    List<Tag> listTag();
+
+    List<Tag> listTag(String ids);
+
     Tag updateTag(Long id,Tag tag);
-    
+
     void deleteTag(Long id);
 }
 ```
@@ -1780,13 +1795,18 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.thymeleaf.util.StringUtils;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *  Created by Arvin on 2021/2/7.
  */
-
-public class TagServiceImpl implements TagService {
+@Service
+public class TagServiceImpl implements TagService{
 
     @Autowired
     private TagRepository tagRepository;
@@ -1815,14 +1835,35 @@ public class TagServiceImpl implements TagService {
         return tagRepository.findAll(pageable);
     }
 
+    @Override
+    public List<Tag> listTag() {
+        return tagRepository.findAll();
+    }
+
+    @Override
+    public List<Tag> listTag(String ids) {  //1,2,3
+        return tagRepository.findAllById(convertToList(ids));
+    }
+
+    private List<Long> convertToList(String ids){
+        List<Long> list = new ArrayList<>();
+        if ("".equals(ids) && ids != null){
+            String[] idarray = ids.split(",");
+            for (int i=0; i<idarray.length; i++){
+                list.add(new Long(idarray[i]));
+            }
+        }
+        return list;
+    }
+
     @Transactional
     @Override
     public Tag updateTag(Long id, Tag tag) {
         Tag t = tagRepository.findById(id).get();
-        if (t == null) {
+        if (t == null){
             throw new NotFoundException("您查找的信息不存在(︶︹︺)");
         }
-        BeanUtils.copyProperties(tag, t);
+        BeanUtils.copyProperties(tag,t);
         return tagRepository.save(t);
     }
 
@@ -1832,6 +1873,7 @@ public class TagServiceImpl implements TagService {
         tagRepository.deleteById(id);
     }
 }
+
 ```
 TagRepository.java 标签业务 SQL操作接口
 
@@ -1911,6 +1953,526 @@ public class TagServiceImpl implements TagService{
     @Override
     public void deleteTag(Long id) {
         tagRepository.deleteById(id);
+    }
+}
+```
+### 博客业务处理
+BlogService.java 博客业务处理逻辑接口
+```java
+package com.cxkj.blog.service;
+
+import com.cxkj.blog.pojo.Blog;
+import com.cxkj.blog.vo.BlogQuery;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
+/**
+ *  Created by Arvin on 2021/2/8.
+ */
+
+public interface BlogService {
+
+    Blog getBlog(Long id);
+
+    Page<Blog> listBlog(Pageable pageable, BlogQuery blogQuery);
+
+    Blog saveBlog(Blog blog);
+
+    Blog updateBlog(Long id,Blog blog);
+
+    void deleteBlog(Long id);
+}
+```
+BlogServiceImpl.java 博客业务处理逻辑实现类
+```java
+package com.cxkj.blog.service;
+
+import com.cxkj.blog.NotFoundException;
+import com.cxkj.blog.dao.BlogRepository;
+import com.cxkj.blog.pojo.Blog;
+import com.cxkj.blog.pojo.Type;
+import com.cxkj.blog.vo.BlogQuery;
+import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
+/**
+ *  Created by Arvin on 2021/2/8.
+ */
+@Service
+public class BlogServiceImpl implements BlogService{
+
+    @Autowired
+    private BlogRepository blogRepository;
+
+    @Override
+    public Blog getBlog(Long id) {
+        return blogRepository.findById(id).get();
+    }
+
+    @Override
+    public Page<Blog> listBlog(Pageable pageable, BlogQuery blogQuery) {
+
+        return blogRepository.findAll(new Specification<Blog>() {
+            @Override
+            public Predicate toPredicate(Root<Blog> root, CriteriaQuery<?> criteriaQuery, CriteriaBuilder criteriaBuilder) {
+                List<Predicate> predicateList = new ArrayList<>();
+                if (!"".equals(blogQuery.getTitle()) && blogQuery.getTitle() != null){
+                    predicateList.add(criteriaBuilder.like(root.<String>get("title"),"%"+blogQuery.getTitle()+"%"));
+                }
+                if (blogQuery.getTypeID() != null){
+                    predicateList.add(criteriaBuilder.equal(root.<Type>get("type").get("id"),blogQuery.getTypeID()));
+                }
+                if (blogQuery.isRecommend()){
+                    predicateList.add(criteriaBuilder.equal(root.<Boolean>get("recommend"),blogQuery.isRecommend()));
+                }
+                criteriaQuery.where(predicateList.toArray(new Predicate[predicateList.size()]));
+                return null;
+            }
+        },pageable);
+    }
+
+    @Transactional
+    @Override
+    public Blog saveBlog(Blog blog) {
+        if (blog.getId() == null){
+            blog.setCreateTime(new Date());
+            blog.setUpdateTime(new Date());
+            blog.setViews(0);
+        }else {
+            blog.setUpdateTime(new Date());
+        }
+        return blogRepository.save(blog);
+    }
+
+    @Transactional
+    @Override
+    public Blog updateBlog(Long id, Blog blog) {
+        Blog b = blogRepository.findById(id).get();
+        if (b == null){
+            throw new NotFoundException("管理员大大,这个博客不存在哦！～(　TロT)σ");
+        }
+        BeanUtils.copyProperties(b,blog);
+        return blogRepository.save(b);
+    }
+
+    @Transactional
+    @Override
+    public void deleteBlog(Long id) {
+        blogRepository.deleteById(id);
+    }
+}
+```
+BlogRepository.java 博客业务 SQL操作接口
+```java
+package com.cxkj.blog.dao;
+
+import com.cxkj.blog.pojo.Blog;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
+
+/**
+ *  Created by Arvin on 2021/2/8.
+ */
+
+public interface BlogRepository extends JpaRepository<Blog,Long>, JpaSpecificationExecutor<Blog> {
+    
+}
+```
+BlogController.java WEB操作
+```java
+package com.cxkj.blog.web.admin;
+
+import com.cxkj.blog.pojo.Blog;
+import com.cxkj.blog.pojo.User;
+import com.cxkj.blog.service.BlogService;
+import com.cxkj.blog.service.TagService;
+import com.cxkj.blog.service.TypeService;
+import com.cxkj.blog.vo.BlogQuery;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import javax.servlet.http.HttpSession;
+
+/**
+ *  Created by Arvin on 2021/2/5.
+ */
+@Controller
+@RequestMapping("/admin")
+public class BlogController {
+
+    private static final  String INPUT = "/admin/blogs-input";
+    private static final  String LIST = "/admin/blogs";
+    private static final  String REDIRECT_LIST = "redirect:/admin/blogs";
+
+    @Autowired
+    private BlogService blogService;
+
+    @Autowired
+    private TypeService typeService;
+
+    @Autowired
+    private TagService tagService;
+
+    @GetMapping("/blogs")
+    public String blogs(@PageableDefault(size = 10,sort = {"updateTime"},direction = Sort.Direction.DESC) Pageable pageable, BlogQuery blogQuery, Model model){
+        model.addAttribute("types",typeService.listType());
+        model.addAttribute("page",blogService.listBlog(pageable,blogQuery));
+        return LIST;
+    }
+
+    @PostMapping("/blogs/search")
+    public String search(@PageableDefault(size = 10,sort = {"updateTime"},direction = Sort.Direction.DESC) Pageable pageable,BlogQuery blogQuery,Model model){
+        model.addAttribute("page",blogService.listBlog(pageable,blogQuery));
+        return "/admin/blogs :: blogList";
+    }
+
+    @GetMapping("/blogs/input")
+    public String input(Model model){
+        setTypeAndTag(model);
+        model.addAttribute("blog",new Blog());
+        return INPUT;
+    }
+
+    private void setTypeAndTag(Model model){
+        model.addAttribute("types",typeService.listType());
+        model.addAttribute("tags",tagService.listTag());
+    }
+
+    @GetMapping("/blogs/{id}/input")
+    public String editInput (@PathVariable Long id, Model model){
+        setTypeAndTag(model);
+        Blog blog = blogService.getBlog(id);
+        blog.init();
+        model.addAttribute("blog",blog);
+        return INPUT;
+    }
+
+    @PostMapping("/blogs")
+    public String post(Blog blog, RedirectAttributes attributes, HttpSession session){
+        blog.setUser((User) session.getAttribute("user"));
+        blog.setType(typeService.getType(blog.getType().getId()));
+        blog.setTags(tagService.listTag(blog.getTagIds()));
+        Blog b = blogService.saveBlog(blog);
+
+        if (b == null){
+            attributes.addFlashAttribute("message","操作失败 ﾍ(;´Д｀ﾍ),管理员大大重新试下吧");
+        }else {
+            attributes.addFlashAttribute("message","操作成功 ≖‿≖✧ 快去发布新内容吧");
+        }
+        return REDIRECT_LIST;
+    }
+
+    @GetMapping("/blogs/{id}/delete")
+    public String delete(@PathVariable Long id,RedirectAttributes attributes){
+        blogService.deleteBlog(id);
+        attributes.addFlashAttribute("message","删除成功,期待您发布更加美好的内容︿(￣︶￣)︿");
+        return REDIRECT_LIST;
+    }
+}
+```
+BlogQuery.java 博客搜索查询类
+```java
+package com.cxkj.blog.vo;
+
+/**
+ *  Created by Arvin on 2021/2/8.
+ */
+
+public class BlogQuery {
+    
+    private String title;
+    private Long typeID;
+    private boolean recommend;
+
+    public BlogQuery() {
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public Long getTypeID() {
+        return typeID;
+    }
+
+    public void setTypeID(Long typeID) {
+        this.typeID = typeID;
+    }
+
+    public boolean isRecommend() {
+        return recommend;
+    }
+
+    public void setRecommend(boolean recommend) {
+        this.recommend = recommend;
+    }
+}
+```
+Blog.java 博客实体类
+```java
+package com.cxkj.blog.pojo;
+
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
+/**
+ *  Created by Arvin on 2021/2/4.
+ */
+@Entity
+@Table(name = "t_blog")
+public class Blog {
+
+    @Id
+    @GeneratedValue
+    private Long id;
+
+    private String title;
+
+    @Basic(fetch = FetchType.LAZY)
+    @Lob
+    private String content;
+    private String firstPicture;
+    private String flag;
+    private Integer views;
+    private boolean appreciation;
+    private boolean shareStatement;
+    private boolean commentabled;
+    private boolean published;
+    private boolean recommend;
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date createTime;
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date updateTime;
+
+    @ManyToOne
+    private Type type;
+
+    @ManyToMany(cascade = {CascadeType.PERSIST})
+    private List<Tag> tags = new ArrayList<>();
+
+    @ManyToOne
+    private User user;
+
+    @OneToMany(mappedBy = "blog")
+    private List<Comment> comments = new ArrayList<>();
+
+    @Transient
+    private String tagIds;
+
+    public Blog() {
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    public String getFirstPicture() {
+        return firstPicture;
+    }
+
+    public void setFirstPicture(String firstPicture) {
+        this.firstPicture = firstPicture;
+    }
+
+    public String getFlag() {
+        return flag;
+    }
+
+    public void setFlag(String flag) {
+        this.flag = flag;
+    }
+
+    public Integer getViews() {
+        return views;
+    }
+
+    public void setViews(Integer views) {
+        this.views = views;
+    }
+
+    public boolean isAppreciation() {
+        return appreciation;
+    }
+
+    public void setAppreciation(boolean appreciation) {
+        this.appreciation = appreciation;
+    }
+
+    public boolean isShareStatement() {
+        return shareStatement;
+    }
+
+    public void setShareStatement(boolean shareStatement) {
+        this.shareStatement = shareStatement;
+    }
+
+    public boolean isCommentabled() {
+        return commentabled;
+    }
+
+    public void setCommentabled(boolean commentabled) {
+        this.commentabled = commentabled;
+    }
+
+    public boolean isPublished() {
+        return published;
+    }
+
+    public void setPublished(boolean published) {
+        this.published = published;
+    }
+
+    public boolean isRecommend() {
+        return recommend;
+    }
+
+    public void setRecommend(boolean recommend) {
+        this.recommend = recommend;
+    }
+
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
+
+    public Date getUpdateTime() {
+        return updateTime;
+    }
+
+    public void setUpdateTime(Date updateTime) {
+        this.updateTime = updateTime;
+    }
+
+    public Type getType() {
+        return type;
+    }
+
+    public void setType(Type type) {
+        this.type = type;
+    }
+
+    public List<Tag> getTags() {
+        return tags;
+    }
+
+    public void setTags(List<Tag> tags) {
+        this.tags = tags;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public List<Comment> getComments() {
+        return comments;
+    }
+
+    public void setComments(List<Comment> comments) {
+        this.comments = comments;
+    }
+
+    public String getTagIds() {
+        return tagIds;
+    }
+
+    public void setTagIds(String tagIds) {
+        this.tagIds = tagIds;
+    }
+
+    //初始化tagIds方法
+    public void init(){
+        this.tagIds = tagsToIds(this.getTags());
+    }
+    private String tagsToIds(List<Tag> tags){
+        if (!tags.isEmpty()){
+            StringBuffer ids = new StringBuffer();
+            boolean flag = false;
+            for (Tag tag : tags){
+                if (flag){
+                    ids.append(",");
+                }else {
+                    flag = true;
+                }
+                ids.append(tag.getId());
+            }
+            return ids.toString();
+        }else {
+            return tagIds;
+        }
+    }
+
+    @Override
+    public String toString() {
+        return "Blog{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", content='" + content + '\'' +
+                ", firstPicture='" + firstPicture + '\'' +
+                ", flag='" + flag + '\'' +
+                ", views=" + views +
+                ", appreciation=" + appreciation +
+                ", shareStatement=" + shareStatement +
+                ", commentabled=" + commentabled +
+                ", published=" + published +
+                ", recommend=" + recommend +
+                ", createTime=" + createTime +
+                ", updateTime=" + updateTime +
+                '}';
     }
 }
 ```
