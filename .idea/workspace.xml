@@ -33,6 +33,7 @@
   <component name="GithubPullRequestsUISettings">
     <option name="hiddenUrls">
       <set>
+        <option value="https://github.com/ArvinRoad/Spring-Boot-Blog" />
         <option value="https://github.com/ArvinRoad/Spring-Boot-bolg" />
       </set>
     </option>
@@ -171,7 +172,7 @@
       <workItem from="1612800645944" duration="6345000" />
       <workItem from="1612861737080" duration="2130000" />
       <workItem from="1612865689774" duration="2017000" />
-      <workItem from="1612870105847" duration="6378000" />
+      <workItem from="1612870105847" duration="20213000" />
     </task>
     <servers />
   </component>
