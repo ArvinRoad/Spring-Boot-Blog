@@ -1758,6 +1758,8 @@ import com.cxkj.blog.pojo.Tag;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import java.util.List;
+
 /**
  *  Created by Arvin on 2021/2/7.
  */
@@ -1765,15 +1767,17 @@ import org.springframework.data.domain.Pageable;
 public interface TagService {
 
     Tag saveTag(Tag tag);
-    
+
     Tag getTag(Long id);
-    
+
     Tag getTagByName(String name);
-    
+
     Page<Tag> listTag(Pageable pageable);
-    
+
+    List<Tag> listTag();
+
     Tag updateTag(Long id,Tag tag);
-    
+
     void deleteTag(Long id);
 }
 ```
@@ -1789,13 +1793,16 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 /**
  *  Created by Arvin on 2021/2/7.
  */
-
-public class TagServiceImpl implements TagService {
+@Service
+public class TagServiceImpl implements TagService{
 
     @Autowired
     private TagRepository tagRepository;
@@ -1824,14 +1831,19 @@ public class TagServiceImpl implements TagService {
         return tagRepository.findAll(pageable);
     }
 
+    @Override
+    public List<Tag> listTag() {
+        return tagRepository.findAll();
+    }
+
     @Transactional
     @Override
     public Tag updateTag(Long id, Tag tag) {
         Tag t = tagRepository.findById(id).get();
-        if (t == null) {
+        if (t == null){
             throw new NotFoundException("您查找的信息不存在(︶︹︺)");
         }
-        BeanUtils.copyProperties(tag, t);
+        BeanUtils.copyProperties(tag,t);
         return tagRepository.save(t);
     }
 
