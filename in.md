@@ -23,6 +23,7 @@
 | tags.html | 标签页面 |
 | type.html | 分类页面 |
 | login.html | 登录页面 |
+| search.html | 搜索页面 |
 | _fragments.html | 动态页面 定义Thymeleaf片段 |
 | IndexController.java | Web控制器 |
 | LoginController.java | WEB登录模块控制器 |
@@ -3170,5 +3171,239 @@ public interface BlogRepository extends JpaRepository<Blog,Long>, JpaSpecificati
 
     @Query("select b from Blog b where b.recommend = true")
     List<Blog> findTop(Pageable pageable);
+}
+```
+### 全局搜索
+IndexController.java
+```java
+package com.cxkj.blog.web;
+
+import com.cxkj.blog.service.BlogService;
+import com.cxkj.blog.service.TagService;
+import com.cxkj.blog.service.TypeService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+/**
+ *  Created by Arvin on 2021/2/3.
+ */
+@Controller
+public class IndexController {
+
+    @Autowired
+    private BlogService blogService;
+
+    @Autowired
+    private TypeService typeService;
+
+    @Autowired
+    private TagService tagService;
+
+    @GetMapping("/")
+    public String index(@PageableDefault(size = 10,sort = {"updateTime"},direction = Sort.Direction.DESC)Pageable pageable, Model model){
+        model.addAttribute("page",blogService.listBlog(pageable));
+        model.addAttribute("types",typeService.listTypeTop(6));
+        model.addAttribute("tags",tagService.listTagTop(10));
+        model.addAttribute("recommendBlogs",blogService.listRecommendBlogTop(8));
+        return "index";
+    }
+
+    @PostMapping("/search")
+    public String search(@PageableDefault(size = 10,sort = {"updateTime"},direction = Sort.Direction.DESC)Pageable pageable, @RequestParam String query, Model model){
+        model.addAttribute("page",blogService.listBlog("%"+query+"%",pageable));
+        model.addAttribute("query",query);
+        return "search";
+    }
+
+    @GetMapping("/blog/{id}")
+    public String blog(){
+            /*String blog = null;
+            if (blog == null){
+                throw  new NotFoundException("博客不存在");
+            }*/
+        return "blog";
+    }
+
+}
+```
+BlogService.java
+```java
+package com.cxkj.blog.service;
+
+import com.cxkj.blog.pojo.Blog;
+import com.cxkj.blog.vo.BlogQuery;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
+import java.util.List;
+
+/**
+ *  Created by Arvin on 2021/2/8.
+ */
+
+public interface BlogService {
+
+    Blog getBlog(Long id);
+
+    Page<Blog> listBlog(Pageable pageable, BlogQuery blogQuery);
+
+    Page<Blog> listBlog(Pageable pageable);
+
+    Page<Blog> listBlog(String query,Pageable pageable);
+
+    List<Blog> listRecommendBlogTop(Integer size);
+
+    Blog saveBlog(Blog blog);
+
+    Blog updateBlog(Long id,Blog blog);
+
+    void deleteBlog(Long id);
+}
+```
+BlogServiceImpl.java
+```java
+package com.cxkj.blog.service;
+
+import com.cxkj.blog.NotFoundException;
+import com.cxkj.blog.dao.BlogRepository;
+import com.cxkj.blog.pojo.Blog;
+import com.cxkj.blog.pojo.Type;
+import com.cxkj.blog.util.MyBeanUtils;
+import com.cxkj.blog.vo.BlogQuery;
+import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specification;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
+/**
+ *  Created by Arvin on 2021/2/8.
+ */
+@Service
+public class BlogServiceImpl implements BlogService{
+
+    @Autowired
+    private BlogRepository blogRepository;
+
+    @Override
+    public Blog getBlog(Long id) {
+        return blogRepository.findById(id).get();
+    }
+
+    @Override
+    public Page<Blog> listBlog(Pageable pageable, BlogQuery blogQuery) {
+
+        return blogRepository.findAll(new Specification<Blog>() {
+            @Override
+            public Predicate toPredicate(Root<Blog> root, CriteriaQuery<?> criteriaQuery, CriteriaBuilder criteriaBuilder) {
+                List<Predicate> predicateList = new ArrayList<>();
+                if (!"".equals(blogQuery.getTitle()) && blogQuery.getTitle() != null){
+                    predicateList.add(criteriaBuilder.like(root.<String>get("title"),"%"+blogQuery.getTitle()+"%"));
+                }
+                if (blogQuery.getTypeID() != null){
+                    predicateList.add(criteriaBuilder.equal(root.<Type>get("type").get("id"),blogQuery.getTypeID()));
+                }
+                if (blogQuery.isRecommend()){
+                    predicateList.add(criteriaBuilder.equal(root.<Boolean>get("recommend"),blogQuery.isRecommend()));
+                }
+                criteriaQuery.where(predicateList.toArray(new Predicate[predicateList.size()]));
+                return null;
+            }
+        },pageable);
+    }
+
+    @Override
+    public Page<Blog> listBlog(Pageable pageable) {
+        return blogRepository.findAll(pageable);
+    }
+
+    @Override
+    public Page<Blog> listBlog(String query, Pageable pageable) {
+        return blogRepository.findByQuery(query,pageable);
+    }
+
+    @Override
+    public List<Blog> listRecommendBlogTop(Integer size) {
+        Sort sort = Sort.by(Sort.Direction.DESC,"updateTime");
+        Pageable pageable = PageRequest.of(0,size,sort);
+        return blogRepository.findTop(pageable);
+    }
+
+    @Transactional
+    @Override
+    public Blog saveBlog(Blog blog) {
+        if (blog.getId() == null){
+            blog.setCreateTime(new Date());
+            blog.setUpdateTime(new Date());
+            blog.setViews(0);
+        }else {
+            blog.setUpdateTime(new Date());
+        }
+        return blogRepository.save(blog);
+    }
+
+    @Transactional
+    @Override
+    public Blog updateBlog(Long id, Blog blog) {
+        Blog b = blogRepository.findById(id).get();
+        if (b == null){
+            throw new NotFoundException("管理员大大,这个博客不存在哦！～(　TロT)σ");
+        }
+        BeanUtils.copyProperties(blog,b, MyBeanUtils.getNullPropertyNames(blog));
+        b.setUpdateTime(new Date());
+        return blogRepository.save(b);
+    }
+
+    @Transactional
+    @Override
+    public void deleteBlog(Long id) {
+        blogRepository.deleteById(id);
+    }
+}
+```
+BlogRepository.java
+```java
+package com.cxkj.blog.dao;
+
+import com.cxkj.blog.pojo.Blog;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
+import org.springframework.data.jpa.repository.Query;
+
+import java.util.List;
+
+/**
+ *  Created by Arvin on 2021/2/8.
+ */
+
+public interface BlogRepository extends JpaRepository<Blog,Long>, JpaSpecificationExecutor<Blog> {
+
+    @Query("select b from Blog b where b.recommend = true")
+    List<Blog> findTop(Pageable pageable);
+
+    //select * from t_blog where title like '%内容%'
+    @Query("select b from Blog b where b.title like ?1 or b.content like ?1")
+    Page<Blog> findByQuery(String query,Pageable pageable);
 }
 ```
