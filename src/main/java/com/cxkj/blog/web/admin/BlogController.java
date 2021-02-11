@@ -1,6 +1,7 @@
 package com.cxkj.blog.web.admin;
 
 import com.cxkj.blog.pojo.Blog;
+import com.cxkj.blog.pojo.Tag;
 import com.cxkj.blog.pojo.User;
 import com.cxkj.blog.service.BlogService;
 import com.cxkj.blog.service.TagService;
@@ -79,8 +80,12 @@ public class BlogController {
         blog.setUser((User) session.getAttribute("user"));
         blog.setType(typeService.getType(blog.getType().getId()));
         blog.setTags(tagService.listTag(blog.getTagIds()));
-        Blog b = blogService.saveBlog(blog);
-
+        Blog b;
+        if (blog.getId() == null){
+            b = blogService.saveBlog(blog);
+        }else {
+            b = blogService.updateBlog(blog.getId(),blog);
+        }
         if (b == null){
             attributes.addFlashAttribute("message","操作失败 ﾍ(;´Д｀ﾍ),管理员大大重新试下吧");
         }else {

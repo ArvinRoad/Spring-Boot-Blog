@@ -52,6 +52,7 @@
 | BlogRepository.java | 博客业务处理 SQL操作接口 |
 | BlogQuery.java | 博客搜索查询类 |
 | MD5Utils.java | MD5加密类 |
+| MyBeanUtils.java | 修复SQL数据修改后为null工具类(过滤掉数据值为null) |
 
 项目配置(Jar包)
 ```xml
@@ -1991,6 +1992,7 @@ import com.cxkj.blog.NotFoundException;
 import com.cxkj.blog.dao.BlogRepository;
 import com.cxkj.blog.pojo.Blog;
 import com.cxkj.blog.pojo.Type;
+import com.cxkj.blog.util.MyBeanUtils;
 import com.cxkj.blog.vo.BlogQuery;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -2064,7 +2066,8 @@ public class BlogServiceImpl implements BlogService{
         if (b == null){
             throw new NotFoundException("管理员大大,这个博客不存在哦！～(　TロT)σ");
         }
-        BeanUtils.copyProperties(b,blog);
+        BeanUtils.copyProperties(blog,b, MyBeanUtils.getNullPropertyNames(blog));
+        b.setUpdateTime(new Date());
         return blogRepository.save(b);
     }
 
@@ -2074,6 +2077,7 @@ public class BlogServiceImpl implements BlogService{
         blogRepository.deleteById(id);
     }
 }
+
 ```
 BlogRepository.java 博客业务 SQL操作接口
 ```java
@@ -2096,6 +2100,7 @@ BlogController.java WEB操作
 package com.cxkj.blog.web.admin;
 
 import com.cxkj.blog.pojo.Blog;
+import com.cxkj.blog.pojo.Tag;
 import com.cxkj.blog.pojo.User;
 import com.cxkj.blog.service.BlogService;
 import com.cxkj.blog.service.TagService;
@@ -2174,8 +2179,12 @@ public class BlogController {
         blog.setUser((User) session.getAttribute("user"));
         blog.setType(typeService.getType(blog.getType().getId()));
         blog.setTags(tagService.listTag(blog.getTagIds()));
-        Blog b = blogService.saveBlog(blog);
-
+        Blog b;
+        if (blog.getId() == null){
+            b = blogService.saveBlog(blog);
+        }else {
+            b = blogService.updateBlog(blog.getId(),blog);
+        }
         if (b == null){
             attributes.addFlashAttribute("message","操作失败 ﾍ(;´Д｀ﾍ),管理员大大重新试下吧");
         }else {
@@ -2286,6 +2295,8 @@ public class Blog {
 
     @Transient
     private String tagIds;
+
+    private String description;
 
     public Blog() {
     }
@@ -2434,6 +2445,14 @@ public class Blog {
         this.tagIds = tagIds;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     //初始化tagIds方法
     public void init(){
         this.tagIds = tagsToIds(this.getTags());
@@ -2472,7 +2491,684 @@ public class Blog {
                 ", recommend=" + recommend +
                 ", createTime=" + createTime +
                 ", updateTime=" + updateTime +
+                ", type=" + type +
+                ", tags=" + tags +
+                ", user=" + user +
+                ", comments=" + comments +
+                ", tagIds='" + tagIds + '\'' +
+                ", description='" + description + '\'' +
                 '}';
     }
+}
+```
+### 后端细节优化
+MyBeanUtils.java 修复SQL数据修改后为null工具类(过滤掉数据值为null)
+```java
+package com.cxkj.blog.util;
+
+import org.springframework.beans.BeanWrapper;
+import org.springframework.beans.BeanWrapperImpl;
+
+import java.beans.PropertyDescriptor;
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * Created by Arvin on 2021/2/10.
+ */
+public class MyBeanUtils {
+
+
+    /**
+     * 获取所有的属性值为空属性名数组
+     * @param source
+     * @return
+     */
+    public static String[] getNullPropertyNames(Object source) {
+        BeanWrapper beanWrapper = new BeanWrapperImpl(source);
+        PropertyDescriptor[] pds =  beanWrapper.getPropertyDescriptors();
+        List<String> nullPropertyNames = new ArrayList<>();
+        for (PropertyDescriptor pd : pds) {
+            String propertyName = pd.getName();
+            if (beanWrapper.getPropertyValue(propertyName) == null) {
+                nullPropertyNames.add(propertyName);
+            }
+        }
+        return nullPropertyNames.toArray(new String[nullPropertyNames.size()]);
+    }
+
+}
+```
+前端index优化
+BlogService.java
+```java
+package com.cxkj.blog.service;
+
+import com.cxkj.blog.pojo.Blog;
+import com.cxkj.blog.vo.BlogQuery;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
+/**
+ *  Created by Arvin on 2021/2/8.
+ */
+
+public interface BlogService {
+
+    Blog getBlog(Long id);
+
+    Page<Blog> listBlog(Pageable pageable, BlogQuery blogQuery);
+    
+    Page<Blog> listBlog(Pageable pageable);
+
+    Blog saveBlog(Blog blog);
+
+    Blog updateBlog(Long id,Blog blog);
+
+    void deleteBlog(Long id);
+}
+```
+BlogServiceImpl.java
+```java
+package com.cxkj.blog.service;
+
+import com.cxkj.blog.NotFoundException;
+import com.cxkj.blog.dao.BlogRepository;
+import com.cxkj.blog.pojo.Blog;
+import com.cxkj.blog.pojo.Type;
+import com.cxkj.blog.util.MyBeanUtils;
+import com.cxkj.blog.vo.BlogQuery;
+import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
+/**
+ *  Created by Arvin on 2021/2/8.
+ */
+@Service
+public class BlogServiceImpl implements BlogService{
+
+    @Autowired
+    private BlogRepository blogRepository;
+
+    @Override
+    public Blog getBlog(Long id) {
+        return blogRepository.findById(id).get();
+    }
+
+    @Override
+    public Page<Blog> listBlog(Pageable pageable, BlogQuery blogQuery) {
+
+        return blogRepository.findAll(new Specification<Blog>() {
+            @Override
+            public Predicate toPredicate(Root<Blog> root, CriteriaQuery<?> criteriaQuery, CriteriaBuilder criteriaBuilder) {
+                List<Predicate> predicateList = new ArrayList<>();
+                if (!"".equals(blogQuery.getTitle()) && blogQuery.getTitle() != null){
+                    predicateList.add(criteriaBuilder.like(root.<String>get("title"),"%"+blogQuery.getTitle()+"%"));
+                }
+                if (blogQuery.getTypeID() != null){
+                    predicateList.add(criteriaBuilder.equal(root.<Type>get("type").get("id"),blogQuery.getTypeID()));
+                }
+                if (blogQuery.isRecommend()){
+                    predicateList.add(criteriaBuilder.equal(root.<Boolean>get("recommend"),blogQuery.isRecommend()));
+                }
+                criteriaQuery.where(predicateList.toArray(new Predicate[predicateList.size()]));
+                return null;
+            }
+        },pageable);
+    }
+
+    @Override
+    public Page<Blog> listBlog(Pageable pageable) {
+        return blogRepository.findAll(pageable);
+    }
+
+    @Transactional
+    @Override
+    public Blog saveBlog(Blog blog) {
+        if (blog.getId() == null){
+            blog.setCreateTime(new Date());
+            blog.setUpdateTime(new Date());
+            blog.setViews(0);
+        }else {
+            blog.setUpdateTime(new Date());
+        }
+        return blogRepository.save(blog);
+    }
+
+    @Transactional
+    @Override
+    public Blog updateBlog(Long id, Blog blog) {
+        Blog b = blogRepository.findById(id).get();
+        if (b == null){
+            throw new NotFoundException("管理员大大,这个博客不存在哦！～(　TロT)σ");
+        }
+        BeanUtils.copyProperties(blog,b, MyBeanUtils.getNullPropertyNames(blog));
+        b.setUpdateTime(new Date());
+        return blogRepository.save(b);
+    }
+
+    @Transactional
+    @Override
+    public void deleteBlog(Long id) {
+        blogRepository.deleteById(id);
+    }
+}
+```
+IndexController.java
+```java
+package com.cxkj.blog.web;
+
+import com.cxkj.blog.service.BlogService;
+import com.cxkj.blog.service.TagService;
+import com.cxkj.blog.service.TypeService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+
+/**
+ *  Created by Arvin on 2021/2/3.
+ */
+@Controller
+public class IndexController {
+
+    @Autowired
+    private BlogService blogService;
+
+    @Autowired
+    private TypeService typeService;
+
+    @Autowired
+    private TagService tagService;
+
+    @GetMapping("/")
+    public String index(@PageableDefault(size = 10,sort = {"updateTime"},direction = Sort.Direction.DESC)Pageable pageable, Model model){
+        model.addAttribute("page",blogService.listBlog(pageable));
+        model.addAttribute("types",typeService.listTypeTop(6));
+        model.addAttribute("tags",tagService.listTagTop(10));
+        model.addAttribute("recommendBlogs",blogService.listRecommendBlogTop(8));
+        return "index";
+    }
+
+    @GetMapping("/blog")
+    public String blog(){
+            /*String blog = null;
+            if (blog == null){
+                throw  new NotFoundException("博客不存在");
+            }*/
+        return "blog";
+    }
+
+}
+```
+TypeService.java
+```java
+package com.cxkj.blog.service;
+
+import com.cxkj.blog.pojo.Type;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
+import java.util.List;
+
+/**
+ *  Created by Arvin on 2021/2/6.
+ */
+
+public interface TypeService {
+
+    Type saveType(Type type);
+
+    Type getType(Long id);
+
+    Type getTypeByName(String name);
+
+    Page<Type> listType(Pageable pageable);
+
+    List<Type> listType();
+
+    List<Type> listTypeTop(Integer size);
+
+    Type updateType(Long id,Type type);
+
+    void deleteType(Long id);
+}
+```
+TypeServiceImpl.java
+```java
+package com.cxkj.blog.service;
+
+import com.cxkj.blog.NotFoundException;
+import com.cxkj.blog.dao.TypeRepository;
+import com.cxkj.blog.pojo.Type;
+import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
+
+/**
+ *  Created by Arvin on 2021/2/6.
+ */
+@Service
+public class TypeServiceImpl implements TypeService{
+
+    @Autowired
+    private TypeRepository typeRepository;
+
+    @Transactional
+    @Override
+    public Type saveType(Type type) {
+        return typeRepository.save(type);
+    }
+
+    @Transactional
+    @Override
+    public Type getType(Long id) {
+        return typeRepository.findById(id).get();
+    }
+
+    @Override
+    public Type getTypeByName(String name) {
+        return typeRepository.findByName(name);
+    }
+
+    @Transactional
+    @Override
+    public Page<Type> listType(Pageable pageable) {
+        return typeRepository.findAll(pageable);
+    }
+
+    @Override
+    public List<Type> listType() {
+        return typeRepository.findAll();
+    }
+
+    @Override
+    public List<Type> listTypeTop(Integer size) {
+        Sort sort = Sort.by(Sort.Direction.DESC,"blogs.size");
+        Pageable pageable = PageRequest.of(0,size,sort);
+        return typeRepository.findTop(pageable);
+    }
+
+    @Transactional
+    @Override
+    public Type updateType(Long id, Type type) {
+        Type t = typeRepository.findById(id).get();
+        if (t == null){
+            throw new NotFoundException("您查找的信息不存在(︶︹︺)");
+        }
+        BeanUtils.copyProperties(type,t);
+        return typeRepository.save(t);
+    }
+
+    @Transactional
+    @Override
+    public void deleteType(Long id) {
+        typeRepository.deleteById(id);
+    }
+}
+```
+TypeRepository.java
+```java
+package com.cxkj.blog.dao;
+
+import com.cxkj.blog.pojo.Type;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+
+import java.util.List;
+
+/**
+ *  Created by Arvin on 2021/2/6.
+ */
+
+public interface TypeRepository extends JpaRepository<Type,Long> {
+
+    Type findByName(String name);
+    
+    @Query("select t from Type t")
+    List<Type> findTop(Pageable pageable);
+}
+```
+TagService.java
+```java
+package com.cxkj.blog.service;
+
+import com.cxkj.blog.pojo.Tag;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
+import java.util.List;
+
+/**
+ *  Created by Arvin on 2021/2/7.
+ */
+
+public interface TagService {
+
+    Tag saveTag(Tag tag);
+
+    Tag getTag(Long id);
+
+    Tag getTagByName(String name);
+
+    Page<Tag> listTag(Pageable pageable);
+
+    List<Tag> listTag();
+    
+    List<Tag> listTagTop(Integer size);
+
+    List<Tag> listTag(String ids);
+
+    Tag updateTag(Long id,Tag tag);
+
+    void deleteTag(Long id);
+}
+```
+TagServiceImpl.java
+```java
+package com.cxkj.blog.service;
+
+
+import com.cxkj.blog.NotFoundException;
+import com.cxkj.blog.dao.TagRepository;
+import com.cxkj.blog.pojo.Tag;
+import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ *  Created by Arvin on 2021/2/7.
+ */
+@Service
+public class TagServiceImpl implements TagService{
+
+    @Autowired
+    private TagRepository tagRepository;
+
+    @Transactional
+    @Override
+    public Tag saveTag(Tag tag) {
+        return tagRepository.save(tag);
+    }
+
+    @Transactional
+    @Override
+    public Tag getTag(Long id) {
+        return tagRepository.findById(id).get();
+    }
+
+    @Transactional
+    @Override
+    public Tag getTagByName(String name) {
+        return tagRepository.findByName(name);
+    }
+
+    @Transactional
+    @Override
+    public Page<Tag> listTag(Pageable pageable) {
+        return tagRepository.findAll(pageable);
+    }
+
+    @Override
+    public List<Tag> listTag() {
+        return tagRepository.findAll();
+    }
+
+    @Override
+    public List<Tag> listTagTop(Integer size) {
+        Sort sort =  Sort.by(Sort.Direction.DESC,"blogs.size");
+        Pageable pageable = PageRequest.of (0,size,sort);
+        return tagRepository.findTop(pageable);
+    }
+
+    @Override
+    public List<Tag> listTag(String ids) {  //1,2,3
+        return tagRepository.findAllById(convertToList(ids));
+    }
+
+    private List<Long> convertToList(String ids){
+        List<Long> list = new ArrayList<>();
+        if (!"".equals(ids) && ids != null){
+            String[] idarray = ids.split(",");
+            for (int i=0; i<idarray.length; i++){
+                list.add(new Long(idarray[i]));
+            }
+        }
+        return list;
+    }
+
+    @Transactional
+    @Override
+    public Tag updateTag(Long id, Tag tag) {
+        Tag t = tagRepository.findById(id).get();
+        if (t == null){
+            throw new NotFoundException("您查找的信息不存在(︶︹︺)");
+        }
+        BeanUtils.copyProperties(tag,t);
+        return tagRepository.save(t);
+    }
+
+    @Transactional
+    @Override
+    public void deleteTag(Long id) {
+        tagRepository.deleteById(id);
+    }
+}
+```
+TagRepository.java
+```java
+package com.cxkj.blog.dao;
+
+import com.cxkj.blog.pojo.Tag;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+
+import java.util.List;
+
+/**
+ *  Created by Arvin on 2021/2/7.
+ */
+
+public interface TagRepository extends JpaRepository<Tag,Long> {
+
+    Tag findByName(String name);
+
+    @Query("select t from Tag t")
+    List<Tag> findTop(Pageable pageable);
+}
+```
+BlogService.java
+```java
+package com.cxkj.blog.service;
+
+import com.cxkj.blog.pojo.Blog;
+import com.cxkj.blog.vo.BlogQuery;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
+import java.util.List;
+
+/**
+ *  Created by Arvin on 2021/2/8.
+ */
+
+public interface BlogService {
+
+    Blog getBlog(Long id);
+
+    Page<Blog> listBlog(Pageable pageable, BlogQuery blogQuery);
+
+    Page<Blog> listBlog(Pageable pageable);
+
+    List<Blog> listRecommendBlogTop(Integer size);
+
+    Blog saveBlog(Blog blog);
+
+    Blog updateBlog(Long id,Blog blog);
+
+    void deleteBlog(Long id);
+}
+```
+BlogServiceImpl.java
+```java
+package com.cxkj.blog.service;
+
+import com.cxkj.blog.NotFoundException;
+import com.cxkj.blog.dao.BlogRepository;
+import com.cxkj.blog.pojo.Blog;
+import com.cxkj.blog.pojo.Type;
+import com.cxkj.blog.util.MyBeanUtils;
+import com.cxkj.blog.vo.BlogQuery;
+import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specification;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
+/**
+ *  Created by Arvin on 2021/2/8.
+ */
+@Service
+public class BlogServiceImpl implements BlogService{
+
+    @Autowired
+    private BlogRepository blogRepository;
+
+    @Override
+    public Blog getBlog(Long id) {
+        return blogRepository.findById(id).get();
+    }
+
+    @Override
+    public Page<Blog> listBlog(Pageable pageable, BlogQuery blogQuery) {
+
+        return blogRepository.findAll(new Specification<Blog>() {
+            @Override
+            public Predicate toPredicate(Root<Blog> root, CriteriaQuery<?> criteriaQuery, CriteriaBuilder criteriaBuilder) {
+                List<Predicate> predicateList = new ArrayList<>();
+                if (!"".equals(blogQuery.getTitle()) && blogQuery.getTitle() != null){
+                    predicateList.add(criteriaBuilder.like(root.<String>get("title"),"%"+blogQuery.getTitle()+"%"));
+                }
+                if (blogQuery.getTypeID() != null){
+                    predicateList.add(criteriaBuilder.equal(root.<Type>get("type").get("id"),blogQuery.getTypeID()));
+                }
+                if (blogQuery.isRecommend()){
+                    predicateList.add(criteriaBuilder.equal(root.<Boolean>get("recommend"),blogQuery.isRecommend()));
+                }
+                criteriaQuery.where(predicateList.toArray(new Predicate[predicateList.size()]));
+                return null;
+            }
+        },pageable);
+    }
+
+    @Override
+    public Page<Blog> listBlog(Pageable pageable) {
+        return blogRepository.findAll(pageable);
+    }
+
+    @Override
+    public List<Blog> listRecommendBlogTop(Integer size) {
+        Sort sort = Sort.by(Sort.Direction.DESC,"updateTime");
+        Pageable pageable = PageRequest.of(0,size,sort);
+        return blogRepository.findTop(pageable);
+    }
+
+    @Transactional
+    @Override
+    public Blog saveBlog(Blog blog) {
+        if (blog.getId() == null){
+            blog.setCreateTime(new Date());
+            blog.setUpdateTime(new Date());
+            blog.setViews(0);
+        }else {
+            blog.setUpdateTime(new Date());
+        }
+        return blogRepository.save(blog);
+    }
+
+    @Transactional
+    @Override
+    public Blog updateBlog(Long id, Blog blog) {
+        Blog b = blogRepository.findById(id).get();
+        if (b == null){
+            throw new NotFoundException("管理员大大,这个博客不存在哦！～(　TロT)σ");
+        }
+        BeanUtils.copyProperties(blog,b, MyBeanUtils.getNullPropertyNames(blog));
+        b.setUpdateTime(new Date());
+        return blogRepository.save(b);
+    }
+
+    @Transactional
+    @Override
+    public void deleteBlog(Long id) {
+        blogRepository.deleteById(id);
+    }
+}
+```
+BlogRepository.java
+```java
+package com.cxkj.blog.dao;
+
+import com.cxkj.blog.pojo.Blog;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
+import org.springframework.data.jpa.repository.Query;
+
+import java.util.List;
+
+/**
+ *  Created by Arvin on 2021/2/8.
+ */
+
+public interface BlogRepository extends JpaRepository<Blog,Long>, JpaSpecificationExecutor<Blog> {
+
+    @Query("select b from Blog b where b.recommend = true")
+    List<Blog> findTop(Pageable pageable);
 }
 ```

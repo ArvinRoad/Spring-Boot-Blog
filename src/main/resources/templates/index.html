@@ -44,17 +44,18 @@
                                     <h3 class="ui header">博客</h3>
                                 </div>
                                 <div class="right aligned column">
-                                    共<h2 class="ui orange header m-inline-block m-text-thin"> 14 </h2>篇
+                                    共<h2 class="ui orange header m-inline-block m-text-thin" th:text="${page.totalElements}"> 14 </h2>篇
                                 </div>
                             </div>
                         </div>
                         <!--content-->
                         <div class="ui attached segment">
-                            <div class="ui segment m-padded-tb-large m-mobile-lr-clear">
-                                <div class="ui mobile reversed stackable grid">
+
+                            <div class="ui segment m-padded-tb-large m-mobile-lr-clear" th:each="blog : ${page.content}">
+                                <div class="ui middle aligned mobile reversed stackable grid">
                                     <div class="eleven wide column">
-                                        <h3 class="ui header">关于山海美文</h3>
-                                        <p class="m-text">旅途并不漫长，但几次睡醒之间也看到不一样的风景。
+                                        <h3 class="ui header"><a href="#" th:href="@{/blog/{id}(id=${blog.id})}" target="_blank" class="m-black" th:text="${blog.title}">关于山海美文</a></h3>
+                                        <p class="m-text" th:text="|${blog.description}......|">旅途并不漫长，但几次睡醒之间也看到不一样的风景。
                                             有万木争荣林海，白墙黑瓦人家，繁华拥挤的城市，和水天一色的大海。
                                             这些都是固守一城的人无法领略的美，而我将他们收录进我浅薄的履历当中，实是三生有幸。
                                         </p>
@@ -62,262 +63,41 @@
                                             <div class="eleven wide column">
                                                 <div class="ui mini horizontal link list">
                                                     <div class="item">
-                                                        <img src="https://picsum.photos/id/1027/100/100" alt="头像" class="ui avatar image">
-                                                        <div class="content"><a href="#" class="header">Guest Island</a></div>
+                                                        <img src="https://picsum.photos/id/1027/100/100" th:src="@{${blog.user.avatar}}" alt="头像" class="ui avatar image">
+                                                        <div class="content"><a href="#" class="header" th:text="${blog.user.nickname}">Guest Island</a></div>
                                                     </div>
                                                     <div class="item">
-                                                        <i class="calendar icon"></i>2020-12-29
+                                                        <i class="calendar icon"></i><span th:text="${#dates.format(blog.updateTime,'yyyy-MM-dd')}">2020-12-29</span>
                                                     </div>
                                                     <div class="item">
-                                                        <i class="eye icon"></i>888
+                                                        <i class="eye icon"></i> <span th:text="${blog.views}"> 888</span>
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="right aligned five wide column">
-                                                <a href="#" target="_blank" class="ui teal basic label m-padded-tiny m-text-thin">魂海斋阁</a>
+                                                <a href="#" target="_blank" class="ui teal basic label m-padded-tiny m-text-thin" th:text="${blog.type.name}">魂海斋阁</a>
                                             </div>
 
                                         </div>
                                     </div>
                                     <div class="five wide column">
-                                        <a href="#" target="_blank">
-                                            <img src="https://picsum.photos/seed/picsum/800/450" alt="山海" class="ui rounded image">
+                                        <a href="#" th:href="@{/blog/{id}(id=${blog.id})}" target="_blank">
+                                            <img src="https://picsum.photos/seed/picsum/800/450" th:src="@{${blog.firstPicture}}" alt="山海" class="ui rounded image">
                                         </a>
                                     </div>
 
                                 </div>
                             </div>
-                            <div class="ui segment m-padded-tb-large m-mobile-lr-clear">
-                                <div class="ui mobile reversed stackable grid">
-                                    <div class="eleven wide column">
-                                        <h3 class="ui header">关于山海美文</h3>
-                                        <p class="m-text">旅途并不漫长，但几次睡醒之间也看到不一样的风景。
-                                            有万木争荣林海，白墙黑瓦人家，繁华拥挤的城市，和水天一色的大海。
-                                            这些都是固守一城的人无法领略的美，而我将他们收录进我浅薄的履历当中，实是三生有幸。
-                                        </p>
-                                        <div class="ui stackable grid">
-                                            <div class="eleven wide column">
-                                                <div class="ui mini horizontal link list">
-                                                    <div class="item">
-                                                        <img src="https://picsum.photos/id/1027/100/100" alt="头像" class="ui avatar image">
-                                                        <div class="content"><a href="#" class="header">Guest Island</a></div>
-                                                    </div>
-                                                    <div class="item">
-                                                        <i class="calendar icon"></i>2020-12-29
-                                                    </div>
-                                                    <div class="item">
-                                                        <i class="eye icon"></i>888
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="right aligned five wide column">
-                                                <a href="#" target="_blank" class="ui teal basic label m-padded-tiny m-text-thin">魂海斋阁</a>
-                                            </div>
 
-                                        </div>
-                                    </div>
-                                    <div class="five wide column">
-                                        <a href="#" target="_blank">
-                                            <img src="https://picsum.photos/seed/picsum/800/450" alt="山海" class="ui rounded image">
-                                        </a>
-                                    </div>
-
-                                </div>
-                            </div>
-                            <div class="ui segment m-padded-tb-large m-mobile-lr-clear">
-                                <div class="ui mobile reversed stackable grid">
-                                    <div class="eleven wide column">
-                                        <h3 class="ui header">关于山海美文</h3>
-                                        <p class="m-text">旅途并不漫长，但几次睡醒之间也看到不一样的风景。
-                                            有万木争荣林海，白墙黑瓦人家，繁华拥挤的城市，和水天一色的大海。
-                                            这些都是固守一城的人无法领略的美，而我将他们收录进我浅薄的履历当中，实是三生有幸。
-                                        </p>
-                                        <div class="ui stackable grid">
-                                            <div class="eleven wide column">
-                                                <div class="ui mini horizontal link list">
-                                                    <div class="item">
-                                                        <img src="https://picsum.photos/id/1027/100/100" alt="头像" class="ui avatar image">
-                                                        <div class="content"><a href="#" class="header">Guest Island</a></div>
-                                                    </div>
-                                                    <div class="item">
-                                                        <i class="calendar icon"></i>2020-12-29
-                                                    </div>
-                                                    <div class="item">
-                                                        <i class="eye icon"></i>888
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="right aligned five wide column">
-                                                <a href="#" target="_blank" class="ui teal basic label m-padded-tiny m-text-thin">魂海斋阁</a>
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                    <div class="five wide column">
-                                        <a href="#" target="_blank">
-                                            <img src="https://picsum.photos/seed/picsum/800/450" alt="山海" class="ui rounded image">
-                                        </a>
-                                    </div>
-
-                                </div>
-                            </div>
-                            <div class="ui segment m-padded-tb-large m-mobile-lr-clear">
-                                <div class="ui mobile reversed stackable grid">
-                                    <div class="eleven wide column">
-                                        <h3 class="ui header">关于山海美文</h3>
-                                        <p class="m-text">旅途并不漫长，但几次睡醒之间也看到不一样的风景。
-                                            有万木争荣林海，白墙黑瓦人家，繁华拥挤的城市，和水天一色的大海。
-                                            这些都是固守一城的人无法领略的美，而我将他们收录进我浅薄的履历当中，实是三生有幸。
-                                        </p>
-                                        <div class="ui stackable grid">
-                                            <div class="eleven wide column">
-                                                <div class="ui mini horizontal link list">
-                                                    <div class="item">
-                                                        <img src="https://picsum.photos/id/1027/100/100" alt="头像" class="ui avatar image">
-                                                        <div class="content"><a href="#" class="header">Guest Island</a></div>
-                                                    </div>
-                                                    <div class="item">
-                                                        <i class="calendar icon"></i>2020-12-29
-                                                    </div>
-                                                    <div class="item">
-                                                        <i class="eye icon"></i>888
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="right aligned five wide column">
-                                                <a href="#" target="_blank" class="ui teal basic label m-padded-tiny m-text-thin">魂海斋阁</a>
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                    <div class="five wide column">
-                                        <a href="#" target="_blank">
-                                            <img src="https://picsum.photos/seed/picsum/800/450" alt="山海" class="ui rounded image">
-                                        </a>
-                                    </div>
-
-                                </div>
-                            </div>
-                            <div class="ui segment m-padded-tb-large m-mobile-lr-clear">
-                                <div class="ui mobile reversed stackable grid">
-                                    <div class="eleven wide column">
-                                        <h3 class="ui header">关于山海美文</h3>
-                                        <p class="m-text">旅途并不漫长，但几次睡醒之间也看到不一样的风景。
-                                            有万木争荣林海，白墙黑瓦人家，繁华拥挤的城市，和水天一色的大海。
-                                            这些都是固守一城的人无法领略的美，而我将他们收录进我浅薄的履历当中，实是三生有幸。
-                                        </p>
-                                        <div class="ui stackable grid">
-                                            <div class="eleven wide column">
-                                                <div class="ui mini horizontal link list">
-                                                    <div class="item">
-                                                        <img src="https://picsum.photos/id/1027/100/100" alt="头像" class="ui avatar image">
-                                                        <div class="content"><a href="#" class="header">Guest Island</a></div>
-                                                    </div>
-                                                    <div class="item">
-                                                        <i class="calendar icon"></i>2020-12-29
-                                                    </div>
-                                                    <div class="item">
-                                                        <i class="eye icon"></i>888
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="right aligned five wide column">
-                                                <a href="#" target="_blank" class="ui teal basic label m-padded-tiny m-text-thin">魂海斋阁</a>
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                    <div class="five wide column">
-                                        <a href="#" target="_blank">
-                                            <img src="https://picsum.photos/seed/picsum/800/450" alt="山海" class="ui rounded image">
-                                        </a>
-                                    </div>
-
-                                </div>
-                            </div>
-                            <div class="ui segment m-padded-tb-large m-mobile-lr-clear">
-                                <div class="ui mobile reversed stackable grid">
-                                    <div class="eleven wide column">
-                                        <h3 class="ui header">关于山海美文</h3>
-                                        <p class="m-text">旅途并不漫长，但几次睡醒之间也看到不一样的风景。
-                                            有万木争荣林海，白墙黑瓦人家，繁华拥挤的城市，和水天一色的大海。
-                                            这些都是固守一城的人无法领略的美，而我将他们收录进我浅薄的履历当中，实是三生有幸。
-                                        </p>
-                                        <div class="ui stackable grid">
-                                            <div class="eleven wide column">
-                                                <div class="ui mini horizontal link list">
-                                                    <div class="item">
-                                                        <img src="https://picsum.photos/id/1027/100/100" alt="头像" class="ui avatar image">
-                                                        <div class="content"><a href="#" class="header">Guest Island</a></div>
-                                                    </div>
-                                                    <div class="item">
-                                                        <i class="calendar icon"></i>2020-12-29
-                                                    </div>
-                                                    <div class="item">
-                                                        <i class="eye icon"></i>888
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="right aligned five wide column">
-                                                <a href="#" target="_blank" class="ui teal basic label m-padded-tiny m-text-thin">魂海斋阁</a>
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                    <div class="five wide column">
-                                        <a href="#" target="_blank">
-                                            <img src="https://picsum.photos/seed/picsum/800/450" alt="山海" class="ui rounded image">
-                                        </a>
-                                    </div>
-
-                                </div>
-                            </div>
-                            <div class="ui segment m-padded-tb-large m-mobile-lr-clear">
-                                <div class="ui mobile reversed stackable grid">
-                                    <div class="eleven wide column">
-                                        <h3 class="ui header">关于山海美文</h3>
-                                        <p class="m-text">旅途并不漫长，但几次睡醒之间也看到不一样的风景。
-                                            有万木争荣林海，白墙黑瓦人家，繁华拥挤的城市，和水天一色的大海。
-                                            这些都是固守一城的人无法领略的美，而我将他们收录进我浅薄的履历当中，实是三生有幸。
-                                        </p>
-                                        <div class="ui stackable grid">
-                                            <div class="eleven wide column">
-                                                <div class="ui mini horizontal link list">
-                                                    <div class="item">
-                                                        <img src="https://picsum.photos/id/1027/100/100" alt="头像" class="ui avatar image">
-                                                        <div class="content"><a href="#" class="header">Guest Island</a></div>
-                                                    </div>
-                                                    <div class="item">
-                                                        <i class="calendar icon"></i>2020-12-29
-                                                    </div>
-                                                    <div class="item">
-                                                        <i class="eye icon"></i>888
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="right aligned five wide column">
-                                                <a href="#" target="_blank" class="ui teal basic label m-padded-tiny m-text-thin">魂海斋阁</a>
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                    <div class="five wide column">
-                                        <a href="#" target="_blank">
-                                            <img src="https://picsum.photos/seed/picsum/800/450" alt="山海" class="ui rounded image">
-                                        </a>
-                                    </div>
-
-                                </div>
-                            </div>
                         </div>
                         <!--Footer-->
-                        <div class="ui bottom attached segment">
+                        <div class="ui bottom attached segment" th:if="${page.totalPages}>1">
                             <div class="ui middle aligned two column grid">
                                 <div class="column">
-                                    <a href="#" class="ui mini teal basic button">上一页</a>
+                                    <a href="#" th:href="@{/(page=${page.number}-1)}" th:nuless="${page.first}" class="ui mini teal basic button">上一页</a>
                                 </div>
                                 <div class="right aligned column">
-                                    <a href="#" class="ui mini teal basic button">下一页</a>
+                                    <a href="#" th:href="@{/(page=${page.number}+1)}" th:nuless="${page.last}" class="ui mini teal basic button">下一页</a>
                                 </div>
                             </div>
                         </div>
@@ -337,31 +117,14 @@
                                </div>
                            </div>
                            <div class="ui teal segment">
+
                                <div class="ui fluid vertical menu">
-                                   <a href="#" class="item">
-                                       UE4C++开发
-                                       <div class="ui teal basic left pointing label">13</div>
+
+                                   <a href="#" class="item" th:each="type : ${types}">
+                                       <span th:text="${type.name}">UE4C++开发</span>
+                                       <div class="ui teal basic left pointing label" th:text="${#arrays.length(type.blogs)}">13</div>
                                    </a>
-                                   <a href="#" class="item">
-                                       人工智能
-                                       <div class="ui teal basic left pointing label">50</div>
-                                   </a>
-                                   <a href="#" class="item">
-                                       游戏视觉设计
-                                       <div class="ui teal basic left pointing label">20</div>
-                                   </a>
-                                   <a href="#" class="item">
-                                       硬件开发
-                                       <div class="ui teal basic left pointing label">2</div>
-                                   </a>
-                                   <a href="#" class="item">
-                                       服务器开发
-                                       <div class="ui teal basic left pointing label">80</div>
-                                   </a>
-                                   <a href="#" class="item">
-                                      智能未来
-                                       <div class="ui teal basic left pointing label">8</div>
-                                   </a>
+
                                </div>
                            </div>
                        </div>
@@ -378,27 +141,11 @@
                                 </div>
                             </div>
                             <div class="ui teal segment">
-                                <a href="#" target="_blank" class="ui teal basic left pointing label m-margin-tb-tiny">
-                                    魂海斋阁 <div class="detail">18</div>
+
+                                <a href="#" target="_blank" class="ui teal basic left pointing label m-margin-tb-tiny" th:each="tag : ${tags}">
+                                    <span th:text="${tag.name}">魂海斋阁</span> <div class="detail" th:text="${#arrays.length(tag.blogs)}">18</div>
                                 </a>
-                                <a href="#" target="_blank" class="ui teal basic left pointing label m-margin-tb-tiny">
-                                    WEB/服务器开发 <div class="detail">80</div>
-                                </a>
-                                <a href="#" target="_blank" class="ui teal basic left pointing label m-margin-tb-tiny">
-                                    C/C++开发 <div class="detail">53</div>
-                                </a>
-                                <a href="#" target="_blank" class="ui teal basic left pointing label m-margin-tb-tiny">
-                                    Python开发 <div class="detail">16</div>
-                                </a>
-                                <a href="#" target="_blank" class="ui teal basic left pointing label m-margin-tb-tiny">
-                                    推荐热文 <div class="detail">3</div>
-                                </a>
-                                <a href="#" target="_blank" class="ui teal basic left pointing label m-margin-tb-tiny">
-                                    游戏开发 <div class="detail">45</div>
-                                </a>
-                                <a href="#" target="_blank" class="ui teal basic left pointing label m-margin-tb-tiny">
-                                    技术论文 <div class="detail">5</div>
-                                </a>
+
                             </div>
                         </div>
                         <!--最新推荐-->
@@ -406,31 +153,13 @@
                             <div class="ui secondary segment">
                                 <i class="bookmark icon"></i>最新推荐
                             </div>
-                            <div class="ui segment">
-                                <a href="#" target="_blank" class="m-black m-text-thin">关于脑机那些事</a>
+
+                            <div class="ui segment" th:each="blog : ${recommendBlogs}">
+                                <a href="#" th:href="@{/blog/{id}(id=${blog.id})}" target="_blank" class="m-black m-text-thin" th:text="${blog.title}">关于脑机那些事</a>
                             </div>
-                            <div class="ui segment">
-                                <a href="#" target="_blank" class="m-black m-text-thin">JVM调优</a>
-                            </div>
-                            <div class="ui segment">
-                                <a href="#" target="_blank" class="m-black m-text-thin">UE5技术前沿</a>
-                            </div>
-                            <div class="ui segment">
-                                <a href="#" target="_blank" class="m-black m-text-thin">人工智能利与弊</a>
-                            </div>
-                            <div class="ui segment">
-                                <a href="#" target="_blank" class="m-black m-text-thin">未来汽车功能构想</a>
-                            </div>
-                            <div class="ui segment">
-                                <a href="#" target="_blank" class="m-black m-text-thin">游戏优化细节</a>
-                            </div>
-                            <div class="ui segment">
-                                <a href="#" target="_blank" class="m-black m-text-thin">2021年计划</a>
-                            </div>
-                            <div class="ui segment">
-                                <a href="#" target="_blank" class="m-black m-text-thin">工作室问题</a>
-                            </div>
+
                         </div>
+
                         <!--二维码-->
                         <h4 class="ui horizontal divider header m-margin-top-large">扫码关注我</h4>
                         <div class="ui centered card" style="width: 11em">
