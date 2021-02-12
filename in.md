@@ -30,6 +30,7 @@
 | BlogController.java | Blog后台页面权限过滤管理类 |
 | TypeController.java | Web层分类模块操作 |
 | TagController.java | Web层标签模块操作 |
+| CommentController.java | 评论模块处理 |
 | LongInterceptor.java | Blog后台页面权限(登录过滤)类 |
 | WebConfig.html | Blog后台页面权限(拦截配置) 类|
 | ControllerExceptionHandler.java | BeBug拦截器 |
@@ -47,10 +48,13 @@
 | BlogService.java | 博客业务逻辑处理接口 |
 | BlogServiceImpl.java | 博客业务逻辑处理实现类 |
 | TagServiceImpl.java | 标签业务逻辑处理实现类 |
+| CommentService.java | 评论业务逻辑处理接口 |
+| CommentServiceImpl.java | 评论业务逻辑处理实现类 |
 | UserRepository.java | 引用SpringJPA SQL操作接口 |
 | TypeRepository.java | 分类业务处理 SQL操作接口 |
 | TagRepository.java | 标签业务处理 SQL操作接口 |
 | BlogRepository.java | 博客业务处理 SQL操作接口 |
+| CommentRepository.java | 评论业务处理 SQL操作接口 |
 | BlogQuery.java | 博客搜索查询类 |
 | MD5Utils.java | MD5加密类 |
 | MyBeanUtils.java | 修复SQL数据修改后为null工具类(过滤掉数据值为null) |
@@ -3738,5 +3742,135 @@ public class BlogServiceImpl implements BlogService{
     public void deleteBlog(Long id) {
         blogRepository.deleteById(id);
     }
+}
+```
+### 评论模块实现
+CommentController.java
+```java
+package com.cxkj.blog.web;
+
+import com.cxkj.blog.pojo.Comment;
+import com.cxkj.blog.service.BlogService;
+import com.cxkj.blog.service.CommentService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+
+import javax.validation.Valid;
+
+/**
+ *  Created by Arvin on 2021/2/13.
+ */
+@Controller
+public class CommentController {
+
+    @Autowired
+    private CommentService commentService;
+
+    @Autowired
+    private BlogService blogService;
+
+    @Value("${comment.avatar}")
+    private String avatar;
+
+    @GetMapping("/comments/{blogId}")
+    public String comments(@PathVariable Long blogId, Model model){
+        model.addAttribute("comments",commentService.listCommentByBlogId(blogId));
+        return "blog :: commentList";
+    }
+
+    @PostMapping("/comments")
+    public String post(Comment comment) {
+        Long blogId = comment.getBlog().getId();
+        comment.setBlog(blogService.getBlog(blogId));
+        comment.setAvatar(avatar);
+        commentService.saveComment(comment);
+        return "redirect:/comments/" + blogId;
+    }
+}
+```
+CommentService.java
+```java
+package com.cxkj.blog.service;
+
+import com.cxkj.blog.pojo.Comment;
+
+import java.util.List;
+
+/**
+ *  Created by Arvin on 2021/2/13.
+ */
+
+public interface CommentService {
+
+    List<Comment> listCommentByBlogId(Long blogId);
+
+    Comment saveComment(Comment comment);
+}
+```
+CommentServiceImpl.java
+```java
+package com.cxkj.blog.service;
+
+import com.cxkj.blog.dao.CommentRepository;
+import com.cxkj.blog.pojo.Comment;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Date;
+import java.util.List;
+
+/**
+ *  Created by Arvin on 2021/2/13.
+ */
+@Service
+public class CommentServiceImpl implements CommentService{
+
+    @Autowired
+    private CommentRepository commentRepository;
+
+    @Override
+    public List<Comment> listCommentByBlogId(Long blogId) {
+        Sort sort = Sort.by(Sort.Direction.DESC,"createTime");
+        return commentRepository.findByBlogId(blogId,sort);
+    }
+
+    @Transactional
+    @Override
+    public Comment saveComment(Comment comment) {
+        Long parentCommentId = comment.getParentComment().getId();
+        if (parentCommentId != -1){
+            comment.setParentComment(commentRepository.findById(parentCommentId).get());
+        }else {
+            comment.setParentComment(null);
+        }
+        comment.setCreateTime(new Date());
+        return commentRepository.save(comment);
+    }
+}
+```
+CommentRepository.java
+```java
+package com.cxkj.blog.dao;
+
+import com.cxkj.blog.pojo.Comment;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import java.util.List;
+
+/**
+ *  Created by Arvin on 2021/2/13.
+ */
+
+public interface CommentRepository extends JpaRepository<Comment,Long> {
+
+    List<Comment> findByBlogId(Long blogId, Sort sort);
 }
 ```
