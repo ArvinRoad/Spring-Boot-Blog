@@ -4,6 +4,7 @@ import com.cxkj.blog.NotFoundException;
 import com.cxkj.blog.dao.BlogRepository;
 import com.cxkj.blog.pojo.Blog;
 import com.cxkj.blog.pojo.Type;
+import com.cxkj.blog.util.MarkdownUtils;
 import com.cxkj.blog.util.MyBeanUtils;
 import com.cxkj.blog.vo.BlogQuery;
 import org.springframework.beans.BeanUtils;
@@ -68,6 +69,19 @@ public class BlogServiceImpl implements BlogService{
     @Override
     public Page<Blog> listBlog(String query, Pageable pageable) {
         return blogRepository.findByQuery(query,pageable);
+    }
+
+    @Override
+    public Blog getAndConvert(Long id) {
+        Blog blog = blogRepository.findById(id).get();
+        if (blog == null){
+            throw new NotFoundException("博客不存在哦");
+        }
+        Blog b = new Blog();
+        BeanUtils.copyProperties(blog,b);
+        String content = b.getContent();
+        b.setContent(MarkdownUtils.markdownToHtmlExtensions(content));
+        return b;
     }
 
     @Override

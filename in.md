@@ -54,6 +54,7 @@
 | BlogQuery.java | 博客搜索查询类 |
 | MD5Utils.java | MD5加密类 |
 | MyBeanUtils.java | 修复SQL数据修改后为null工具类(过滤掉数据值为null) |
+| MarkdownUtils.java | Markdown转换HTML工具类 |
 
 项目配置(Jar包)
 ```xml
@@ -144,6 +145,26 @@
     <groupId>org.hibernate</groupId>
     <artifactId>hibernate-validator</artifactId>
     <version>6.0.13.Final</version>
+</dependency>
+```
+Markdown转换HTML第三方Jar包配置
+```xml
+<dependency>
+    <groupId>com.atlassian.commonmark</groupId>
+    <artifactId>commonmark</artifactId>
+    <version>0.10.0</version>
+</dependency>
+
+<dependency>
+    <groupId>com.atlassian.commonmark</groupId>
+    <artifactId>commonmark-ext-heading-anchor</artifactId>
+    <version>0.10.0</version>
+</dependency>
+
+<dependency>
+    <groupId>com.atlassian.commonmark</groupId>
+    <artifactId>commonmark-ext-gfm-tables</artifactId>
+    <version>0.10.0</version>
 </dependency>
 ```
 ### Application.yml配置文件
@@ -3405,5 +3426,317 @@ public interface BlogRepository extends JpaRepository<Blog,Long>, JpaSpecificati
     //select * from t_blog where title like '%内容%'
     @Query("select b from Blog b where b.title like ?1 or b.content like ?1")
     Page<Blog> findByQuery(String query,Pageable pageable);
+}
+```
+### 博客详情业务处理
+IndexController.java
+```java
+package com.cxkj.blog.web;
+
+import com.cxkj.blog.service.BlogService;
+import com.cxkj.blog.service.TagService;
+import com.cxkj.blog.service.TypeService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+/**
+ *  Created by Arvin on 2021/2/3.
+ */
+@Controller
+public class IndexController {
+
+    @Autowired
+    private BlogService blogService;
+
+    @Autowired
+    private TypeService typeService;
+
+    @Autowired
+    private TagService tagService;
+
+    @GetMapping("/")
+    public String index(@PageableDefault(size = 10,sort = {"updateTime"},direction = Sort.Direction.DESC)Pageable pageable, Model model){
+        model.addAttribute("page",blogService.listBlog(pageable));
+        model.addAttribute("types",typeService.listTypeTop(6));
+        model.addAttribute("tags",tagService.listTagTop(10));
+        model.addAttribute("recommendBlogs",blogService.listRecommendBlogTop(8));
+        return "index";
+    }
+
+    @PostMapping("/search")
+    public String search(@PageableDefault(size = 10,sort = {"updateTime"},direction = Sort.Direction.DESC)Pageable pageable, @RequestParam String query, Model model){
+        model.addAttribute("page",blogService.listBlog("%"+query+"%",pageable));
+        model.addAttribute("query",query);
+        return "search";
+    }
+
+    @GetMapping("/blog/{id}")
+    public String blog(@PathVariable Long id, Model model){
+        model.addAttribute("blog",blogService.getAndConvert(id));
+        return "blog";
+    }
+
+}
+```
+MarkdownUtils.java Markdown转换HTML工具类
+```java
+package com.cxkj.blog.util;
+
+import org.commonmark.Extension;
+import org.commonmark.ext.gfm.tables.TableBlock;
+import org.commonmark.ext.gfm.tables.TablesExtension;
+import org.commonmark.ext.heading.anchor.HeadingAnchorExtension;
+import org.commonmark.node.Link;
+import org.commonmark.node.Node;
+import org.commonmark.parser.Parser;
+import org.commonmark.renderer.html.AttributeProvider;
+import org.commonmark.renderer.html.AttributeProviderContext;
+import org.commonmark.renderer.html.AttributeProviderFactory;
+import org.commonmark.renderer.html.HtmlRenderer;
+
+import java.util.*;
+
+/**
+ *  Created by Arvin on 2021/2/12.
+ */
+
+public class MarkdownUtils {
+
+    /**
+     * markdown格式转换成HTML格式
+     * @param markdown
+     * @return
+     */
+    public static String markdownToHtml(String markdown) {
+        Parser parser = Parser.builder().build();
+        Node document = parser.parse(markdown);
+        HtmlRenderer renderer = HtmlRenderer.builder().build();
+        return renderer.render(document);
+    }
+
+    /**
+     * 增加扩展[标题锚点，表格生成]
+     * Markdown转换成HTML
+     * @param markdown
+     * @return
+     */
+    public static String markdownToHtmlExtensions(String markdown) {
+        //h标题生成id
+        Set<Extension> headingAnchorExtensions = Collections.singleton(HeadingAnchorExtension.create());
+        //转换table的HTML
+        List<Extension> tableExtension = Arrays.asList(TablesExtension.create());
+        Parser parser = Parser.builder()
+                .extensions(tableExtension)
+                .build();
+        Node document = parser.parse(markdown);
+        HtmlRenderer renderer = HtmlRenderer.builder()
+                .extensions(headingAnchorExtensions)
+                .extensions(tableExtension)
+                .attributeProviderFactory(new AttributeProviderFactory() {
+                    public AttributeProvider create(AttributeProviderContext context) {
+                        return new CustomAttributeProvider();
+                    }
+                })
+                .build();
+        return renderer.render(document);
+    }
+
+    /**
+     * 处理标签的属性
+     */
+    static class CustomAttributeProvider implements AttributeProvider {
+        @Override
+        public void setAttributes(Node node, String tagName, Map<String, String> attributes) {
+            //改变a标签的target属性为_blank
+            if (node instanceof Link) {
+                attributes.put("target", "_blank");
+            }
+            if (node instanceof TableBlock) {
+                attributes.put("class", "ui celled table");
+            }
+        }
+    }
+
+
+    public static void main(String[] args) {
+        String table = "| hello | hi   | 哈哈哈   |\n" +
+                "| ----- | ---- | ----- |\n" +
+                "| 斯维尔多  | 士大夫  | f啊    |\n" +
+                "| 阿什顿发  | 非固定杆 | 撒阿什顿发 |\n" +
+                "\n";
+        String a = "[imCoding 爱编程](http://www.lirenmi.cn)";
+        System.out.println(markdownToHtmlExtensions(a));
+    }
+}
+```
+BlogService.java
+```java
+package com.cxkj.blog.service;
+
+import com.cxkj.blog.pojo.Blog;
+import com.cxkj.blog.vo.BlogQuery;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
+import java.util.List;
+
+/**
+ *  Created by Arvin on 2021/2/8.
+ */
+
+public interface BlogService {
+
+    Blog getBlog(Long id);
+
+    Page<Blog> listBlog(Pageable pageable, BlogQuery blogQuery);
+
+    Page<Blog> listBlog(Pageable pageable);
+
+    Page<Blog> listBlog(String query,Pageable pageable);
+    
+    Blog getAndConvert(Long id);
+
+    List<Blog> listRecommendBlogTop(Integer size);
+
+    Blog saveBlog(Blog blog);
+
+    Blog updateBlog(Long id,Blog blog);
+
+    void deleteBlog(Long id);
+}
+```
+BlogServiceImpl.java
+```java
+package com.cxkj.blog.service;
+
+import com.cxkj.blog.NotFoundException;
+import com.cxkj.blog.dao.BlogRepository;
+import com.cxkj.blog.pojo.Blog;
+import com.cxkj.blog.pojo.Type;
+import com.cxkj.blog.util.MarkdownUtils;
+import com.cxkj.blog.util.MyBeanUtils;
+import com.cxkj.blog.vo.BlogQuery;
+import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specification;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
+/**
+ *  Created by Arvin on 2021/2/8.
+ */
+@Service
+public class BlogServiceImpl implements BlogService{
+
+    @Autowired
+    private BlogRepository blogRepository;
+
+    @Override
+    public Blog getBlog(Long id) {
+        return blogRepository.findById(id).get();
+    }
+
+    @Override
+    public Page<Blog> listBlog(Pageable pageable, BlogQuery blogQuery) {
+
+        return blogRepository.findAll(new Specification<Blog>() {
+            @Override
+            public Predicate toPredicate(Root<Blog> root, CriteriaQuery<?> criteriaQuery, CriteriaBuilder criteriaBuilder) {
+                List<Predicate> predicateList = new ArrayList<>();
+                if (!"".equals(blogQuery.getTitle()) && blogQuery.getTitle() != null){
+                    predicateList.add(criteriaBuilder.like(root.<String>get("title"),"%"+blogQuery.getTitle()+"%"));
+                }
+                if (blogQuery.getTypeID() != null){
+                    predicateList.add(criteriaBuilder.equal(root.<Type>get("type").get("id"),blogQuery.getTypeID()));
+                }
+                if (blogQuery.isRecommend()){
+                    predicateList.add(criteriaBuilder.equal(root.<Boolean>get("recommend"),blogQuery.isRecommend()));
+                }
+                criteriaQuery.where(predicateList.toArray(new Predicate[predicateList.size()]));
+                return null;
+            }
+        },pageable);
+    }
+
+    @Override
+    public Page<Blog> listBlog(Pageable pageable) {
+        return blogRepository.findAll(pageable);
+    }
+
+    @Override
+    public Page<Blog> listBlog(String query, Pageable pageable) {
+        return blogRepository.findByQuery(query,pageable);
+    }
+
+    @Override
+    public Blog getAndConvert(Long id) {
+        Blog blog = blogRepository.findById(id).get();
+        if (blog == null){
+            throw new NotFoundException("博客不存在哦");
+        }
+        Blog b = new Blog();
+        BeanUtils.copyProperties(blog,b);
+        String content = b.getContent();
+        b.setContent(MarkdownUtils.markdownToHtmlExtensions(content));
+        return b;
+    }
+
+    @Override
+    public List<Blog> listRecommendBlogTop(Integer size) {
+        Sort sort = Sort.by(Sort.Direction.DESC,"updateTime");
+        Pageable pageable = PageRequest.of(0,size,sort);
+        return blogRepository.findTop(pageable);
+    }
+
+    @Transactional
+    @Override
+    public Blog saveBlog(Blog blog) {
+        if (blog.getId() == null){
+            blog.setCreateTime(new Date());
+            blog.setUpdateTime(new Date());
+            blog.setViews(0);
+        }else {
+            blog.setUpdateTime(new Date());
+        }
+        return blogRepository.save(blog);
+    }
+
+    @Transactional
+    @Override
+    public Blog updateBlog(Long id, Blog blog) {
+        Blog b = blogRepository.findById(id).get();
+        if (b == null){
+            throw new NotFoundException("管理员大大,这个博客不存在哦！～(　TロT)σ");
+        }
+        BeanUtils.copyProperties(blog,b, MyBeanUtils.getNullPropertyNames(blog));
+        b.setUpdateTime(new Date());
+        return blogRepository.save(b);
+    }
+
+    @Transactional
+    @Override
+    public void deleteBlog(Long id) {
+        blogRepository.deleteById(id);
+    }
 }
 ```

@@ -55,7 +55,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="G:/SpringBoot实战-博客/Blog-完整功能源代码/blog" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -71,9 +71,9 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="F:\Spring-Boot-Blog" />
       <recent name="F:\Spring-Boot-Blog\src\main\resources\templates" />
       <recent name="F:\Spring-Boot-Blog\src\main\resources\templates\admin" />
-      <recent name="F:\Spring-Boot-Blog" />
       <recent name="F:\Spring-Boot-bolg\src\main\resources\templates\admin" />
       <recent name="F:\Spring-Boot-bolg" />
     </key>
@@ -95,8 +95,8 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="MD5Utils" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="com.cxkj.bolg.util.MD5Utils" />
+    <configuration name="MarkdownUtils" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.cxkj.blog.util.MarkdownUtils" />
       <module name="Spring-Boot-bolg" />
       <extension name="coverage">
         <pattern>
@@ -108,13 +108,15 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
+    <configuration default="true" type="ArquillianTestNG" factoryName="" nameIsGenerated="true">
       <option name="arquillianRunConfiguration">
         <value>
           <option name="containerStateName" value="" />
         </value>
       </option>
-      <option name="TEST_OBJECT" value="class" />
+      <option name="TEST_OBJECT" value="CLASS" />
+      <properties />
+      <listeners />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -137,11 +139,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="应用程序.MarkdownUtils" />
         <item itemvalue="应用程序.MD5Utils (1)" />
         <item itemvalue="HTTP 请求.generated-requests#9" />
         <item itemvalue="HTTP 请求.generated-requests#6" />
         <item itemvalue="HTTP 请求.generated-requests#5" />
-        <item itemvalue="应用程序.MD5Utils" />
       </list>
     </recent_temporary>
   </component>
@@ -189,7 +191,8 @@
       <workItem from="1613047072886" duration="434000" />
       <workItem from="1613047529934" duration="1665000" />
       <workItem from="1613055334533" duration="409000" />
-      <workItem from="1613055855107" duration="5151000" />
+      <workItem from="1613055855107" duration="10551000" />
+      <workItem from="1613127315959" duration="7619000" />
     </task>
     <servers />
   </component>
