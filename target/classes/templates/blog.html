@@ -117,6 +117,7 @@
 
                            <div class="ui comments" style="max-width: 100%;">
                                <h3 class="ui dividing header">评论</h3>
+
                                <div class="comment" th:each="comment : ${comments}">
                                    <a class="avatar">
                                        <img src="https://picsum.photos/id/1027/100/100" th:src="@{${comment.avatar}}">
@@ -131,6 +132,28 @@
                                            <a class="reply" data-commentid="1" data-commentnickname="Matt" th:attr="data-commentid=${comment.id},data-commentnickname=${comment.nickname}" onclick="reply(this)">回复</a>
                                        </div>
                                    </div>
+
+                                   <!--子层-->
+                                   <div class="comments" th:if="${#arrays.length(comment.replyComments)}>0" style="box-shadow: -1px 0 0 rgb(34 36 38 / 15%);">
+                                       <div class="comment" th:each="reply : ${comment.replyComments}">
+                                           <a class="avatar">
+                                               <img src="https://picsum.photos/id/1027/100/100" th:src="@{${reply.avatar}}">
+                                           </a>
+                                           <div class="content">
+                                               <a class="author">
+                                                   <span th:text="${reply.nickname}">Matt</span>&nbsp;<span th:text="|@ ${reply.parentComment.nickname}|" class="m-teal">@ AEX</span>
+                                               </a>
+                                               <div class="metadata">
+                                                   <span class="date" th:text="${#dates.format(reply.createTime,'yyyy-MM-dd HH:mm')}">今天下午 5:42</span>
+                                               </div>
+                                               <div class="text" th:text="${reply.content}">太赞了！ </div>
+                                               <div class="actions">
+                                                   <a class="reply" data-commentid="1" data-commentnickname="Matt" th:attr="data-commentid=${reply.id},data-commentnickname=${reply.nickname}" onclick="reply(this)">回复</a>
+                                               </div>
+                                           </div>
+                                       </div>
+                                   </div>
+
                                </div>
 
                                <!--/*-->
@@ -365,6 +388,11 @@
                 }
             });
 
+            <!--评论刷新-->
+            $(function (){
+                $("#comment-container").load(/*[[@{/comments/{id}(id=${blog.id})}]]*/"comments/6");
+            });
+
             <!--评论发布验证-->
             $('#commentpost-button').click(function (){
                 var boo = $('.ui.form').form('validate form');
@@ -397,7 +425,7 @@
                 var commentId = $(obj).data('commentid');
                 var commentNickname = $(obj).data('commentnickname');
                 $("[name='content']").attr("placeholder","@"+commentNickname).focus();
-                $("[name='parentComment']").val(commentId);
+                $("[name='parentComment.id']").val(commentId);
                 $(window).scrollTo($('#comment-form'),500);
             }
         </script>
