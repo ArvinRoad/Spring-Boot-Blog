@@ -31,6 +31,7 @@
 | TypeController.java | Web层分类模块操作 |
 | TagController.java | Web层标签模块操作 |
 | CommentController.java | 评论模块处理 |
+| TypeShowController.java | 分类模块处理 |
 | LongInterceptor.java | Blog后台页面权限(登录过滤)类 |
 | WebConfig.html | Blog后台页面权限(拦截配置) 类|
 | ControllerExceptionHandler.java | BeBug拦截器 |
@@ -4042,4 +4043,411 @@ public class CommentController {
         return "redirect:/comments/" + blogId;
     }
 }
+```
+### 特殊用户评论模块
+CommentServiceImpl.java
+```java
+package com.cxkj.blog.service;
+
+import com.cxkj.blog.dao.CommentRepository;
+import com.cxkj.blog.pojo.Comment;
+import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
+/**
+ *  Created by Arvin on 2021/2/13.
+ */
+@Service
+public class CommentServiceImpl implements CommentService{
+
+    @Autowired
+    private CommentRepository commentRepository;
+
+    @Override
+    public List<Comment> listCommentByBlogId(Long blogId) {
+        Sort sort = Sort.by(Sort.Direction.ASC,"createTime");
+        List<Comment> comments = commentRepository.findByBlogIdAndParentCommentNull(blogId,sort);
+        return eachComment(comments);
+    }
+
+    @Transactional
+    @Override
+    public Comment saveComment(Comment comment) {
+        Long parentCommentId = comment.getParentComment().getId();
+        if (parentCommentId != -1){
+            comment.setParentComment(commentRepository.findById(parentCommentId).get());
+        }else {
+            comment.setParentComment(null);
+        }
+        comment.setCreateTime(new Date());
+        return commentRepository.save(comment);
+    }
+
+    /**
+     * 循环每个顶级的评论节点
+     * @param comments
+     * @return
+     */
+    private List<Comment> eachComment(List<Comment> comments){
+        List<Comment> commentsView = new ArrayList<>();
+        for (Comment comment : comments){
+            Comment c = new Comment();
+            BeanUtils.copyProperties(comment,c);
+            commentsView.add(c);
+        }
+        //合并评论的各层子代到第一级子代集合中
+        combineChildren(commentsView);
+        return commentsView;
+    }
+
+    /**
+     * @param comments root根节点，blog不为null的对象集合
+     * @return
+     */
+    private void combineChildren(List<Comment> comments){
+        for (Comment comment : comments){
+            List<Comment> replys = comment.getReplyComments();
+            for (Comment reply : replys){
+                //循环迭代,找出子代,存放在tempReplys中
+                recursively(reply);
+            }
+            //修改顶级节点的reply集合为迭代处理后的集合
+            comment.setReplyComments(tempReplys);
+            //清除临时存放区
+            tempReplys = new ArrayList<>();
+        }
+    }
+
+    //存放迭代找出的所有子代的集合
+    private List<Comment> tempReplys = new ArrayList<>();
+    /**
+     * 递归迭代，剥洋葱
+     * @param comment 被迭代的对象
+     * @return
+     */
+    private void recursively(Comment comment) {
+        tempReplys.add(comment);//顶节点添加到临时存放集合
+        if (comment.getReplyComments().size()>0) {
+            List<Comment> replays = comment.getReplyComments();
+            for (Comment reply : replays) {
+                tempReplys.add(reply);
+                if (reply.getReplyComments().size()>0) {
+                    recursively(reply);
+                }
+            }
+        }
+    }
+}
+```
+Comment.java
+```java
+package com.cxkj.blog.pojo;
+
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
+/**
+ *  Created by Arvin on 2021/2/4.
+ */
+@Entity
+@Table(name = "t_comment")
+public class Comment {
+
+    @Id
+    @GeneratedValue
+    private Long id;
+    private String nickname;
+    private String email;
+    private String content;
+    private String avatar;
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date createTime;
+
+    @ManyToOne
+    private Blog blog;
+
+    @OneToMany(mappedBy = "parentComment")
+    private List<Comment> replyComments = new ArrayList<>();
+    @ManyToOne
+    private Comment parentComment;
+    
+    private boolean adminComment;
+
+    public Comment() {
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getNickname() {
+        return nickname;
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
+    }
+
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
+
+    public Blog getBlog() {
+        return blog;
+    }
+
+    public void setBlog(Blog blog) {
+        this.blog = blog;
+    }
+
+    public List<Comment> getReplyComments() {
+        return replyComments;
+    }
+
+    public void setReplyComments(List<Comment> replyComments) {
+        this.replyComments = replyComments;
+    }
+
+    public Comment getParentComment() {
+        return parentComment;
+    }
+
+    public void setParentComment(Comment parentComment) {
+        this.parentComment = parentComment;
+    }
+
+    public boolean isAdminComment() {
+        return adminComment;
+    }
+
+    public void setAdminComment(boolean adminComment) {
+        this.adminComment = adminComment;
+    }
+
+    @Override
+    public String toString() {
+        return "Comment{" +
+                "id=" + id +
+                ", nickname='" + nickname + '\'' +
+                ", email='" + email + '\'' +
+                ", content='" + content + '\'' +
+                ", avatar='" + avatar + '\'' +
+                ", createTime=" + createTime +
+                ", blog=" + blog +
+                ", replyComments=" + replyComments +
+                ", parentComment=" + parentComment +
+                ", adminComment=" + adminComment +
+                '}';
+    }
+}
+```
+### 浏览次数模块
+BlogRepository.java
+```java
+package com.cxkj.blog.dao;
+
+import com.cxkj.blog.pojo.Blog;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
+
+/**
+ *  Created by Arvin on 2021/2/8.
+ */
+
+public interface BlogRepository extends JpaRepository<Blog,Long>, JpaSpecificationExecutor<Blog> {
+
+    @Query("select b from Blog b where b.recommend = true")
+    List<Blog> findTop(Pageable pageable);
+
+    //select * from t_blog where title like '%内容%'
+    @Query("select b from Blog b where b.title like ?1 or b.content like ?1")
+    Page<Blog> findByQuery(String query,Pageable pageable);
+    
+    @Transactional
+    @Modifying
+    @Query("update Blog b set b.views = b.views+1 where b.id = ?1")
+    int updateViews(Long id);
+}
+```
+BlogServiceImpl.java
+```java
+package com.cxkj.blog.service;
+
+import com.cxkj.blog.NotFoundException;
+import com.cxkj.blog.dao.BlogRepository;
+import com.cxkj.blog.pojo.Blog;
+import com.cxkj.blog.pojo.Type;
+import com.cxkj.blog.util.MarkdownUtils;
+import com.cxkj.blog.util.MyBeanUtils;
+import com.cxkj.blog.vo.BlogQuery;
+import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specification;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
+/**
+ *  Created by Arvin on 2021/2/8.
+ */
+@Service
+public class BlogServiceImpl implements BlogService{
+
+    @Autowired
+    private BlogRepository blogRepository;
+
+    @Override
+    public Blog getBlog(Long id) {
+        return blogRepository.findById(id).get();
+    }
+
+    @Override
+    public Page<Blog> listBlog(Pageable pageable, BlogQuery blogQuery) {
+
+        return blogRepository.findAll(new Specification<Blog>() {
+            @Override
+            public Predicate toPredicate(Root<Blog> root, CriteriaQuery<?> criteriaQuery, CriteriaBuilder criteriaBuilder) {
+                List<Predicate> predicateList = new ArrayList<>();
+                if (!"".equals(blogQuery.getTitle()) && blogQuery.getTitle() != null){
+                    predicateList.add(criteriaBuilder.like(root.<String>get("title"),"%"+blogQuery.getTitle()+"%"));
+                }
+                if (blogQuery.getTypeID() != null){
+                    predicateList.add(criteriaBuilder.equal(root.<Type>get("type").get("id"),blogQuery.getTypeID()));
+                }
+                if (blogQuery.isRecommend()){
+                    predicateList.add(criteriaBuilder.equal(root.<Boolean>get("recommend"),blogQuery.isRecommend()));
+                }
+                criteriaQuery.where(predicateList.toArray(new Predicate[predicateList.size()]));
+                return null;
+            }
+        },pageable);
+    }
+
+    @Override
+    public Page<Blog> listBlog(Pageable pageable) {
+        return blogRepository.findAll(pageable);
+    }
+
+    @Override
+    public Page<Blog> listBlog(String query, Pageable pageable) {
+        return blogRepository.findByQuery(query,pageable);
+    }
+
+    @Transactional
+    @Override
+    public Blog getAndConvert(Long id) {
+        Blog blog = blogRepository.findById(id).get();
+        if (blog == null){
+            throw new NotFoundException("博客不存在哦");
+        }
+        Blog b = new Blog();
+        BeanUtils.copyProperties(blog,b);
+        String content = b.getContent();
+        b.setContent(MarkdownUtils.markdownToHtmlExtensions(content));
+        blogRepository.updateViews(id);
+        return b;
+    }
+
+    @Override
+    public List<Blog> listRecommendBlogTop(Integer size) {
+        Sort sort = Sort.by(Sort.Direction.DESC,"updateTime");
+        Pageable pageable = PageRequest.of(0,size,sort);
+        return blogRepository.findTop(pageable);
+    }
+
+    @Transactional
+    @Override
+    public Blog saveBlog(Blog blog) {
+        if (blog.getId() == null){
+            blog.setCreateTime(new Date());
+            blog.setUpdateTime(new Date());
+            blog.setViews(0);
+        }else {
+            blog.setUpdateTime(new Date());
+        }
+        return blogRepository.save(blog);
+    }
+
+    @Transactional
+    @Override
+    public Blog updateBlog(Long id, Blog blog) {
+        Blog b = blogRepository.findById(id).get();
+        if (b == null){
+            throw new NotFoundException("管理员大大,这个博客不存在哦！～(　TロT)σ");
+        }
+        BeanUtils.copyProperties(blog,b, MyBeanUtils.getNullPropertyNames(blog));
+        b.setUpdateTime(new Date());
+        return blogRepository.save(b);
+    }
+
+    @Transactional
+    @Override
+    public void deleteBlog(Long id) {
+        blogRepository.deleteById(id);
+    }
+}
+```
+### 分类Web模块
+TypeShowController.java
+```java
+
 ```

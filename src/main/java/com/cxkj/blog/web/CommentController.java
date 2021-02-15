@@ -1,6 +1,7 @@
 package com.cxkj.blog.web;
 
 import com.cxkj.blog.pojo.Comment;
+import com.cxkj.blog.pojo.User;
 import com.cxkj.blog.service.BlogService;
 import com.cxkj.blog.service.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 /**
@@ -35,10 +37,17 @@ public class CommentController {
     }
 
     @PostMapping("/comments")
-    public String post(Comment comment) {
+    public String post(Comment comment, HttpSession session) {
         Long blogId = comment.getBlog().getId();
         comment.setBlog(blogService.getBlog(blogId));
-        comment.setAvatar(avatar);
+        User user = (User) session.getAttribute("user");
+        if (user != null){
+            comment.setAvatar(user.getAvatar());
+            comment.setAdminComment(true);
+            //comment.setNickname(user.getNickname());
+        }else {
+            comment.setAvatar(avatar);
+        }
         commentService.saveComment(comment);
         return "redirect:/comments/" + blogId;
     }

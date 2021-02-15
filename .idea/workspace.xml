@@ -10,12 +10,17 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="DatabaseLocalColorSettings">
+    <colors>
+      <entry key="5d984924-732e-4a38-aba2-5c854b66571b" value="Yellow" />
+    </colors>
+  </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="HTML File" />
-        <option value="Class" />
         <option value="Interface" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -45,7 +50,7 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
-    <property name="DatabaseDriversLRU" value="mysql" />
+    <property name="DatabaseDriversLRU" value="mysql.8&#10;mysql" />
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="RequestMappingsPanelOrder0" value="0" />
     <property name="RequestMappingsPanelOrder1" value="1" />
@@ -193,6 +198,15 @@
       <workItem from="1613127315959" duration="23292000" />
       <workItem from="1613199982482" duration="4350000" />
       <workItem from="1613248147295" duration="6610000" />
+      <workItem from="1613254796873" duration="7810000" />
+      <workItem from="1613277484160" duration="2833000" />
+      <workItem from="1613295295574" duration="7750000" />
+      <workItem from="1613329607365" duration="443000" />
+      <workItem from="1613375497162" duration="9420000" />
+      <workItem from="1613403541740" duration="1000" />
+      <workItem from="1613405535600" duration="252000" />
+      <workItem from="1613410918048" duration="15000" />
+      <workItem from="1613412287814" duration="3840000" />
     </task>
     <servers />
   </component>

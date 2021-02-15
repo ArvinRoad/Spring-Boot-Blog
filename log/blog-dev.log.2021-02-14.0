@@ -1,0 +1,530 @@
+2021-02-14 06:26:11.051  INFO 7528 --- [restartedMain] com.cxkj.blog.BlogApplication            : Starting BlogApplication using Java 1.8.0_275 on DESKTOP-JSMG0SS with PID 7528 (F:\Spring-Boot-Blog\target\classes started by Arvin in F:\Spring-Boot-Blog)
+2021-02-14 06:26:11.052 DEBUG 7528 --- [restartedMain] com.cxkj.blog.BlogApplication            : Running with Spring Boot v2.4.2, Spring v5.3.3
+2021-02-14 06:26:11.053  INFO 7528 --- [restartedMain] com.cxkj.blog.BlogApplication            : The following profiles are active: dev
+2021-02-14 06:26:11.085  INFO 7528 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2021-02-14 06:26:11.086  INFO 7528 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2021-02-14 06:26:11.567  INFO 7528 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2021-02-14 06:26:11.615  INFO 7528 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 42 ms. Found 5 JPA repository interfaces.
+2021-02-14 06:26:12.077  INFO 7528 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2021-02-14 06:26:12.083  INFO 7528 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2021-02-14 06:26:12.084  INFO 7528 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.41]
+2021-02-14 06:26:12.171  INFO 7528 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2021-02-14 06:26:12.171  INFO 7528 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1084 ms
+2021-02-14 06:26:12.287  INFO 7528 --- [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2021-02-14 06:26:12.317  INFO 7528 --- [restartedMain] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 5.4.27.Final
+2021-02-14 06:26:12.394  INFO 7528 --- [restartedMain] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2021-02-14 06:26:12.460  INFO 7528 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2021-02-14 06:26:12.562  INFO 7528 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2021-02-14 06:26:12.574  INFO 7528 --- [restartedMain] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.MySQL8Dialect
+2021-02-14 06:26:13.109  INFO 7528 --- [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2021-02-14 06:26:13.115  INFO 7528 --- [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2021-02-14 06:26:13.166  INFO 7528 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2021-02-14 06:26:14.213  WARN 7528 --- [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2021-02-14 06:26:14.368  INFO 7528 --- [restartedMain] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2021-02-14 06:26:14.460  INFO 7528 --- [restartedMain] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page template: index
+2021-02-14 06:26:15.153  INFO 7528 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2021-02-14 06:26:15.161  INFO 7528 --- [restartedMain] com.cxkj.blog.BlogApplication            : Started BlogApplication in 4.49 seconds (JVM running for 5.139)
+2021-02-14 06:47:57.939  INFO 20960 --- [restartedMain] com.cxkj.blog.BlogApplication            : Starting BlogApplication using Java 1.8.0_275 on DESKTOP-JSMG0SS with PID 20960 (F:\Spring-Boot-Blog\target\classes started by Arvin in F:\Spring-Boot-Blog)
+2021-02-14 06:47:57.940 DEBUG 20960 --- [restartedMain] com.cxkj.blog.BlogApplication            : Running with Spring Boot v2.4.2, Spring v5.3.3
+2021-02-14 06:47:57.942  INFO 20960 --- [restartedMain] com.cxkj.blog.BlogApplication            : The following profiles are active: dev
+2021-02-14 06:47:57.971  INFO 20960 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2021-02-14 06:47:57.971  INFO 20960 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2021-02-14 06:47:58.420  INFO 20960 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2021-02-14 06:47:58.465  INFO 20960 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 38 ms. Found 5 JPA repository interfaces.
+2021-02-14 06:47:58.914  INFO 20960 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2021-02-14 06:47:58.923  INFO 20960 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2021-02-14 06:47:58.924  INFO 20960 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.41]
+2021-02-14 06:47:58.996  INFO 20960 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2021-02-14 06:47:58.996  INFO 20960 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1024 ms
+2021-02-14 06:47:59.196  INFO 20960 --- [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2021-02-14 06:47:59.223  INFO 20960 --- [restartedMain] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 5.4.27.Final
+2021-02-14 06:47:59.289  INFO 20960 --- [restartedMain] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2021-02-14 06:47:59.345  INFO 20960 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2021-02-14 06:47:59.431  INFO 20960 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2021-02-14 06:47:59.442  INFO 20960 --- [restartedMain] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.MySQL8Dialect
+2021-02-14 06:47:59.951  INFO 20960 --- [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2021-02-14 06:47:59.957  INFO 20960 --- [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2021-02-14 06:47:59.996  INFO 20960 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2021-02-14 06:48:00.614  WARN 20960 --- [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2021-02-14 06:48:00.748  INFO 20960 --- [restartedMain] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2021-02-14 06:48:00.827  INFO 20960 --- [restartedMain] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page template: index
+2021-02-14 06:48:01.178  INFO 20960 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2021-02-14 06:48:01.185  INFO 20960 --- [restartedMain] com.cxkj.blog.BlogApplication            : Started BlogApplication in 3.586 seconds (JVM running for 4.176)
+2021-02-14 06:48:01.212  INFO 20960 --- [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2021-02-14 06:48:01.212  INFO 20960 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2021-02-14 06:48:01.213  INFO 20960 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2021-02-14 06:48:01.239  INFO 20960 --- [http-nio-8080-exec-1] com.cxkj.blog.aspect.LogAspect           : Request : {url='http://127.0.0.1:8080/blog/7', ip='127.0.0.1', classMethod='com.cxkj.blog.web.IndexController.blog', args=[7, {}]}
+2021-02-14 06:48:01.311  INFO 20960 --- [http-nio-8080-exec-1] com.cxkj.blog.aspect.LogAspect           : Result : {}blog
+2021-02-14 06:48:01.975  INFO 20960 --- [http-nio-8080-exec-3] com.cxkj.blog.aspect.LogAspect           : Request : {url='http://127.0.0.1:8080/comments/7', ip='127.0.0.1', classMethod='com.cxkj.blog.web.CommentController.comments', args=[7, {}]}
+2021-02-14 06:48:02.010  INFO 20960 --- [http-nio-8080-exec-3] com.cxkj.blog.aspect.LogAspect           : Result : {}blog :: commentList
+2021-02-14 06:48:35.249 ERROR 20960 --- [http-nio-8080-exec-2] c.c.b.h.ControllerExceptionHandler       : Requst URL : /blog/admin,Exception : {}
+
+org.springframework.web.method.annotation.MethodArgumentTypeMismatchException: Failed to convert value of type 'java.lang.String' to required type 'java.lang.Long'; nested exception is java.lang.NumberFormatException: For input string: "admin"
+	at org.springframework.web.method.annotation.AbstractNamedValueMethodArgumentResolver.resolveArgument(AbstractNamedValueMethodArgumentResolver.java:133)
+	at org.springframework.web.method.support.HandlerMethodArgumentResolverComposite.resolveArgument(HandlerMethodArgumentResolverComposite.java:121)
+	at org.springframework.web.method.support.InvocableHandlerMethod.getMethodArgumentValues(InvocableHandlerMethod.java:170)
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:137)
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:106)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:894)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:808)
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1060)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:962)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1006)
+	at org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:898)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:626)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:883)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:733)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:231)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:53)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:202)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:97)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:542)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:143)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:92)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:78)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:343)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:374)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:65)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:888)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1597)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+	at java.lang.Thread.run(Thread.java:748)
+Caused by: java.lang.NumberFormatException: For input string: "admin"
+	at java.lang.NumberFormatException.forInputString(NumberFormatException.java:65)
+	at java.lang.Long.parseLong(Long.java:589)
+	at java.lang.Long.valueOf(Long.java:803)
+	at org.springframework.util.NumberUtils.parseNumber(NumberUtils.java:214)
+	at org.springframework.beans.propertyeditors.CustomNumberEditor.setAsText(CustomNumberEditor.java:115)
+	at org.springframework.beans.TypeConverterDelegate.doConvertTextValue(TypeConverterDelegate.java:429)
+	at org.springframework.beans.TypeConverterDelegate.doConvertValue(TypeConverterDelegate.java:402)
+	at org.springframework.beans.TypeConverterDelegate.convertIfNecessary(TypeConverterDelegate.java:155)
+	at org.springframework.beans.TypeConverterSupport.convertIfNecessary(TypeConverterSupport.java:73)
+	at org.springframework.beans.TypeConverterSupport.convertIfNecessary(TypeConverterSupport.java:53)
+	at org.springframework.validation.DataBinder.convertIfNecessary(DataBinder.java:696)
+	at org.springframework.web.method.annotation.AbstractNamedValueMethodArgumentResolver.resolveArgument(AbstractNamedValueMethodArgumentResolver.java:125)
+	... 47 common frames omitted
+
+2021-02-14 06:48:35.250  WARN 20960 --- [http-nio-8080-exec-2] .m.m.a.ExceptionHandlerExceptionResolver : Resolved [org.springframework.web.method.annotation.MethodArgumentTypeMismatchException: Failed to convert value of type 'java.lang.String' to required type 'java.lang.Long'; nested exception is java.lang.NumberFormatException: For input string: "admin"]
+2021-02-14 06:49:48.756 ERROR 20960 --- [http-nio-8080-exec-1] c.c.b.h.ControllerExceptionHandler       : Requst URL : /blog/admin,Exception : {}
+
+org.springframework.web.method.annotation.MethodArgumentTypeMismatchException: Failed to convert value of type 'java.lang.String' to required type 'java.lang.Long'; nested exception is java.lang.NumberFormatException: For input string: "admin"
+	at org.springframework.web.method.annotation.AbstractNamedValueMethodArgumentResolver.resolveArgument(AbstractNamedValueMethodArgumentResolver.java:133)
+	at org.springframework.web.method.support.HandlerMethodArgumentResolverComposite.resolveArgument(HandlerMethodArgumentResolverComposite.java:121)
+	at org.springframework.web.method.support.InvocableHandlerMethod.getMethodArgumentValues(InvocableHandlerMethod.java:170)
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:137)
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:106)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:894)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:808)
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1060)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:962)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1006)
+	at org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:898)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:626)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:883)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:733)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:231)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:53)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:202)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:97)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:542)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:143)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:92)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:78)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:343)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:374)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:65)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:888)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1597)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+	at java.lang.Thread.run(Thread.java:748)
+Caused by: java.lang.NumberFormatException: For input string: "admin"
+	at java.lang.NumberFormatException.forInputString(NumberFormatException.java:65)
+	at java.lang.Long.parseLong(Long.java:589)
+	at java.lang.Long.valueOf(Long.java:803)
+	at org.springframework.util.NumberUtils.parseNumber(NumberUtils.java:214)
+	at org.springframework.beans.propertyeditors.CustomNumberEditor.setAsText(CustomNumberEditor.java:115)
+	at org.springframework.beans.TypeConverterDelegate.doConvertTextValue(TypeConverterDelegate.java:429)
+	at org.springframework.beans.TypeConverterDelegate.doConvertValue(TypeConverterDelegate.java:402)
+	at org.springframework.beans.TypeConverterDelegate.convertIfNecessary(TypeConverterDelegate.java:155)
+	at org.springframework.beans.TypeConverterSupport.convertIfNecessary(TypeConverterSupport.java:73)
+	at org.springframework.beans.TypeConverterSupport.convertIfNecessary(TypeConverterSupport.java:53)
+	at org.springframework.validation.DataBinder.convertIfNecessary(DataBinder.java:696)
+	at org.springframework.web.method.annotation.AbstractNamedValueMethodArgumentResolver.resolveArgument(AbstractNamedValueMethodArgumentResolver.java:125)
+	... 47 common frames omitted
+
+2021-02-14 06:49:48.757  WARN 20960 --- [http-nio-8080-exec-1] .m.m.a.ExceptionHandlerExceptionResolver : Resolved [org.springframework.web.method.annotation.MethodArgumentTypeMismatchException: Failed to convert value of type 'java.lang.String' to required type 'java.lang.Long'; nested exception is java.lang.NumberFormatException: For input string: "admin"]
+2021-02-14 06:55:05.580  INFO 20960 --- [http-nio-8080-exec-5] com.cxkj.blog.aspect.LogAspect           : Request : {url='http://127.0.0.1:8080/', ip='127.0.0.1', classMethod='com.cxkj.blog.web.IndexController.index', args=[Page request [number: 0, size 10, sort: updateTime: DESC], {}]}
+2021-02-14 06:55:05.595  WARN 20960 --- [http-nio-8080-exec-5] org.hibernate.orm.deprecation            : HHH90000016: Found use of deprecated 'collection property' syntax in HQL/JPQL query [t.blogs.size]; use collection function syntax instead [size(t.blogs)].
+2021-02-14 06:55:05.602  WARN 20960 --- [http-nio-8080-exec-5] org.hibernate.orm.deprecation            : HHH90000016: Found use of deprecated 'collection property' syntax in HQL/JPQL query [t.blogs.size]; use collection function syntax instead [size(t.blogs)].
+2021-02-14 06:55:05.608  INFO 20960 --- [http-nio-8080-exec-5] com.cxkj.blog.aspect.LogAspect           : Result : {}index
+2021-02-14 06:55:06.900  INFO 20960 --- [http-nio-8080-exec-7] com.cxkj.blog.aspect.LogAspect           : Request : {url='http://127.0.0.1:8080/blog/6', ip='127.0.0.1', classMethod='com.cxkj.blog.web.IndexController.blog', args=[6, {}]}
+2021-02-14 06:55:06.913  INFO 20960 --- [http-nio-8080-exec-7] com.cxkj.blog.aspect.LogAspect           : Result : {}blog
+2021-02-14 06:55:07.583  INFO 20960 --- [http-nio-8080-exec-10] com.cxkj.blog.aspect.LogAspect           : Request : {url='http://127.0.0.1:8080/comments/6', ip='127.0.0.1', classMethod='com.cxkj.blog.web.CommentController.comments', args=[6, {}]}
+2021-02-14 06:55:07.586  INFO 20960 --- [http-nio-8080-exec-10] com.cxkj.blog.aspect.LogAspect           : Result : {}blog :: commentList
+2021-02-14 06:55:16.905  INFO 20960 --- [http-nio-8080-exec-6] com.cxkj.blog.aspect.LogAspect           : Request : {url='http://127.0.0.1:8080/blog/7', ip='127.0.0.1', classMethod='com.cxkj.blog.web.IndexController.blog', args=[7, {}]}
+2021-02-14 06:55:16.907  INFO 20960 --- [http-nio-8080-exec-6] com.cxkj.blog.aspect.LogAspect           : Result : {}blog
+2021-02-14 06:55:17.240  INFO 20960 --- [http-nio-8080-exec-3] com.cxkj.blog.aspect.LogAspect           : Request : {url='http://127.0.0.1:8080/comments/7', ip='127.0.0.1', classMethod='com.cxkj.blog.web.CommentController.comments', args=[7, {}]}
+2021-02-14 06:55:17.241  INFO 20960 --- [http-nio-8080-exec-3] com.cxkj.blog.aspect.LogAspect           : Result : {}blog :: commentList
+2021-02-14 06:57:03.287  INFO 20960 --- [http-nio-8080-exec-9] com.cxkj.blog.aspect.LogAspect           : Request : {url='http://127.0.0.1:8080/blog/7', ip='127.0.0.1', classMethod='com.cxkj.blog.web.IndexController.blog', args=[7, {}]}
+2021-02-14 06:57:03.290  INFO 20960 --- [http-nio-8080-exec-9] com.cxkj.blog.aspect.LogAspect           : Result : {}blog
+2021-02-14 06:57:03.549  INFO 20960 --- [http-nio-8080-exec-8] com.cxkj.blog.aspect.LogAspect           : Request : {url='http://127.0.0.1:8080/comments/7', ip='127.0.0.1', classMethod='com.cxkj.blog.web.CommentController.comments', args=[7, {}]}
+2021-02-14 06:57:03.550  INFO 20960 --- [http-nio-8080-exec-8] com.cxkj.blog.aspect.LogAspect           : Result : {}blog :: commentList
+2021-02-14 06:57:41.479  INFO 20960 --- [http-nio-8080-exec-4] com.cxkj.blog.aspect.LogAspect           : Request : {url='http://127.0.0.1:8080/comments', ip='127.0.0.1', classMethod='com.cxkj.blog.web.CommentController.post', args=[Comment{id=null, nickname='Root', email='2644266656@qq.com', content='关于管理员评论测试', avatar='null', createTime=null, blog=Blog{id=7, title='null', content='null', firstPicture='null', flag='null', views=null, appreciation=false, shareStatement=false, commentabled=false, published=false, recommend=false, createTime=null, updateTime=null, type=null, tags=[], user=null, comments=[], tagIds='null', description='null'}, replyComments=[], parentComment=Comment{id=-1, nickname='null', email='null', content='null', avatar='null', createTime=null, blog=null, replyComments=[], parentComment=null, adminComment=false}, adminComment=false}, org.apache.catalina.session.StandardSessionFacade@1649ec2]}
+2021-02-14 06:57:41.516  INFO 20960 --- [http-nio-8080-exec-4] com.cxkj.blog.aspect.LogAspect           : Result : {}redirect:/comments/7
+2021-02-14 06:57:41.525  INFO 20960 --- [http-nio-8080-exec-1] com.cxkj.blog.aspect.LogAspect           : Request : {url='http://127.0.0.1:8080/comments/7', ip='127.0.0.1', classMethod='com.cxkj.blog.web.CommentController.comments', args=[7, {}]}
+2021-02-14 06:57:41.529  INFO 20960 --- [http-nio-8080-exec-1] com.cxkj.blog.aspect.LogAspect           : Result : {}blog :: commentList
+2021-02-14 06:58:18.876  INFO 20960 --- [http-nio-8080-exec-9] com.cxkj.blog.aspect.LogAspect           : Request : {url='http://127.0.0.1:8080/comments', ip='127.0.0.1', classMethod='com.cxkj.blog.web.CommentController.post', args=[Comment{id=null, nickname='Root', email='2644266656@qq.com', content='关于评论测试', avatar='null', createTime=null, blog=Blog{id=7, title='null', content='null', firstPicture='null', flag='null', views=null, appreciation=false, shareStatement=false, commentabled=false, published=false, recommend=false, createTime=null, updateTime=null, type=null, tags=[], user=null, comments=[], tagIds='null', description='null'}, replyComments=[], parentComment=Comment{id=25, nickname='null', email='null', content='null', avatar='null', createTime=null, blog=null, replyComments=[], parentComment=null, adminComment=false}, adminComment=false}, org.apache.catalina.session.StandardSessionFacade@1649ec2]}
+2021-02-14 06:58:18.888  INFO 20960 --- [http-nio-8080-exec-9] com.cxkj.blog.aspect.LogAspect           : Result : {}redirect:/comments/7
+2021-02-14 06:58:18.889  INFO 20960 --- [http-nio-8080-exec-6] com.cxkj.blog.aspect.LogAspect           : Request : {url='http://127.0.0.1:8080/comments/7', ip='127.0.0.1', classMethod='com.cxkj.blog.web.CommentController.comments', args=[7, {}]}
+2021-02-14 06:58:18.895  INFO 20960 --- [http-nio-8080-exec-6] com.cxkj.blog.aspect.LogAspect           : Result : {}blog :: commentList
+2021-02-14 06:59:11.517  INFO 20960 --- [http-nio-8080-exec-8] com.cxkj.blog.aspect.LogAspect           : Request : {url='http://127.0.0.1:8080/comments', ip='127.0.0.1', classMethod='com.cxkj.blog.web.CommentController.post', args=[Comment{id=null, nickname='Root', email='2644266656@qq.com', content='新评论测试', avatar='null', createTime=null, blog=Blog{id=7, title='null', content='null', firstPicture='null', flag='null', views=null, appreciation=false, shareStatement=false, commentabled=false, published=false, recommend=false, createTime=null, updateTime=null, type=null, tags=[], user=null, comments=[], tagIds='null', description='null'}, replyComments=[], parentComment=Comment{id=-1, nickname='null', email='null', content='null', avatar='null', createTime=null, blog=null, replyComments=[], parentComment=null, adminComment=false}, adminComment=false}, org.apache.catalina.session.StandardSessionFacade@1649ec2]}
+2021-02-14 06:59:11.526  INFO 20960 --- [http-nio-8080-exec-8] com.cxkj.blog.aspect.LogAspect           : Result : {}redirect:/comments/7
+2021-02-14 06:59:11.529  INFO 20960 --- [http-nio-8080-exec-4] com.cxkj.blog.aspect.LogAspect           : Request : {url='http://127.0.0.1:8080/comments/7', ip='127.0.0.1', classMethod='com.cxkj.blog.web.CommentController.comments', args=[7, {}]}
+2021-02-14 06:59:11.534  INFO 20960 --- [http-nio-8080-exec-4] com.cxkj.blog.aspect.LogAspect           : Result : {}blog :: commentList
+2021-02-14 07:04:09.146  INFO 10260 --- [restartedMain] com.cxkj.blog.BlogApplication            : Starting BlogApplication using Java 1.8.0_275 on DESKTOP-JSMG0SS with PID 10260 (F:\Spring-Boot-Blog\target\classes started by Arvin in F:\Spring-Boot-Blog)
+2021-02-14 07:04:09.148 DEBUG 10260 --- [restartedMain] com.cxkj.blog.BlogApplication            : Running with Spring Boot v2.4.2, Spring v5.3.3
+2021-02-14 07:04:09.148  INFO 10260 --- [restartedMain] com.cxkj.blog.BlogApplication            : The following profiles are active: dev
+2021-02-14 07:04:09.178  INFO 10260 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2021-02-14 07:04:09.179  INFO 10260 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2021-02-14 07:04:09.619  INFO 10260 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2021-02-14 07:04:09.663  INFO 10260 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 38 ms. Found 5 JPA repository interfaces.
+2021-02-14 07:04:10.093  INFO 10260 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2021-02-14 07:04:10.098  INFO 10260 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2021-02-14 07:04:10.098  INFO 10260 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.41]
+2021-02-14 07:04:10.177  INFO 10260 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2021-02-14 07:04:10.177  INFO 10260 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 998 ms
+2021-02-14 07:04:10.281  INFO 10260 --- [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2021-02-14 07:04:10.309  INFO 10260 --- [restartedMain] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 5.4.27.Final
+2021-02-14 07:04:10.379  INFO 10260 --- [restartedMain] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2021-02-14 07:04:10.438  INFO 10260 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2021-02-14 07:04:10.554  INFO 10260 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2021-02-14 07:04:10.569  INFO 10260 --- [restartedMain] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.MySQL8Dialect
+2021-02-14 07:04:11.074  INFO 10260 --- [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2021-02-14 07:04:11.080  INFO 10260 --- [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2021-02-14 07:04:11.132  INFO 10260 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2021-02-14 07:04:11.755  WARN 10260 --- [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2021-02-14 07:04:11.924  INFO 10260 --- [restartedMain] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2021-02-14 07:04:12.023  INFO 10260 --- [restartedMain] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page template: index
+2021-02-14 07:04:12.426  INFO 10260 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2021-02-14 07:04:12.433  INFO 10260 --- [restartedMain] com.cxkj.blog.BlogApplication            : Started BlogApplication in 3.63 seconds (JVM running for 4.203)
+2021-02-14 07:04:13.647  INFO 10260 --- [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2021-02-14 07:04:13.647  INFO 10260 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2021-02-14 07:04:13.648  INFO 10260 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2021-02-14 07:04:13.669  INFO 10260 --- [http-nio-8080-exec-1] com.cxkj.blog.aspect.LogAspect           : Request : {url='http://127.0.0.1:8080/blog/7', ip='127.0.0.1', classMethod='com.cxkj.blog.web.IndexController.blog', args=[7, {}]}
+2021-02-14 07:04:13.739  INFO 10260 --- [http-nio-8080-exec-1] com.cxkj.blog.aspect.LogAspect           : Result : {}blog
+2021-02-14 07:04:14.278  INFO 10260 --- [http-nio-8080-exec-4] com.cxkj.blog.aspect.LogAspect           : Request : {url='http://127.0.0.1:8080/comments/7', ip='127.0.0.1', classMethod='com.cxkj.blog.web.CommentController.comments', args=[7, {}]}
+2021-02-14 07:04:14.311  INFO 10260 --- [http-nio-8080-exec-4] com.cxkj.blog.aspect.LogAspect           : Result : {}blog :: commentList
+2021-02-14 07:04:23.225  INFO 10260 --- [http-nio-8080-exec-4] com.cxkj.blog.aspect.LogAspect           : Request : {url='http://127.0.0.1:8080/', ip='127.0.0.1', classMethod='com.cxkj.blog.web.IndexController.index', args=[Page request [number: 0, size 10, sort: updateTime: DESC], {}]}
+2021-02-14 07:04:23.240  WARN 10260 --- [http-nio-8080-exec-4] org.hibernate.orm.deprecation            : HHH90000016: Found use of deprecated 'collection property' syntax in HQL/JPQL query [t.blogs.size]; use collection function syntax instead [size(t.blogs)].
+2021-02-14 07:04:23.248  WARN 10260 --- [http-nio-8080-exec-4] org.hibernate.orm.deprecation            : HHH90000016: Found use of deprecated 'collection property' syntax in HQL/JPQL query [t.blogs.size]; use collection function syntax instead [size(t.blogs)].
+2021-02-14 07:04:23.251  INFO 10260 --- [http-nio-8080-exec-4] com.cxkj.blog.aspect.LogAspect           : Result : {}index
+2021-02-14 07:04:29.318  INFO 10260 --- [http-nio-8080-exec-2] com.cxkj.blog.aspect.LogAspect           : Request : {url='http://127.0.0.1:8080/', ip='127.0.0.1', classMethod='com.cxkj.blog.web.IndexController.index', args=[Page request [number: 0, size 10, sort: updateTime: DESC], {}]}
+2021-02-14 07:04:29.326  INFO 10260 --- [http-nio-8080-exec-2] com.cxkj.blog.aspect.LogAspect           : Result : {}index
+2021-02-14 07:05:09.583  INFO 10260 --- [http-nio-8080-exec-1] com.cxkj.blog.aspect.LogAspect           : Request : {url='http://127.0.0.1:8080/', ip='127.0.0.1', classMethod='com.cxkj.blog.web.IndexController.index', args=[Page request [number: 0, size 10, sort: updateTime: DESC], {}]}
+2021-02-14 07:05:09.592  INFO 10260 --- [http-nio-8080-exec-1] com.cxkj.blog.aspect.LogAspect           : Result : {}index
+2021-02-14 07:05:39.031  INFO 9864 --- [restartedMain] com.cxkj.blog.BlogApplication            : Starting BlogApplication using Java 1.8.0_275 on DESKTOP-JSMG0SS with PID 9864 (F:\Spring-Boot-Blog\target\classes started by Arvin in F:\Spring-Boot-Blog)
+2021-02-14 07:05:39.032 DEBUG 9864 --- [restartedMain] com.cxkj.blog.BlogApplication            : Running with Spring Boot v2.4.2, Spring v5.3.3
+2021-02-14 07:05:39.032  INFO 9864 --- [restartedMain] com.cxkj.blog.BlogApplication            : The following profiles are active: dev
+2021-02-14 07:05:39.066  INFO 9864 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2021-02-14 07:05:39.067  INFO 9864 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2021-02-14 07:05:39.495  INFO 9864 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2021-02-14 07:05:39.538  INFO 9864 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 39 ms. Found 5 JPA repository interfaces.
+2021-02-14 07:05:39.972  INFO 9864 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2021-02-14 07:05:39.978  INFO 9864 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2021-02-14 07:05:39.978  INFO 9864 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.41]
+2021-02-14 07:05:40.056  INFO 9864 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2021-02-14 07:05:40.056  INFO 9864 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 989 ms
+2021-02-14 07:05:40.159  INFO 9864 --- [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2021-02-14 07:05:40.185  INFO 9864 --- [restartedMain] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 5.4.27.Final
+2021-02-14 07:05:40.254  INFO 9864 --- [restartedMain] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2021-02-14 07:05:40.327  INFO 9864 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2021-02-14 07:05:40.425  INFO 9864 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2021-02-14 07:05:40.440  INFO 9864 --- [restartedMain] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.MySQL8Dialect
+2021-02-14 07:05:40.940  INFO 9864 --- [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2021-02-14 07:05:40.947  INFO 9864 --- [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2021-02-14 07:05:40.995  INFO 9864 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2021-02-14 07:05:41.638  WARN 9864 --- [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2021-02-14 07:05:41.803  INFO 9864 --- [restartedMain] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2021-02-14 07:05:41.896  INFO 9864 --- [restartedMain] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page template: index
+2021-02-14 07:05:42.293  INFO 9864 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2021-02-14 07:05:42.301  INFO 9864 --- [restartedMain] com.cxkj.blog.BlogApplication            : Started BlogApplication in 3.599 seconds (JVM running for 4.274)
+2021-02-14 07:05:42.864  INFO 9864 --- [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2021-02-14 07:05:42.864  INFO 9864 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2021-02-14 07:05:42.865  INFO 9864 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2021-02-14 07:05:42.886  INFO 9864 --- [http-nio-8080-exec-1] com.cxkj.blog.aspect.LogAspect           : Request : {url='http://127.0.0.1:8080/blog/7', ip='127.0.0.1', classMethod='com.cxkj.blog.web.IndexController.blog', args=[7, {}]}
+2021-02-14 07:05:42.952  INFO 9864 --- [http-nio-8080-exec-1] com.cxkj.blog.aspect.LogAspect           : Result : {}blog
+2021-02-14 07:05:43.489  INFO 9864 --- [http-nio-8080-exec-6] com.cxkj.blog.aspect.LogAspect           : Request : {url='http://127.0.0.1:8080/comments/7', ip='127.0.0.1', classMethod='com.cxkj.blog.web.CommentController.comments', args=[7, {}]}
+2021-02-14 07:05:43.522  INFO 9864 --- [http-nio-8080-exec-6] com.cxkj.blog.aspect.LogAspect           : Result : {}blog :: commentList
+2021-02-14 07:05:45.201  INFO 9864 --- [http-nio-8080-exec-5] com.cxkj.blog.aspect.LogAspect           : Request : {url='http://127.0.0.1:8080/', ip='127.0.0.1', classMethod='com.cxkj.blog.web.IndexController.index', args=[Page request [number: 0, size 10, sort: updateTime: DESC], {}]}
+2021-02-14 07:05:45.215  WARN 9864 --- [http-nio-8080-exec-5] org.hibernate.orm.deprecation            : HHH90000016: Found use of deprecated 'collection property' syntax in HQL/JPQL query [t.blogs.size]; use collection function syntax instead [size(t.blogs)].
+2021-02-14 07:05:45.220  WARN 9864 --- [http-nio-8080-exec-5] org.hibernate.orm.deprecation            : HHH90000016: Found use of deprecated 'collection property' syntax in HQL/JPQL query [t.blogs.size]; use collection function syntax instead [size(t.blogs)].
+2021-02-14 07:05:45.222  INFO 9864 --- [http-nio-8080-exec-5] com.cxkj.blog.aspect.LogAspect           : Result : {}index
+2021-02-14 07:05:48.109  INFO 9864 --- [http-nio-8080-exec-7] com.cxkj.blog.aspect.LogAspect           : Request : {url='http://127.0.0.1:8080/', ip='127.0.0.1', classMethod='com.cxkj.blog.web.IndexController.index', args=[Page request [number: 0, size 10, sort: updateTime: DESC], {}]}
+2021-02-14 07:05:48.118  INFO 9864 --- [http-nio-8080-exec-7] com.cxkj.blog.aspect.LogAspect           : Result : {}index
+2021-02-14 07:05:48.701  INFO 9864 --- [http-nio-8080-exec-4] com.cxkj.blog.aspect.LogAspect           : Request : {url='http://127.0.0.1:8080/', ip='127.0.0.1', classMethod='com.cxkj.blog.web.IndexController.index', args=[Page request [number: 0, size 10, sort: updateTime: DESC], {}]}
+2021-02-14 07:05:48.709  INFO 9864 --- [http-nio-8080-exec-4] com.cxkj.blog.aspect.LogAspect           : Result : {}index
+2021-02-14 07:05:49.333  INFO 9864 --- [http-nio-8080-exec-2] com.cxkj.blog.aspect.LogAspect           : Request : {url='http://127.0.0.1:8080/', ip='127.0.0.1', classMethod='com.cxkj.blog.web.IndexController.index', args=[Page request [number: 0, size 10, sort: updateTime: DESC], {}]}
+2021-02-14 07:05:49.340  INFO 9864 --- [http-nio-8080-exec-2] com.cxkj.blog.aspect.LogAspect           : Result : {}index
+2021-02-14 07:05:50.076  INFO 9864 --- [http-nio-8080-exec-5] com.cxkj.blog.aspect.LogAspect           : Request : {url='http://127.0.0.1:8080/', ip='127.0.0.1', classMethod='com.cxkj.blog.web.IndexController.index', args=[Page request [number: 0, size 10, sort: updateTime: DESC], {}]}
+2021-02-14 07:05:50.084  INFO 9864 --- [http-nio-8080-exec-5] com.cxkj.blog.aspect.LogAspect           : Result : {}index
+2021-02-14 07:05:50.814  INFO 9864 --- [http-nio-8080-exec-1] com.cxkj.blog.aspect.LogAspect           : Request : {url='http://127.0.0.1:8080/', ip='127.0.0.1', classMethod='com.cxkj.blog.web.IndexController.index', args=[Page request [number: 0, size 10, sort: updateTime: DESC], {}]}
+2021-02-14 07:05:50.821  INFO 9864 --- [http-nio-8080-exec-1] com.cxkj.blog.aspect.LogAspect           : Result : {}index
+2021-02-14 07:05:51.397  INFO 9864 --- [http-nio-8080-exec-10] com.cxkj.blog.aspect.LogAspect           : Request : {url='http://127.0.0.1:8080/', ip='127.0.0.1', classMethod='com.cxkj.blog.web.IndexController.index', args=[Page request [number: 0, size 10, sort: updateTime: DESC], {}]}
+2021-02-14 07:05:51.404  INFO 9864 --- [http-nio-8080-exec-10] com.cxkj.blog.aspect.LogAspect           : Result : {}index
+2021-02-14 07:05:51.981  INFO 9864 --- [http-nio-8080-exec-4] com.cxkj.blog.aspect.LogAspect           : Request : {url='http://127.0.0.1:8080/', ip='127.0.0.1', classMethod='com.cxkj.blog.web.IndexController.index', args=[Page request [number: 0, size 10, sort: updateTime: DESC], {}]}
+2021-02-14 07:05:51.989  INFO 9864 --- [http-nio-8080-exec-4] com.cxkj.blog.aspect.LogAspect           : Result : {}index
+2021-02-14 07:05:52.860  INFO 9864 --- [http-nio-8080-exec-9] com.cxkj.blog.aspect.LogAspect           : Request : {url='http://127.0.0.1:8080/', ip='127.0.0.1', classMethod='com.cxkj.blog.web.IndexController.index', args=[Page request [number: 0, size 10, sort: updateTime: DESC], {}]}
+2021-02-14 07:05:52.867  INFO 9864 --- [http-nio-8080-exec-9] com.cxkj.blog.aspect.LogAspect           : Result : {}index
+2021-02-14 07:05:53.405  INFO 9864 --- [http-nio-8080-exec-7] com.cxkj.blog.aspect.LogAspect           : Request : {url='http://127.0.0.1:8080/', ip='127.0.0.1', classMethod='com.cxkj.blog.web.IndexController.index', args=[Page request [number: 0, size 10, sort: updateTime: DESC], {}]}
+2021-02-14 07:05:53.410  INFO 9864 --- [http-nio-8080-exec-7] com.cxkj.blog.aspect.LogAspect           : Result : {}index
+2021-02-14 07:06:27.758  INFO 9864 --- [http-nio-8080-exec-5] com.cxkj.blog.aspect.LogAspect           : Request : {url='http://127.0.0.1:8080/blog/7', ip='127.0.0.1', classMethod='com.cxkj.blog.web.IndexController.blog', args=[7, {}]}
+2021-02-14 07:06:27.762  INFO 9864 --- [http-nio-8080-exec-5] com.cxkj.blog.aspect.LogAspect           : Result : {}blog
+2021-02-14 07:06:28.036  INFO 9864 --- [http-nio-8080-exec-3] com.cxkj.blog.aspect.LogAspect           : Request : {url='http://127.0.0.1:8080/comments/7', ip='127.0.0.1', classMethod='com.cxkj.blog.web.CommentController.comments', args=[7, {}]}
+2021-02-14 07:06:28.048  INFO 9864 --- [http-nio-8080-exec-3] com.cxkj.blog.aspect.LogAspect           : Result : {}blog :: commentList
+2021-02-14 07:07:21.788  INFO 9864 --- [http-nio-8080-exec-8] com.cxkj.blog.aspect.LogAspect           : Request : {url='http://127.0.0.1:8080/', ip='127.0.0.1', classMethod='com.cxkj.blog.web.IndexController.index', args=[Page request [number: 0, size 10, sort: updateTime: DESC], {}]}
+2021-02-14 07:07:21.795  INFO 9864 --- [http-nio-8080-exec-8] com.cxkj.blog.aspect.LogAspect           : Result : {}index
+2021-02-14 07:10:16.868  INFO 14348 --- [restartedMain] com.cxkj.blog.BlogApplication            : Starting BlogApplication using Java 1.8.0_275 on DESKTOP-JSMG0SS with PID 14348 (F:\Spring-Boot-Blog\target\classes started by Arvin in F:\Spring-Boot-Blog)
+2021-02-14 07:10:16.870 DEBUG 14348 --- [restartedMain] com.cxkj.blog.BlogApplication            : Running with Spring Boot v2.4.2, Spring v5.3.3
+2021-02-14 07:10:16.870  INFO 14348 --- [restartedMain] com.cxkj.blog.BlogApplication            : The following profiles are active: dev
+2021-02-14 07:10:16.905  INFO 14348 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2021-02-14 07:10:16.905  INFO 14348 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2021-02-14 07:10:17.380  INFO 14348 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2021-02-14 07:10:17.430  INFO 14348 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 44 ms. Found 5 JPA repository interfaces.
+2021-02-14 07:10:18.034  INFO 14348 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2021-02-14 07:10:18.039  INFO 14348 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2021-02-14 07:10:18.040  INFO 14348 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.41]
+2021-02-14 07:10:18.128  INFO 14348 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2021-02-14 07:10:18.128  INFO 14348 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1223 ms
+2021-02-14 07:10:18.238  INFO 14348 --- [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2021-02-14 07:10:18.267  INFO 14348 --- [restartedMain] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 5.4.27.Final
+2021-02-14 07:10:18.338  INFO 14348 --- [restartedMain] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2021-02-14 07:10:18.396  INFO 14348 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2021-02-14 07:10:18.486  INFO 14348 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2021-02-14 07:10:18.498  INFO 14348 --- [restartedMain] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.MySQL8Dialect
+2021-02-14 07:10:18.975  INFO 14348 --- [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2021-02-14 07:10:18.980  INFO 14348 --- [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2021-02-14 07:10:19.017  INFO 14348 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2021-02-14 07:10:19.601  WARN 14348 --- [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2021-02-14 07:10:19.750  INFO 14348 --- [restartedMain] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2021-02-14 07:10:19.822  INFO 14348 --- [restartedMain] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page template: index
+2021-02-14 07:10:20.194  INFO 14348 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2021-02-14 07:10:20.204  INFO 14348 --- [restartedMain] com.cxkj.blog.BlogApplication            : Started BlogApplication in 3.8 seconds (JVM running for 4.396)
+2021-02-14 07:10:26.059  INFO 14348 --- [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2021-02-14 07:10:26.059  INFO 14348 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2021-02-14 07:10:26.060  INFO 14348 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2021-02-14 07:10:26.083  INFO 14348 --- [http-nio-8080-exec-1] com.cxkj.blog.aspect.LogAspect           : Request : {url='http://127.0.0.1:8080/', ip='127.0.0.1', classMethod='com.cxkj.blog.web.IndexController.index', args=[Page request [number: 0, size 10, sort: updateTime: DESC], {}]}
+2021-02-14 07:10:26.154  WARN 14348 --- [http-nio-8080-exec-1] org.hibernate.orm.deprecation            : HHH90000016: Found use of deprecated 'collection property' syntax in HQL/JPQL query [t.blogs.size]; use collection function syntax instead [size(t.blogs)].
+2021-02-14 07:10:26.163  WARN 14348 --- [http-nio-8080-exec-1] org.hibernate.orm.deprecation            : HHH90000016: Found use of deprecated 'collection property' syntax in HQL/JPQL query [t.blogs.size]; use collection function syntax instead [size(t.blogs)].
+2021-02-14 07:10:26.167  INFO 14348 --- [http-nio-8080-exec-1] com.cxkj.blog.aspect.LogAspect           : Result : {}index
+2021-02-14 07:11:17.691  INFO 2992 --- [restartedMain] com.cxkj.blog.BlogApplication            : Starting BlogApplication using Java 1.8.0_275 on DESKTOP-JSMG0SS with PID 2992 (F:\Spring-Boot-Blog\target\classes started by Arvin in F:\Spring-Boot-Blog)
+2021-02-14 07:11:17.693 DEBUG 2992 --- [restartedMain] com.cxkj.blog.BlogApplication            : Running with Spring Boot v2.4.2, Spring v5.3.3
+2021-02-14 07:11:17.693  INFO 2992 --- [restartedMain] com.cxkj.blog.BlogApplication            : The following profiles are active: dev
+2021-02-14 07:11:17.720  INFO 2992 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2021-02-14 07:11:17.721  INFO 2992 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2021-02-14 07:11:18.150  INFO 2992 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2021-02-14 07:11:18.196  INFO 2992 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 40 ms. Found 5 JPA repository interfaces.
+2021-02-14 07:11:18.611  INFO 2992 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2021-02-14 07:11:18.616  INFO 2992 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2021-02-14 07:11:18.616  INFO 2992 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.41]
+2021-02-14 07:11:18.690  INFO 2992 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2021-02-14 07:11:18.692  INFO 2992 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 971 ms
+2021-02-14 07:11:18.797  INFO 2992 --- [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2021-02-14 07:11:18.826  INFO 2992 --- [restartedMain] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 5.4.27.Final
+2021-02-14 07:11:18.904  INFO 2992 --- [restartedMain] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2021-02-14 07:11:18.965  INFO 2992 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2021-02-14 07:11:19.061  INFO 2992 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2021-02-14 07:11:19.076  INFO 2992 --- [restartedMain] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.MySQL8Dialect
+2021-02-14 07:11:19.546  INFO 2992 --- [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2021-02-14 07:11:19.553  INFO 2992 --- [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2021-02-14 07:11:19.599  INFO 2992 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2021-02-14 07:11:20.213  WARN 2992 --- [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2021-02-14 07:11:20.352  INFO 2992 --- [restartedMain] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2021-02-14 07:11:20.433  INFO 2992 --- [restartedMain] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page template: index
+2021-02-14 07:11:20.788  INFO 2992 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2021-02-14 07:11:20.795  INFO 2992 --- [restartedMain] com.cxkj.blog.BlogApplication            : Started BlogApplication in 3.423 seconds (JVM running for 4.054)
+2021-02-14 07:11:21.008  INFO 2992 --- [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2021-02-14 07:11:21.008  INFO 2992 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2021-02-14 07:11:21.009  INFO 2992 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2021-02-14 07:11:24.348  INFO 2992 --- [http-nio-8080-exec-10] com.cxkj.blog.aspect.LogAspect           : Request : {url='http://127.0.0.1:8080/', ip='127.0.0.1', classMethod='com.cxkj.blog.web.IndexController.index', args=[Page request [number: 0, size 10, sort: updateTime: DESC], {}]}
+2021-02-14 07:11:24.387  WARN 2992 --- [http-nio-8080-exec-10] org.hibernate.orm.deprecation            : HHH90000016: Found use of deprecated 'collection property' syntax in HQL/JPQL query [t.blogs.size]; use collection function syntax instead [size(t.blogs)].
+2021-02-14 07:11:24.393  WARN 2992 --- [http-nio-8080-exec-10] org.hibernate.orm.deprecation            : HHH90000016: Found use of deprecated 'collection property' syntax in HQL/JPQL query [t.blogs.size]; use collection function syntax instead [size(t.blogs)].
+2021-02-14 07:11:24.396  INFO 2992 --- [http-nio-8080-exec-10] com.cxkj.blog.aspect.LogAspect           : Result : {}index
+2021-02-14 07:11:33.022  INFO 2992 --- [http-nio-8080-exec-2] com.cxkj.blog.aspect.LogAspect           : Request : {url='http://127.0.0.1:8080/', ip='127.0.0.1', classMethod='com.cxkj.blog.web.IndexController.index', args=[Page request [number: 0, size 10, sort: updateTime: DESC], {}]}
+2021-02-14 07:11:33.029  INFO 2992 --- [http-nio-8080-exec-2] com.cxkj.blog.aspect.LogAspect           : Result : {}index
+2021-02-14 07:11:45.509  INFO 2992 --- [http-nio-8080-exec-5] com.cxkj.blog.aspect.LogAspect           : Request : {url='http://127.0.0.1:8080/', ip='127.0.0.1', classMethod='com.cxkj.blog.web.IndexController.index', args=[Page request [number: 0, size 10, sort: updateTime: DESC], {}]}
+2021-02-14 07:11:45.515  INFO 2992 --- [http-nio-8080-exec-5] com.cxkj.blog.aspect.LogAspect           : Result : {}index
+2021-02-14 07:21:36.295  INFO 8344 --- [restartedMain] com.cxkj.blog.BlogApplication            : Starting BlogApplication using Java 1.8.0_275 on DESKTOP-JSMG0SS with PID 8344 (F:\Spring-Boot-Blog\target\classes started by Arvin in F:\Spring-Boot-Blog)
+2021-02-14 07:21:36.298 DEBUG 8344 --- [restartedMain] com.cxkj.blog.BlogApplication            : Running with Spring Boot v2.4.2, Spring v5.3.3
+2021-02-14 07:21:36.299  INFO 8344 --- [restartedMain] com.cxkj.blog.BlogApplication            : The following profiles are active: dev
+2021-02-14 07:21:36.334  INFO 8344 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2021-02-14 07:21:36.334  INFO 8344 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2021-02-14 07:21:36.824  INFO 8344 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2021-02-14 07:21:36.870  INFO 8344 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 40 ms. Found 5 JPA repository interfaces.
+2021-02-14 07:21:37.348  INFO 8344 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2021-02-14 07:21:37.355  INFO 8344 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2021-02-14 07:21:37.355  INFO 8344 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.41]
+2021-02-14 07:21:37.445  INFO 8344 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2021-02-14 07:21:37.445  INFO 8344 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1110 ms
+2021-02-14 07:21:37.575  INFO 8344 --- [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2021-02-14 07:21:37.604  INFO 8344 --- [restartedMain] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 5.4.27.Final
+2021-02-14 07:21:37.667  INFO 8344 --- [restartedMain] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2021-02-14 07:21:37.719  INFO 8344 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2021-02-14 07:21:37.807  INFO 8344 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2021-02-14 07:21:37.821  INFO 8344 --- [restartedMain] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.MySQL8Dialect
+2021-02-14 07:21:38.335  INFO 8344 --- [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2021-02-14 07:21:38.340  INFO 8344 --- [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2021-02-14 07:21:38.383  INFO 8344 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2021-02-14 07:21:38.978  WARN 8344 --- [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2021-02-14 07:21:39.127  INFO 8344 --- [restartedMain] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2021-02-14 07:21:39.208  INFO 8344 --- [restartedMain] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page template: index
+2021-02-14 07:21:39.575  INFO 8344 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2021-02-14 07:21:39.582  INFO 8344 --- [restartedMain] com.cxkj.blog.BlogApplication            : Started BlogApplication in 3.682 seconds (JVM running for 4.251)
+2021-02-14 07:21:39.750  INFO 8344 --- [http-nio-8080-exec-2] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2021-02-14 07:21:39.750  INFO 8344 --- [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2021-02-14 07:21:39.750  INFO 8344 --- [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Completed initialization in 0 ms
+2021-02-14 07:21:39.771  INFO 8344 --- [http-nio-8080-exec-2] com.cxkj.blog.aspect.LogAspect           : Request : {url='http://127.0.0.1:8080/', ip='127.0.0.1', classMethod='com.cxkj.blog.web.IndexController.index', args=[Page request [number: 0, size 10, sort: updateTime: DESC], {}]}
+2021-02-14 07:21:39.843  WARN 8344 --- [http-nio-8080-exec-2] org.hibernate.orm.deprecation            : HHH90000016: Found use of deprecated 'collection property' syntax in HQL/JPQL query [t.blogs.size]; use collection function syntax instead [size(t.blogs)].
+2021-02-14 07:21:39.852  WARN 8344 --- [http-nio-8080-exec-2] org.hibernate.orm.deprecation            : HHH90000016: Found use of deprecated 'collection property' syntax in HQL/JPQL query [t.blogs.size]; use collection function syntax instead [size(t.blogs)].
+2021-02-14 07:21:39.857  INFO 8344 --- [http-nio-8080-exec-2] com.cxkj.blog.aspect.LogAspect           : Result : {}index
+2021-02-14 07:21:47.334  INFO 8344 --- [http-nio-8080-exec-1] com.cxkj.blog.aspect.LogAspect           : Request : {url='http://127.0.0.1:8080/', ip='127.0.0.1', classMethod='com.cxkj.blog.web.IndexController.index', args=[Page request [number: 0, size 10, sort: updateTime: DESC], {}]}
+2021-02-14 07:21:47.343  INFO 8344 --- [http-nio-8080-exec-1] com.cxkj.blog.aspect.LogAspect           : Result : {}index
+2021-02-14 07:21:49.955  INFO 8344 --- [http-nio-8080-exec-9] com.cxkj.blog.aspect.LogAspect           : Request : {url='http://127.0.0.1:8080/blog/7', ip='127.0.0.1', classMethod='com.cxkj.blog.web.IndexController.blog', args=[7, {}]}
+2021-02-14 07:21:50.000  INFO 8344 --- [http-nio-8080-exec-9] com.cxkj.blog.aspect.LogAspect           : Result : {}blog
+2021-02-14 07:21:50.341  INFO 8344 --- [http-nio-8080-exec-8] com.cxkj.blog.aspect.LogAspect           : Request : {url='http://127.0.0.1:8080/comments/7', ip='127.0.0.1', classMethod='com.cxkj.blog.web.CommentController.comments', args=[7, {}]}
+2021-02-14 07:21:50.362  INFO 8344 --- [http-nio-8080-exec-8] com.cxkj.blog.aspect.LogAspect           : Result : {}blog :: commentList
+2021-02-14 07:21:54.339  INFO 8344 --- [http-nio-8080-exec-2] com.cxkj.blog.aspect.LogAspect           : Request : {url='http://127.0.0.1:8080/', ip='127.0.0.1', classMethod='com.cxkj.blog.web.IndexController.index', args=[Page request [number: 0, size 10, sort: updateTime: DESC], {}]}
+2021-02-14 07:21:54.348  INFO 8344 --- [http-nio-8080-exec-2] com.cxkj.blog.aspect.LogAspect           : Result : {}index
+2021-02-14 07:21:57.498  INFO 8344 --- [http-nio-8080-exec-9] com.cxkj.blog.aspect.LogAspect           : Request : {url='http://127.0.0.1:8080/blog/7', ip='127.0.0.1', classMethod='com.cxkj.blog.web.IndexController.blog', args=[7, {}]}
+2021-02-14 07:21:57.502  INFO 8344 --- [http-nio-8080-exec-9] com.cxkj.blog.aspect.LogAspect           : Result : {}blog
+2021-02-14 07:21:57.848  INFO 8344 --- [http-nio-8080-exec-7] com.cxkj.blog.aspect.LogAspect           : Request : {url='http://127.0.0.1:8080/comments/7', ip='127.0.0.1', classMethod='com.cxkj.blog.web.CommentController.comments', args=[7, {}]}
+2021-02-14 07:21:57.854  INFO 8344 --- [http-nio-8080-exec-7] com.cxkj.blog.aspect.LogAspect           : Result : {}blog :: commentList
+2021-02-14 07:22:00.558  INFO 8344 --- [http-nio-8080-exec-6] com.cxkj.blog.aspect.LogAspect           : Request : {url='http://127.0.0.1:8080/', ip='127.0.0.1', classMethod='com.cxkj.blog.web.IndexController.index', args=[Page request [number: 0, size 10, sort: updateTime: DESC], {}]}
+2021-02-14 07:22:00.566  INFO 8344 --- [http-nio-8080-exec-6] com.cxkj.blog.aspect.LogAspect           : Result : {}index
+2021-02-14 07:22:03.930  INFO 8344 --- [http-nio-8080-exec-4] com.cxkj.blog.aspect.LogAspect           : Request : {url='http://127.0.0.1:8080/blog/7', ip='127.0.0.1', classMethod='com.cxkj.blog.web.IndexController.blog', args=[7, {}]}
+2021-02-14 07:22:03.936  INFO 8344 --- [http-nio-8080-exec-4] com.cxkj.blog.aspect.LogAspect           : Result : {}blog
+2021-02-14 07:22:04.268  INFO 8344 --- [http-nio-8080-exec-10] com.cxkj.blog.aspect.LogAspect           : Request : {url='http://127.0.0.1:8080/comments/7', ip='127.0.0.1', classMethod='com.cxkj.blog.web.CommentController.comments', args=[7, {}]}
+2021-02-14 07:22:04.273  INFO 8344 --- [http-nio-8080-exec-10] com.cxkj.blog.aspect.LogAspect           : Result : {}blog :: commentList
+2021-02-14 07:22:06.236  INFO 8344 --- [http-nio-8080-exec-9] com.cxkj.blog.aspect.LogAspect           : Request : {url='http://127.0.0.1:8080/', ip='127.0.0.1', classMethod='com.cxkj.blog.web.IndexController.index', args=[Page request [number: 0, size 10, sort: updateTime: DESC], {}]}
+2021-02-14 07:22:06.244  INFO 8344 --- [http-nio-8080-exec-9] com.cxkj.blog.aspect.LogAspect           : Result : {}index
+2021-02-14 07:22:09.201  INFO 8344 --- [http-nio-8080-exec-7] com.cxkj.blog.aspect.LogAspect           : Request : {url='http://127.0.0.1:8080/blog/7', ip='127.0.0.1', classMethod='com.cxkj.blog.web.IndexController.blog', args=[7, {}]}
+2021-02-14 07:22:09.206  INFO 8344 --- [http-nio-8080-exec-7] com.cxkj.blog.aspect.LogAspect           : Result : {}blog
+2021-02-14 07:22:09.529  INFO 8344 --- [http-nio-8080-exec-5] com.cxkj.blog.aspect.LogAspect           : Request : {url='http://127.0.0.1:8080/comments/7', ip='127.0.0.1', classMethod='com.cxkj.blog.web.CommentController.comments', args=[7, {}]}
+2021-02-14 07:22:09.536  INFO 8344 --- [http-nio-8080-exec-5] com.cxkj.blog.aspect.LogAspect           : Result : {}blog :: commentList
+2021-02-14 07:22:11.565  INFO 8344 --- [http-nio-8080-exec-6] com.cxkj.blog.aspect.LogAspect           : Request : {url='http://127.0.0.1:8080/', ip='127.0.0.1', classMethod='com.cxkj.blog.web.IndexController.index', args=[Page request [number: 0, size 10, sort: updateTime: DESC], {}]}
+2021-02-14 07:22:11.572  INFO 8344 --- [http-nio-8080-exec-6] com.cxkj.blog.aspect.LogAspect           : Result : {}index
+2021-02-14 07:22:18.509  INFO 8344 --- [http-nio-8080-exec-4] com.cxkj.blog.aspect.LogAspect           : Request : {url='http://127.0.0.1:8080/', ip='127.0.0.1', classMethod='com.cxkj.blog.web.IndexController.index', args=[Page request [number: 0, size 10, sort: updateTime: DESC], {}]}
+2021-02-14 07:22:18.516  INFO 8344 --- [http-nio-8080-exec-4] com.cxkj.blog.aspect.LogAspect           : Result : {}index
+2021-02-14 07:22:26.618  INFO 8344 --- [http-nio-8080-exec-7] com.cxkj.blog.aspect.LogAspect           : Request : {url='http://127.0.0.1:8080/blog/7', ip='127.0.0.1', classMethod='com.cxkj.blog.web.IndexController.blog', args=[7, {}]}
+2021-02-14 07:22:26.623  INFO 8344 --- [http-nio-8080-exec-7] com.cxkj.blog.aspect.LogAspect           : Result : {}blog
+2021-02-14 07:22:26.956  INFO 8344 --- [http-nio-8080-exec-10] com.cxkj.blog.aspect.LogAspect           : Request : {url='http://127.0.0.1:8080/comments/7', ip='127.0.0.1', classMethod='com.cxkj.blog.web.CommentController.comments', args=[7, {}]}
+2021-02-14 07:22:26.963  INFO 8344 --- [http-nio-8080-exec-10] com.cxkj.blog.aspect.LogAspect           : Result : {}blog :: commentList
+2021-02-14 07:22:28.375  INFO 8344 --- [http-nio-8080-exec-5] com.cxkj.blog.aspect.LogAspect           : Request : {url='http://127.0.0.1:8080/blog/7', ip='127.0.0.1', classMethod='com.cxkj.blog.web.IndexController.blog', args=[7, {}]}
+2021-02-14 07:22:28.381  INFO 8344 --- [http-nio-8080-exec-5] com.cxkj.blog.aspect.LogAspect           : Result : {}blog
+2021-02-14 07:22:28.613  INFO 8344 --- [http-nio-8080-exec-6] com.cxkj.blog.aspect.LogAspect           : Request : {url='http://127.0.0.1:8080/comments/7', ip='127.0.0.1', classMethod='com.cxkj.blog.web.CommentController.comments', args=[7, {}]}
+2021-02-14 07:22:28.618  INFO 8344 --- [http-nio-8080-exec-6] com.cxkj.blog.aspect.LogAspect           : Result : {}blog :: commentList
+2021-02-14 07:22:32.023  INFO 8344 --- [http-nio-8080-exec-1] com.cxkj.blog.aspect.LogAspect           : Request : {url='http://127.0.0.1:8080/blog/7', ip='127.0.0.1', classMethod='com.cxkj.blog.web.IndexController.blog', args=[7, {}]}
+2021-02-14 07:22:32.029  INFO 8344 --- [http-nio-8080-exec-1] com.cxkj.blog.aspect.LogAspect           : Result : {}blog
+2021-02-14 07:22:32.265  INFO 8344 --- [http-nio-8080-exec-8] com.cxkj.blog.aspect.LogAspect           : Request : {url='http://127.0.0.1:8080/comments/7', ip='127.0.0.1', classMethod='com.cxkj.blog.web.CommentController.comments', args=[7, {}]}
+2021-02-14 07:22:32.268  INFO 8344 --- [http-nio-8080-exec-8] com.cxkj.blog.aspect.LogAspect           : Result : {}blog :: commentList
+2021-02-14 07:23:46.276  INFO 8344 --- [http-nio-8080-exec-1] com.cxkj.blog.aspect.LogAspect           : Request : {url='http://127.0.0.1:8080/', ip='127.0.0.1', classMethod='com.cxkj.blog.web.IndexController.index', args=[Page request [number: 0, size 10, sort: updateTime: DESC], {}]}
+2021-02-14 07:23:46.282  INFO 8344 --- [http-nio-8080-exec-1] com.cxkj.blog.aspect.LogAspect           : Result : {}index
+2021-02-14 07:23:47.792  INFO 8344 --- [http-nio-8080-exec-4] com.cxkj.blog.aspect.LogAspect           : Request : {url='http://127.0.0.1:8080/blog/7', ip='127.0.0.1', classMethod='com.cxkj.blog.web.IndexController.blog', args=[7, {}]}
+2021-02-14 07:23:47.799  INFO 8344 --- [http-nio-8080-exec-4] com.cxkj.blog.aspect.LogAspect           : Result : {}blog
+2021-02-14 07:23:48.135  INFO 8344 --- [http-nio-8080-exec-5] com.cxkj.blog.aspect.LogAspect           : Request : {url='http://127.0.0.1:8080/comments/7', ip='127.0.0.1', classMethod='com.cxkj.blog.web.CommentController.comments', args=[7, {}]}
+2021-02-14 07:23:48.140  INFO 8344 --- [http-nio-8080-exec-5] com.cxkj.blog.aspect.LogAspect           : Result : {}blog :: commentList
+2021-02-14 07:24:01.151  INFO 8344 --- [http-nio-8080-exec-9] com.cxkj.blog.aspect.LogAspect           : Request : {url='http://127.0.0.1:8080/blog/7', ip='127.0.0.1', classMethod='com.cxkj.blog.web.IndexController.blog', args=[7, {}]}
+2021-02-14 07:24:01.158  INFO 8344 --- [http-nio-8080-exec-9] com.cxkj.blog.aspect.LogAspect           : Result : {}blog
+2021-02-14 07:24:01.414  INFO 8344 --- [http-nio-8080-exec-3] com.cxkj.blog.aspect.LogAspect           : Request : {url='http://127.0.0.1:8080/comments/7', ip='127.0.0.1', classMethod='com.cxkj.blog.web.CommentController.comments', args=[7, {}]}
+2021-02-14 07:24:01.419  INFO 8344 --- [http-nio-8080-exec-3] com.cxkj.blog.aspect.LogAspect           : Result : {}blog :: commentList
+2021-02-14 07:25:26.760  INFO 8344 --- [http-nio-8080-exec-5] com.cxkj.blog.aspect.LogAspect           : Request : {url='http://127.0.0.1:8080/', ip='127.0.0.1', classMethod='com.cxkj.blog.web.IndexController.index', args=[Page request [number: 0, size 10, sort: updateTime: DESC], {}]}
+2021-02-14 07:25:26.766  INFO 8344 --- [http-nio-8080-exec-5] com.cxkj.blog.aspect.LogAspect           : Result : {}index
+2021-02-14 07:25:31.514  INFO 8344 --- [http-nio-8080-exec-4] com.cxkj.blog.aspect.LogAspect           : Request : {url='http://127.0.0.1:8080/', ip='127.0.0.1', classMethod='com.cxkj.blog.web.IndexController.index', args=[Page request [number: 0, size 10, sort: updateTime: DESC], {}]}
+2021-02-14 07:25:31.519  INFO 8344 --- [http-nio-8080-exec-4] com.cxkj.blog.aspect.LogAspect           : Result : {}index
+2021-02-14 07:25:55.363  INFO 8344 --- [http-nio-8080-exec-1] com.cxkj.blog.aspect.LogAspect           : Request : {url='http://127.0.0.1:8080/', ip='127.0.0.1', classMethod='com.cxkj.blog.web.IndexController.index', args=[Page request [number: 0, size 10, sort: updateTime: DESC], {}]}
+2021-02-14 07:25:55.369  INFO 8344 --- [http-nio-8080-exec-1] com.cxkj.blog.aspect.LogAspect           : Result : {}index
+2021-02-14 07:25:57.400  INFO 8344 --- [http-nio-8080-exec-10] com.cxkj.blog.aspect.LogAspect           : Request : {url='http://127.0.0.1:8080/', ip='127.0.0.1', classMethod='com.cxkj.blog.web.IndexController.index', args=[Page request [number: 0, size 10, sort: updateTime: DESC], {}]}
+2021-02-14 07:25:57.404  INFO 8344 --- [http-nio-8080-exec-10] com.cxkj.blog.aspect.LogAspect           : Result : {}index
+2021-02-14 07:26:03.260  INFO 8344 --- [http-nio-8080-exec-2] com.cxkj.blog.aspect.LogAspect           : Request : {url='http://127.0.0.1:8080/', ip='127.0.0.1', classMethod='com.cxkj.blog.web.IndexController.index', args=[Page request [number: 0, size 10, sort: updateTime: DESC], {}]}
+2021-02-14 07:26:03.266  INFO 8344 --- [http-nio-8080-exec-2] com.cxkj.blog.aspect.LogAspect           : Result : {}index
+2021-02-14 07:26:04.799  INFO 8344 --- [http-nio-8080-exec-7] com.cxkj.blog.aspect.LogAspect           : Request : {url='http://127.0.0.1:8080/', ip='127.0.0.1', classMethod='com.cxkj.blog.web.IndexController.index', args=[Page request [number: 0, size 10, sort: updateTime: DESC], {}]}
+2021-02-14 07:26:04.806  INFO 8344 --- [http-nio-8080-exec-7] com.cxkj.blog.aspect.LogAspect           : Result : {}index
+2021-02-14 07:26:08.955  INFO 8344 --- [http-nio-8080-exec-4] com.cxkj.blog.aspect.LogAspect           : Request : {url='http://127.0.0.1:8080/', ip='127.0.0.1', classMethod='com.cxkj.blog.web.IndexController.index', args=[Page request [number: 0, size 10, sort: updateTime: DESC], {}]}
+2021-02-14 07:26:08.961  INFO 8344 --- [http-nio-8080-exec-4] com.cxkj.blog.aspect.LogAspect           : Result : {}index
+2021-02-14 07:26:12.684  INFO 8344 --- [http-nio-8080-exec-9] com.cxkj.blog.aspect.LogAspect           : Request : {url='http://127.0.0.1:8080/', ip='127.0.0.1', classMethod='com.cxkj.blog.web.IndexController.index', args=[Page request [number: 0, size 10, sort: updateTime: DESC], {}]}
+2021-02-14 07:26:12.689  INFO 8344 --- [http-nio-8080-exec-9] com.cxkj.blog.aspect.LogAspect           : Result : {}index
+2021-02-14 07:26:13.413  INFO 8344 --- [http-nio-8080-exec-1] com.cxkj.blog.aspect.LogAspect           : Request : {url='http://127.0.0.1:8080/', ip='127.0.0.1', classMethod='com.cxkj.blog.web.IndexController.index', args=[Page request [number: 0, size 10, sort: updateTime: DESC], {}]}
+2021-02-14 07:26:13.418  INFO 8344 --- [http-nio-8080-exec-1] com.cxkj.blog.aspect.LogAspect           : Result : {}index
+2021-02-14 07:26:15.956  INFO 8344 --- [http-nio-8080-exec-1] com.cxkj.blog.aspect.LogAspect           : Request : {url='http://127.0.0.1:8080/', ip='127.0.0.1', classMethod='com.cxkj.blog.web.IndexController.index', args=[Page request [number: 0, size 10, sort: updateTime: DESC], {}]}
+2021-02-14 07:26:15.960  INFO 8344 --- [http-nio-8080-exec-1] com.cxkj.blog.aspect.LogAspect           : Result : {}index
+2021-02-14 07:35:14.235  INFO 8344 --- [http-nio-8080-exec-3] com.cxkj.blog.aspect.LogAspect           : Request : {url='http://127.0.0.1:8080/', ip='127.0.0.1', classMethod='com.cxkj.blog.web.IndexController.index', args=[Page request [number: 0, size 10, sort: updateTime: DESC], {}]}
+2021-02-14 07:35:14.242  INFO 8344 --- [http-nio-8080-exec-3] com.cxkj.blog.aspect.LogAspect           : Result : {}index
+2021-02-14 07:35:20.353  INFO 8344 --- [http-nio-8080-exec-10] com.cxkj.blog.aspect.LogAspect           : Request : {url='http://127.0.0.1:8080/blog/30', ip='127.0.0.1', classMethod='com.cxkj.blog.web.IndexController.blog', args=[30, {}]}
+2021-02-14 07:35:20.364  INFO 8344 --- [http-nio-8080-exec-10] com.cxkj.blog.aspect.LogAspect           : Result : {}blog
+2021-02-14 07:35:20.767  INFO 8344 --- [http-nio-8080-exec-6] com.cxkj.blog.aspect.LogAspect           : Request : {url='http://127.0.0.1:8080/comments/30', ip='127.0.0.1', classMethod='com.cxkj.blog.web.CommentController.comments', args=[30, {}]}
+2021-02-14 07:35:20.768  INFO 8344 --- [http-nio-8080-exec-6] com.cxkj.blog.aspect.LogAspect           : Result : {}blog :: commentList
+2021-02-14 07:35:36.270  INFO 8344 --- [http-nio-8080-exec-8] com.cxkj.blog.aspect.LogAspect           : Request : {url='http://127.0.0.1:8080/', ip='127.0.0.1', classMethod='com.cxkj.blog.web.IndexController.index', args=[Page request [number: 0, size 10, sort: updateTime: DESC], {}]}
+2021-02-14 07:35:36.275  INFO 8344 --- [http-nio-8080-exec-8] com.cxkj.blog.aspect.LogAspect           : Result : {}index
+2021-02-14 07:35:48.380  INFO 8344 --- [http-nio-8080-exec-5] com.cxkj.blog.aspect.LogAspect           : Request : {url='http://127.0.0.1:8080/', ip='127.0.0.1', classMethod='com.cxkj.blog.web.IndexController.index', args=[Page request [number: 0, size 10, sort: updateTime: DESC], {}]}
+2021-02-14 07:35:48.387  INFO 8344 --- [http-nio-8080-exec-5] com.cxkj.blog.aspect.LogAspect           : Result : {}index
+2021-02-14 07:35:55.041  INFO 8344 --- [http-nio-8080-exec-2] com.cxkj.blog.aspect.LogAspect           : Request : {url='http://127.0.0.1:8080/blog/30', ip='127.0.0.1', classMethod='com.cxkj.blog.web.IndexController.blog', args=[30, {}]}
+2021-02-14 07:35:55.048  INFO 8344 --- [http-nio-8080-exec-2] com.cxkj.blog.aspect.LogAspect           : Result : {}blog
+2021-02-14 07:35:55.458  INFO 8344 --- [http-nio-8080-exec-3] com.cxkj.blog.aspect.LogAspect           : Request : {url='http://127.0.0.1:8080/comments/30', ip='127.0.0.1', classMethod='com.cxkj.blog.web.CommentController.comments', args=[30, {}]}
+2021-02-14 07:35:55.459  INFO 8344 --- [http-nio-8080-exec-3] com.cxkj.blog.aspect.LogAspect           : Result : {}blog :: commentList
+2021-02-14 07:37:40.252  INFO 8344 --- [http-nio-8080-exec-5] com.cxkj.blog.aspect.LogAspect           : Request : {url='http://127.0.0.1:8080/', ip='127.0.0.1', classMethod='com.cxkj.blog.web.IndexController.index', args=[Page request [number: 0, size 10, sort: updateTime: DESC], {}]}
+2021-02-14 07:37:40.256  INFO 8344 --- [http-nio-8080-exec-5] com.cxkj.blog.aspect.LogAspect           : Result : {}index
+2021-02-14 07:37:41.520  INFO 8344 --- [http-nio-8080-exec-6] com.cxkj.blog.aspect.LogAspect           : Request : {url='http://127.0.0.1:8080/blog/7', ip='127.0.0.1', classMethod='com.cxkj.blog.web.IndexController.blog', args=[7, {}]}
+2021-02-14 07:37:41.730  INFO 8344 --- [http-nio-8080-exec-6] com.cxkj.blog.aspect.LogAspect           : Result : {}blog
+2021-02-14 07:37:42.050  INFO 8344 --- [http-nio-8080-exec-9] com.cxkj.blog.aspect.LogAspect           : Request : {url='http://127.0.0.1:8080/comments/7', ip='127.0.0.1', classMethod='com.cxkj.blog.web.CommentController.comments', args=[7, {}]}
+2021-02-14 07:37:42.053  INFO 8344 --- [http-nio-8080-exec-9] com.cxkj.blog.aspect.LogAspect           : Result : {}blog :: commentList
+2021-02-14 07:37:55.784  INFO 8344 --- [http-nio-8080-exec-2] com.cxkj.blog.aspect.LogAspect           : Request : {url='http://127.0.0.1:8080/blog/30', ip='127.0.0.1', classMethod='com.cxkj.blog.web.IndexController.blog', args=[30, {}]}
+2021-02-14 07:37:55.791  INFO 8344 --- [http-nio-8080-exec-2] com.cxkj.blog.aspect.LogAspect           : Result : {}blog
+2021-02-14 07:37:56.200  INFO 8344 --- [http-nio-8080-exec-8] com.cxkj.blog.aspect.LogAspect           : Request : {url='http://127.0.0.1:8080/comments/30', ip='127.0.0.1', classMethod='com.cxkj.blog.web.CommentController.comments', args=[30, {}]}
+2021-02-14 07:37:56.201  INFO 8344 --- [http-nio-8080-exec-8] com.cxkj.blog.aspect.LogAspect           : Result : {}blog :: commentList
+2021-02-14 07:39:12.548  INFO 8344 --- [http-nio-8080-exec-7] com.cxkj.blog.aspect.LogAspect           : Request : {url='http://127.0.0.1:8080/', ip='127.0.0.1', classMethod='com.cxkj.blog.web.IndexController.index', args=[Page request [number: 0, size 10, sort: updateTime: DESC], {}]}
+2021-02-14 07:39:12.553  INFO 8344 --- [http-nio-8080-exec-7] com.cxkj.blog.aspect.LogAspect           : Result : {}index
+2021-02-14 07:39:14.079  INFO 8344 --- [http-nio-8080-exec-6] com.cxkj.blog.aspect.LogAspect           : Request : {url='http://127.0.0.1:8080/blog/30', ip='127.0.0.1', classMethod='com.cxkj.blog.web.IndexController.blog', args=[30, {}]}
+2021-02-14 07:39:14.087  INFO 8344 --- [http-nio-8080-exec-6] com.cxkj.blog.aspect.LogAspect           : Result : {}blog
+2021-02-14 07:39:14.492  INFO 8344 --- [http-nio-8080-exec-4] com.cxkj.blog.aspect.LogAspect           : Request : {url='http://127.0.0.1:8080/comments/30', ip='127.0.0.1', classMethod='com.cxkj.blog.web.CommentController.comments', args=[30, {}]}
+2021-02-14 07:39:14.493  INFO 8344 --- [http-nio-8080-exec-4] com.cxkj.blog.aspect.LogAspect           : Result : {}blog :: commentList
+2021-02-14 07:40:42.749  INFO 8344 --- [http-nio-8080-exec-2] com.cxkj.blog.aspect.LogAspect           : Request : {url='http://127.0.0.1:8080/comments', ip='127.0.0.1', classMethod='com.cxkj.blog.web.CommentController.post', args=[Comment{id=null, nickname='Arvin', email='2644266656@qq.com', content='目前程序核心部分已经完成，接下来我们会对程序进行细节优化，我们制作重点将主要聚集对于美术方面的制作', avatar='null', createTime=null, blog=Blog{id=30, title='null', content='null', firstPicture='null', flag='null', views=null, appreciation=false, shareStatement=false, commentabled=false, published=false, recommend=false, createTime=null, updateTime=null, type=null, tags=[], user=null, comments=[], tagIds='null', description='null'}, replyComments=[], parentComment=Comment{id=-1, nickname='null', email='null', content='null', avatar='null', createTime=null, blog=null, replyComments=[], parentComment=null, adminComment=false}, adminComment=false}, org.apache.catalina.session.StandardSessionFacade@5e27a298]}
+2021-02-14 07:40:42.760  INFO 8344 --- [http-nio-8080-exec-2] com.cxkj.blog.aspect.LogAspect           : Result : {}redirect:/comments/30
+2021-02-14 07:40:42.761  INFO 8344 --- [http-nio-8080-exec-6] com.cxkj.blog.aspect.LogAspect           : Request : {url='http://127.0.0.1:8080/comments/30', ip='127.0.0.1', classMethod='com.cxkj.blog.web.CommentController.comments', args=[30, {}]}
+2021-02-14 07:40:42.763  INFO 8344 --- [http-nio-8080-exec-6] com.cxkj.blog.aspect.LogAspect           : Result : {}blog :: commentList
