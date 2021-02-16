@@ -36,7 +36,7 @@
             </a>
         </nav>
         <!--中间内容-->
-        <div id="waypoint" class="m-container-small m-padded-tb-big">
+        <div id="waypoint" class="m-container-small m-padded-tb-big animated fadeIn">
            <div class="ui container">
                <!--头部-->
                <div class="ui top attached segment">
@@ -75,26 +75,28 @@
                    </div>
 
                    <!--赞赏-->
-                   <div class="ui center aligned basic segment">
-                       <button id="payButton" class="ui orange basic circular button">赞赏</button>
-                   </div>
-                   <div class="ui payQR flowing popup transition hidden">
-                       <div class="ui orange basic label">
-                           <div class="ui images" style="font-size: inherit !important;">
-                               <div class="image">
-                                   <img src="../static/images/WX_Arvin.jpg" th:src="@{/images/WX_Arvin.jpg}" alt="Guest Island" class="ui rounded bordered image" style="width: 120px">
-                                   <div>支付宝</div>
-                               </div>
-                               <div class="image">
-                                   <img src="../static/images/WX_Arvin.jpg" th:src="@{/images/WX_Arvin.jpg}" alt="Guest Island" class="ui rounded bordered image" style="width: 120px">
-                                   <div>微信</div>
+                   <div th:if="${blog.appreciation}">
+                       <div class="ui center aligned basic segment">
+                           <button id="payButton" class="ui orange basic circular button">赞赏</button>
+                       </div>
+                       <div class="ui payQR flowing popup transition hidden">
+                           <div class="ui orange basic label">
+                               <div class="ui images" style="font-size: inherit !important;">
+                                   <div class="image">
+                                       <img src="../static/images/WX_Arvin.jpg" th:src="@{/images/WX_Arvin.jpg}" alt="Guest Island" class="ui rounded bordered image" style="width: 120px">
+                                       <div>支付宝</div>
+                                   </div>
+                                   <div class="image">
+                                       <img src="../static/images/WX_Arvin.jpg" th:src="@{/images/WX_Arvin.jpg}" alt="Guest Island" class="ui rounded bordered image" style="width: 120px">
+                                       <div>微信</div>
+                                   </div>
                                </div>
                            </div>
                        </div>
                    </div>
                </div>
                <!--博客信息-->
-               <div class="ui attached positive message">
+               <div class="ui attached positive message" th:if="${blog.shareStatement}">
                    <div class="ui middle aligned grid">
                        <div class="eleven wide column">
                            <ui class="list">
@@ -110,7 +112,7 @@
                    </div>
                </div>
                <!--留言-->
-               <div class="ui bottom attached segment">
+               <div class="ui bottom attached segment" th:if="${blog.commentabled}">
                    <!--留言区域-->
                    <div id="comment-container" class="ui teal segment">
                        <div th:fragment="commentList">
@@ -340,7 +342,7 @@
                 position : 'left center'
             });
 
-            var serurl="127.0.0.1:8080";
+            var serurl= /*[[#{blog.serurl}]]*/"127.0.0.1:8080";
             var url = /*[[@{/blog/{id}(id=${blog.id})}]]*/"";
             var qrcode = new QRCode("qrcode",{
                 text : serurl+url,

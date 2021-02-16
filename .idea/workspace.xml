@@ -67,12 +67,12 @@
     <property name="node.js.path.for.package.tslint" value="project" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
-    <property name="project.structure.last.edited" value="项目" />
+    <property name="project.structure.last.edited" value="问题" />
     <property name="project.structure.proportion" value="0.15429688" />
     <property name="project.structure.side.proportion" value="0.49947312" />
     <property name="restartRequiresConfirmation" value="false" />
     <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
-    <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
+    <property name="settings.editor.selected.configurable" value="File.Encoding" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -81,6 +81,9 @@
       <recent name="F:\Spring-Boot-Blog\src\main\resources\templates\admin" />
       <recent name="F:\Spring-Boot-bolg\src\main\resources\templates\admin" />
       <recent name="F:\Spring-Boot-bolg" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="F:\Spring-Boot-Blog\src\main\resources\i18n" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="com.cxkj.blog.web" />
@@ -114,15 +117,13 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration default="true" type="ArquillianTestNG" factoryName="" nameIsGenerated="true">
+    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
       <option name="arquillianRunConfiguration">
         <value>
           <option name="containerStateName" value="" />
         </value>
       </option>
-      <option name="TEST_OBJECT" value="CLASS" />
-      <properties />
-      <listeners />
+      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -210,7 +211,8 @@
       <workItem from="1613405535600" duration="252000" />
       <workItem from="1613410918048" duration="15000" />
       <workItem from="1613412287814" duration="6588000" />
-      <workItem from="1613454599145" duration="4930000" />
+      <workItem from="1613454599145" duration="8529000" />
+      <workItem from="1613468962000" duration="5113000" />
     </task>
     <servers />
   </component>

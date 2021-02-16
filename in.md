@@ -34,6 +34,7 @@
 | TypeShowController.java | 分类模块处理 |
 | TagShowController.java | 标签模块处理 |
 | ArchiveShowController.java | 归档模块处理 |
+| AboutShowController.java | 个人模块处理 |
 | LongInterceptor.java | Blog后台页面权限(登录过滤)类 |
 | WebConfig.html | Blog后台页面权限(拦截配置) 类|
 | ControllerExceptionHandler.java | BeBug拦截器 |
@@ -62,6 +63,7 @@
 | MD5Utils.java | MD5加密类 |
 | MyBeanUtils.java | 修复SQL数据修改后为null工具类(过滤掉数据值为null) |
 | MarkdownUtils.java | Markdown转换HTML工具类 |
+| messages.properties | 数据配置文件 |
 
 项目配置(Jar包)
 ```xml
@@ -4977,4 +4979,36 @@ public interface BlogRepository extends JpaRepository<Blog,Long>, JpaSpecificati
     @Query("select b from Blog b where function('date_format',b.updateTime,'%Y') = ?1")
     List<Blog> findByYear(String year);
 }
+```
+### 个人模块处理
+AboutShowController.java
+```java
+package com.cxkj.blog.web;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+
+/**
+ *  Created by Arvin on 2021/12/16
+ */
+@Controller
+public class AboutShowController {
+
+    @GetMapping("/about")
+    public String about(){
+
+        return "about";
+    }
+
+}
+```
+messages.properties
+```properties
+index.email=Email: 2644266656@qq.com
+index.qq=QQ: 2644266656
+index.tagcontext=南有孤岛北有亡梦，南柯一梦终是虚无。
+index.titlename=Guest Island
+index.kor=Copyright &copy; 2020-2021 Guest Island Personal blog
+blog.serurl=127.0.0.1:8080
 ```
