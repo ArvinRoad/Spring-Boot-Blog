@@ -60,7 +60,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="G:/SpringBoot实战-博客/Blog-完整功能源代码/blog" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -128,13 +128,14 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="generated-requests#5" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" path="$APPLICATION_CONFIG_DIR$/scratches/generated-requests.http" index="5" runType="运行单个请求">
-      <method v="2" />
-    </configuration>
     <configuration name="generated-requests#6" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" path="$APPLICATION_CONFIG_DIR$/scratches/generated-requests.http" index="6" runType="运行单个请求">
       <method v="2" />
     </configuration>
     <configuration name="generated-requests#9" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" path="$APPLICATION_CONFIG_DIR$/scratches/generated-requests.http" index="9" runType="运行单个请求">
+      <method v="2" />
+    </configuration>
+    <configuration name="blog-0.0.1-SNAPSHOT.jar" type="JarApplication" temporary="true">
+      <option name="JAR_PATH" value="$PROJECT_DIR$/target/blog-0.0.1-SNAPSHOT.jar" />
       <method v="2" />
     </configuration>
     <configuration name="BolgApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
@@ -146,11 +147,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="应用程序.MarkdownUtils" />
         <item itemvalue="应用程序.MD5Utils (1)" />
+        <item itemvalue="JAR 应用程序.blog-0.0.1-SNAPSHOT.jar" />
+        <item itemvalue="应用程序.MarkdownUtils" />
         <item itemvalue="HTTP 请求.generated-requests#9" />
         <item itemvalue="HTTP 请求.generated-requests#6" />
-        <item itemvalue="HTTP 请求.generated-requests#5" />
       </list>
     </recent_temporary>
   </component>
@@ -213,6 +214,14 @@
       <workItem from="1613412287814" duration="6588000" />
       <workItem from="1613454599145" duration="8529000" />
       <workItem from="1613468962000" duration="5113000" />
+      <workItem from="1613570130280" duration="3262000" />
+      <workItem from="1613649728187" duration="561000" />
+      <workItem from="1613650302615" duration="4000" />
+      <workItem from="1613829435303" duration="637000" />
+      <workItem from="1613831663341" duration="1587000" />
+      <workItem from="1613840426326" duration="5747000" />
+      <workItem from="1613878024806" duration="1405000" />
+      <workItem from="1613893949296" duration="2390000" />
     </task>
     <servers />
   </component>

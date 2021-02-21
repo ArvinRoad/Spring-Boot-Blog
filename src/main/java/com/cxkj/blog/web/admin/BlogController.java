@@ -27,8 +27,8 @@ import javax.servlet.http.HttpSession;
 @RequestMapping("/admin")
 public class BlogController {
 
-    private static final  String INPUT = "/admin/blogs-input";
-    private static final  String LIST = "/admin/blogs";
+    private static final  String INPUT = "admin/blogs-input";
+    private static final  String LIST = "admin/blogs";
     private static final  String REDIRECT_LIST = "redirect:/admin/blogs";
 
     @Autowired
@@ -50,7 +50,7 @@ public class BlogController {
     @PostMapping("/blogs/search")
     public String search(@PageableDefault(size = 10,sort = {"updateTime"},direction = Sort.Direction.DESC) Pageable pageable,BlogQuery blogQuery,Model model){
         model.addAttribute("page",blogService.listBlog(pageable,blogQuery));
-        return "/admin/blogs :: blogList";
+        return "admin/blogs :: blogList";
     }
 
     @GetMapping("/blogs/input")

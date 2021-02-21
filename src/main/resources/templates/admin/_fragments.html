@@ -6,7 +6,7 @@
         <meta name="viewport" content="width=device-width,initial-scale=1.0">
         <title th:replace="${title}">博客</title>
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
-        <link rel="stylesheet" href="../static/lib/editormd/css/editormd.min.css" th:href="@{/lib/editormd/css/editormd.min.css}">
+        <link rel="stylesheet" href="../../static/lib/editormd/css/editormd.min.css" th:href="@{/lib/editormd/css/editormd.min.css}">
         <link rel="stylesheet" href="../static/css/meCs.css" th:href = "@{/css/meCs.css}">
     </head>
 
@@ -73,7 +73,7 @@
                     </div>
                 </div>
                 <div class="ui inverted section divider"></div>
-                <p class="m-text-thin m-text-spaced m-opacity-tiny">Copyright &copy; 2020-2021 Guest Island Personal blog</p>
+                <p class="m-text-thin m-text-spaced m-opacity-tiny">Copyright © 2020-2021 陕ICP备2021001975号</p>
             </div>
         </footer>
 
@@ -81,7 +81,7 @@
         <th:block th:fragment="script">
             <script src="https://cdn.jsdelivr.net/npm/jquery@3.2/dist/jquery.min.js"></script>
             <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
-            <script src="../static/lib/editormd/editormd.min.js" th:src="@{/lib/editormd/editormd.min.js}"></script>
+            <script src="../../static/lib/editormd/editormd.min.js" th:src="@{/lib/editormd/editormd.min.js}"></script>
         </th:block>
 
     </body>

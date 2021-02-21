@@ -32,19 +32,19 @@ public class TypeController {
                                     Pageable pageable, Model model){
 
         model.addAttribute("page",typeService.listType(pageable));
-        return "/admin/types";
+        return "admin/types";
     }
 
     @GetMapping("/types/input")
     public String input(Model model){
         model.addAttribute("type",new Type());
-        return "/admin/types-input";
+        return "admin/types-input";
     }
 
     @GetMapping("types/{id}/input")
     public String editInput(@PathVariable Long id, Model model){
         model.addAttribute("type",typeService.getType(id));
-        return "/admin/types-input";
+        return "admin/types-input";
     }
 
     @PostMapping("/types")
@@ -54,7 +54,7 @@ public class TypeController {
             result.rejectValue("name","nameError","管理员大大，这个分类已经有了。((٩(//̀Д/́/)۶))做人要专一哦！");
         }
         if (result.hasErrors()){
-            return "/admin/types-input";
+            return "admin/types-input";
         }
         Type t =  typeService.saveType(type);
         if (t == null){
@@ -62,7 +62,7 @@ public class TypeController {
         }else {
             attributes.addFlashAttribute("message","新增成功 ≖‿≖✧ 快去发布新内容吧");
         }
-        return "redirect:../admin/types";
+        return "redirect:/admin/types";
     }
 
     @PostMapping("/types/{id}")
@@ -72,7 +72,7 @@ public class TypeController {
             result.rejectValue("name","nameError","管理员大大，这个分类已经有了。((٩(//̀Д/́/)۶))做人要专一哦！");
         }
         if (result.hasErrors()){
-            return "/admin/types-input";
+            return "admin/types-input";
         }
         Type t =  typeService.updateType(id,type);
         if (t == null){
@@ -80,13 +80,13 @@ public class TypeController {
         }else {
             attributes.addFlashAttribute("message","更新成功 (≥◇≤) 快去发布新内容吧");
         }
-        return "redirect:../types";
+        return "redirect:/admin/types";
     }
 
     @GetMapping("/types/{id}/delete")
     public String delete(@PathVariable Long id,RedirectAttributes attributes){
         typeService.deleteType(id);
         attributes.addFlashAttribute("message","删除成功,可能是管理员大大不喜欢它了吧(.◕ฺˇд ˇ◕ฺ)");
-        return "redirect:../";
+        return "redirect:/admin/types";
     }
 }

@@ -30,19 +30,19 @@ public class TagController {
     @GetMapping("/tags")
     public String tags(@PageableDefault(size = 10,sort = {"id"},direction = Sort.Direction.DESC) Pageable pageable,Model model){
         model.addAttribute("page",tagService.listTag(pageable));
-        return "/admin/tags";
+        return "admin/tags";
     }
 
     @GetMapping("/tags/input")
     public String input(Model model){
         model.addAttribute("type",new Tag());
-        return "/admin/tags-input";
+        return "admin/tags-input";
     }
 
     @GetMapping("tags/{id}/input")
     public String editInput(@PathVariable Long id,Model model){
         model.addAttribute("type",tagService.getTag(id));
-        return "/admin/tags-input";
+        return "admin/tags-input";
     }
 
     @PostMapping("/tags")
@@ -52,7 +52,7 @@ public class TagController {
             result.rejectValue("name","nameError","管理员大大，这个标签已经有了。((٩(//̀Д/́/)۶))做人要专一哦！");
         }
         if (result.hasErrors()){
-            return "/admin/tags-input";
+            return "admin/tags-input";
         }
         Tag t = tagService.saveTag(tag);
         if (t == null){
@@ -60,7 +60,7 @@ public class TagController {
         }else {
             attributes.addFlashAttribute("message","新增成功 ≖‿≖✧ 快去发布新内容吧");
         }
-        return "redirect:../admin/tags";
+        return "redirect:/admin/tags";
     }
 
     @PostMapping("/tags/{id}")
@@ -70,7 +70,7 @@ public class TagController {
             result.rejectValue("name","nameError","管理员大大，这个标签已经有了。((٩(//̀Д/́/)۶))做人要专一哦！");
         }
         if (result.hasErrors()){
-            return "/admin/tags-input";
+            return "admin/tags-input";
         }
         Tag t = tagService.updateTag(id, tag);
         if (t == null){
@@ -78,13 +78,13 @@ public class TagController {
         }else {
             attributes.addFlashAttribute("message","更新成功 (≥◇≤) 快去发布新内容吧");
         }
-        return "redirect:../tags";
+        return "redirect:/admin/tags";
     }
 
     @GetMapping("tags/{id}/delete")
     public String delete(@PathVariable Long id,RedirectAttributes attributes){
         tagService.deleteTag(id);
         attributes.addFlashAttribute("message","删除成功,可能是管理员大大不喜欢它了吧(.◕ฺˇд ˇ◕ฺ)");
-        return "redirect:../";
+        return "redirect:/admin/tags";
     }
 }

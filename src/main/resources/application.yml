@@ -1,8 +1,16 @@
 spring:
   thymeleaf:
     mode: HTML
+
+    prefix: classpath:/templates/
+    suffix: .html
+    encoding: UTF-8
+    servlet:
+      content-type: text/html
+    cache: false
+
   profiles:
-    active: dev
+    active: pro
 
   messages:
     basename: i18n/messages
