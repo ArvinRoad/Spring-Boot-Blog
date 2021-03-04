@@ -1,4 +1,0 @@
-2021-03-01 21:03:23.974  INFO 20880 --- [main] com.cxkj.blog.BlogApplicationTests       : Starting BlogApplicationTests using Java 1.8.0_275 on DESKTOP-JSMG0SS with PID 20880 (started by Arvin in F:\Spring-Boot-Blog)
-2021-03-01 21:03:23.975  INFO 20880 --- [main] com.cxkj.blog.BlogApplicationTests       : The following profiles are active: pro
-2021-03-01 21:03:36.978  WARN 20880 --- [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
-2021-03-01 21:03:38.075  INFO 20880 --- [main] com.cxkj.blog.BlogApplicationTests       : Started BlogApplicationTests in 14.558 seconds (JVM running for 15.973)
