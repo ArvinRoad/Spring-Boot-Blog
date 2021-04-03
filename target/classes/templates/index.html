@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+    <head th:replace="_fragments :: head(~{::title})">
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1.0">
+        <title>博客</title>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css"/>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome/css/font-awesome.min.css"/>
+        <link rel="stylesheet" href="../static/css/meCs.css">
+    </head>
+    <body>
+        <!--导航-->
+        <nav th:replace="_fragments :: menu(1)" class="ui inverted attached segment m-padded-tb-mini m-shadow-small">
+            <div class="ui container">
+                <div class="ui inverted secondary stackable menu">
+                    <h2 class="ui teal header item">Guest Island</h2>
+                    <a href="#" class="m-item item m-mobile-hide"><i class="home icon"></i>首页</a>
+                    <a href="#" class="m-item item m-mobile-hide"><i class="idea icon"></i>分类</a>
+                    <a href="#" class="m-item item m-mobile-hide"><i class="tags icon"></i>标签</a>
+                    <a href="#" class="m-item item m-mobile-hide"><i class="clone icon"></i>归档</a>
+                    <a href="#" class="m-item item m-mobile-hide"><i class="info icon"></i>关于我</a>
+                    <!--搜索栏-->
+                    <div class="right m-item item m-mobile-hide">
+                        <div class="ui icon inverted transparent input">
+                            <input type="text" placeholder="Search....">
+                            <i class="search link icon"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <a href="#" class="ui menu toggle black icon button m-right-top m-mobile-show">
+                <i class="sidebar icon"></i>
+            </a>
+        </nav>
+
+        <!--中间内容-->
+        <div class="m-container m-padded-tb-big animated fadeIn">
+            <div class="ui container">
+                <div class="ui stackable grid">
+                    <!--左边内容-->
+                    <div class="eleven wide column">
+                        <!--header-->
+                        <div class="ui top attached segment">
+                            <div class="ui middle aligned two column grid">
+                                <div class="column">
+                                    <h3 class="ui header">博客</h3>
+                                </div>
+                                <div class="right aligned column">
+                                    共<h2 class="ui orange header m-inline-block m-text-thin" th:text="${page.totalElements}"> 14 </h2>篇
+                                </div>
+                            </div>
+                        </div>
+                        <!--content-->
+                        <div class="ui attached segment">
+
+                            <div class="ui segment m-padded-tb-large m-mobile-lr-clear" th:each="blog : ${page.content}">
+                                <div class="ui middle aligned mobile reversed stackable grid">
+                                    <div class="eleven wide column">
+                                        <h3 class="ui header"><a href="#" th:href="@{/blog/{id}(id=${blog.id})}" target="_blank" class="m-black" th:text="${blog.title}">关于山海美文</a></h3>
+                                        <p class="m-text" th:text="|${blog.description}......|">旅途并不漫长，但几次睡醒之间也看到不一样的风景。
+                                            有万木争荣林海，白墙黑瓦人家，繁华拥挤的城市，和水天一色的大海。
+                                            这些都是固守一城的人无法领略的美，而我将他们收录进我浅薄的履历当中，实是三生有幸。
+                                        </p>
+                                        <div class="ui stackable grid">
+                                            <div class="eleven wide column">
+                                                <div class="ui mini horizontal link list">
+                                                    <div class="item">
+                                                        <img src="https://picsum.photos/id/1027/100/100" th:src="@{${blog.user.avatar}}" alt="头像" class="ui avatar image">
+                                                        <div class="content"><a href="#" class="header" th:text="${blog.user.nickname}">Guest Island</a></div>
+                                                    </div>
+                                                    <div class="item">
+                                                        <i class="calendar icon"></i><span th:text="${#dates.format(blog.updateTime,'yyyy-MM-dd')}">2020-12-29</span>
+                                                    </div>
+                                                    <div class="item">
+                                                        <i class="eye icon"></i> <span th:text="${blog.views}"> 888</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="right aligned five wide column">
+                                                <a href="#" target="_blank" class="ui teal basic label m-padded-tiny m-text-thin" th:text="${blog.type.name}">魂海斋阁</a>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <div class="five wide column">
+                                        <a href="#" th:href="@{/blog/{id}(id=${blog.id})}" target="_blank">
+                                            <img src="https://picsum.photos/seed/picsum/800/450" th:src="@{${blog.firstPicture}}" alt="山海" class="ui rounded image">
+                                        </a>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                        </div>
+                        <!--Footer-->
+                        <div class="ui bottom attached segment" th:if="${page.totalPages}>1">
+                            <div class="ui middle aligned two column grid">
+                                <div class="column">
+                                    <a href="#" th:href="@{/(page=${page.number}-1)}" th:nuless="${page.first}" class="ui mini teal basic button">上一页</a>
+                                </div>
+                                <div class="right aligned column">
+                                    <a href="#" th:href="@{/(page=${page.number}+1)}" th:nuless="${page.last}" class="ui mini teal basic button">下一页</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--右边列表-->
+                    <div class="five wide column">
+                        <!--分类-->
+                       <div class="ui segments">
+                           <div class="ui secondary segment">
+                               <div class="ui two column grid">
+                                   <div class="column">
+                                       <i class="idea icon"></i>分类
+                                   </div>
+                                   <div class="right aligned  column">
+                                       <a href="#" th:href="@{types/-1}" target="_blank">more <i class="angle double right icon"></i></a>
+                                   </div>
+                               </div>
+                           </div>
+                           <div class="ui teal segment">
+
+                               <div class="ui fluid vertical menu">
+
+                                   <a href="#" th:href="@{/types/{id}(id=${type.id})}" target="_blank" class="item" th:each="type : ${types}">
+                                       <span th:text="${type.name}">UE4C++开发</span>
+                                       <div class="ui teal basic left pointing label" th:text="${#arrays.length(type.blogs)}">13</div>
+                                   </a>
+
+                               </div>
+                           </div>
+                       </div>
+                        <!--标签-->
+                        <div class="ui segments m-margin-top-large">
+                            <div class="ui secondary segment">
+                                <div class="ui two column grid">
+                                    <div class="column">
+                                        <i class="tags icon"></i>标签
+                                    </div>
+                                    <div class="right aligned  column">
+                                        <a href="#" th:href="@{tags/-1}" target="_blank">more <i class="angle double right icon"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="ui teal segment">
+
+                                <a href="#" th:href="@{/tags/{id}(id=${tag.id})}" target="_blank" class="ui teal basic left pointing label m-margin-tb-tiny" th:each="tag : ${tags}">
+                                    <span th:text="${tag.name}">魂海斋阁</span> <div class="detail" th:text="${#arrays.length(tag.blogs)}">18</div>
+                                </a>
+
+                            </div>
+                        </div>
+                        <!--最新推荐-->
+                        <div class="ui segments m-margin-top-large">
+                            <div class="ui secondary segment">
+                                <i class="bookmark icon"></i>最新推荐
+                            </div>
+
+                            <div class="ui segment" th:each="blog : ${recommendBlogs}">
+                                <a href="#" th:href="@{/blog/{id}(id=${blog.id})}" target="_blank" class="m-black m-text-thin" th:text="${blog.title}">关于脑机那些事</a>
+                            </div>
+
+                        </div>
+
+                        <!--二维码-->
+                        <h4 class="ui horizontal divider header m-margin-top-large">扫码关注我</h4>
+                        <div class="ui centered card" style="width: 11em">
+                            <img src="../static/images/WX_Arvin.jpg" th:src="@{/images/WX_Arvin.jpg}" alt="Guest Island" class="ui rounded image">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br>
+        <br>
+        <br>
+        <!--底部内容-->
+        <footer th:replace="_fragments :: footer" class="ui inverted vertical segment m-padded-tb-massivs">
+            <div class="ui center aligned container">
+                <div class="ui inverted divided stackable grid">
+                    <div class="three wide column">
+                        <div class="ui inverted link list">
+                            <div class="item">
+                                <img src="../static/images/WX_Arvin.jpg" class="ui rounded image" alt="Guest Island" style="width: 100px">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="three wide column">
+                        <h4 class="ui inverted header m-text-thin m-text-spaced">最新博客</h4>
+                        <div class="ui inverted link list">
+                            <a href="#" class="item">用户故事 (User Story) </a>
+                            <a href="#" class="item">关于脑机的那些事</a>
+                            <a href="#" class="item">2021年计划</a>
+                        </div>
+                    </div>
+                    <div class="three wide column">
+                        <h4 class="ui inverted header m-text-thin m-text-spaced">关于我</h4>
+                        <div class="ui inverted link list">
+                            <a href="#" class="item">Email: 2644266656@qq.com</a>
+                            <a href="#" class="item">QQ: 2644266656</a>
+                        </div>
+                    </div>
+                    <div class="seven wide column">
+                        <h4 class="ui inverted header m-text-thin m-text-spaced">Guest Island</h4>
+                        <p class="m-text-thin m-text-spaced m-opacity-mini">南有孤岛北有亡梦，南柯一梦终是虚无。</p>
+                    </div>
+                </div>
+                <div class="ui inverted section divider"></div>
+                <p class="m-text-thin m-text-spaced m-opacity-tiny">Copyright &copy; 2020-2021 Guest Island Personal blog</p>
+            </div>
+        </footer>
+
+        <!--/*/<th:block th:replace="_fragments :: script">/*/-->
+            <script src="https://cdn.jsdelivr.net/npm/jquery@3.2/dist/jquery.min.js"></script>
+            <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
+        <!--播放器-->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.10.0/dist/APlayer.min.css">
+        <script src="https://blog-static.cnblogs.com/files/yjlaugus/APlayer.min.js"></script>
+        <div id="aplayer" class="aplayer"  data-id="2909922139" data-server="netease" data-type="playlist" data-fixed="true" data-listfolded="true" data-order="random" data-autoplay="ture"  data-theme="#F58EA8"></div>
+        <script src="https://unpkg.com/meting@1.2/dist/Meting.min.js"></script>
+        <script src="http://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.js"></script>
+
+
+        <!--看板娘-->
+        <script src="https://cdn.jsdelivr.net/gh/stevenjoezhang/live2d-widget@latest/autoload.js"></script>
+
+        <!--引入资源-->
+        <script src="/lib/prism/prism.js"></script>
+        <script src="/lib/tocbot/tocbot.min.js"></script>
+        <script src="/lib/qrcode/qrcode.min.js"></script>
+        <script src="/lib/scrollTo/jquery.scrollTo.min.js"></script>
+        <script src="/lib/waypoint/jquery.waypoints.min.js"></script>
+        <script src="/lib/picture/js/jkresponsivegallery.js"></script>
+
+        <!--    表情包js-->
+        <script src="/js/jquery.emoji.js"></script>
+        <script src="/js/emoji.list.js"></script>
+        <script>
+            $('#newblog-container').load(/*/footer/newblog*/"/footer/newblog");
+        </script>
+
+        <!--适配移动端和电脑端-->
+        <script type="text/javascript">
+            var browser = {
+                versions: function () {
+                    var u = navigator.userAgent, app = navigator.appVersion;
+                    return {     //移动终端浏览器版本信息
+                        trident: u.indexOf('Trident') > -1, //IE内核
+                        presto: u.indexOf('Presto') > -1, //opera内核
+                        webKit: u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核
+                        gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1, //火狐内核
+                        mobile: !!u.match(/AppleWebKit.*Mobile.*/), //是否为移动终端
+                        ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
+                        android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或uc浏览器
+                        iPhone: u.indexOf('iPhone') > -1, //是否为iPhone或者QQHD浏览器
+                        iPad: u.indexOf('iPad') > -1, //是否iPad
+                        webApp: u.indexOf('Safari') == -1 //是否web应用程序，没有头部与底部
+                    };
+                }(),
+                language: (navigator.browserLanguage || navigator.language).toLowerCase()
+            }
+            if (browser.versions.mobile) {
+                //执行移动端的相关代码
+                alert("移动端");
+                //设置移动端不显示网易云音乐插件
+                onload = function () {
+                    var MusicDivShow = document.getElementById('netEasy-music');//获取指定div中的元素
+                    MusicDivShow.style.display = 'none';//控制层隐藏
+                };
+            }else if(!browser.versions.mobile){ //非移动端，动态加载js和div
+                //设置电脑端显示网易云音乐插件
+                onload = function () {
+                    var MusicDivShow = document.getElementById('netEasy-music');//获取指定div中的元素
+                    MusicDivShow.style.display = 'block';//控制层显示
+                };
+                var script1 = document.createElement('script');
+                script1.type = 'text/javascript';
+                script1.src = '\\js\\snow.js';
+
+                <!-- 天气预报 -->
+                WIDGET = {FID: 'EtgqPWMbdv'}
+                var script4 = document.createElement('script');
+                script4.type = 'text/javascript';
+                script4.src = 'https://apip.weatherdt.com/float/static/js/r.js?v=1111';
+
+                var script2 = document.createElement('script');
+                script2.type = 'text/javascript';
+                script2.src = '\\js\\click_show_text.js';
+
+                var script3 = document.createElement('script');
+                script3.type = 'text/javascript';
+                script3.color = '220,220,220';
+                script3.opacity = '0.7';//透明度
+                script3.zIndex = '-2';
+                script3.count = '200';
+                script3.src = '//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js';
+
+                /*live-2D*/
+                var script5 = document.createElement('script');
+                script5.type = 'text/javascript';
+                script5.src = '\\js\\autoload.js';
+
+                $('body').append(script5);
+                $('body').append(script1);``
+                $('body').append(script4);
+                $('body').append(script2);
+                $('body').append(script3);
+            }
+        </script>
+
+        <script data-pjax>
+            $(function () {
+                coor.affix('.affix_div');
+                coor.nightMode();
+                coor.aplayerAlone();
+                coor.createTarget_for_post_a();
+                coor.complete_ui();
+                coor.verifyPasswordForm();
+                coor.likes_journal();
+                coor.photos_waterFall('https://cdn.jsdelivr.net/gh/cetr/cdn@master/blog/img/loading-2.gif');
+                coor.zoomImage('https://cdn.jsdelivr.net/gh/cetr/cdn@master/blog/img/loading-3.svg');
+                coor.lazyload('img.lazy.lazyImg', 'https://cdn.jsdelivr.net/gh/cetr/cdn@master/blog/img/loading-1.svg');
+            });
+        </script>
+        <!--/*/</th:block>/*/-->
+        <script>
+            $('.menu.toggle').click(function (){
+                $('.m-item').toggleClass('m-mobile-hide');
+            });
+        </script>
+    </body>
+</html>

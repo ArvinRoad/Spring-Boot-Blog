@@ -117,17 +117,6 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
-      <option name="arquillianRunConfiguration">
-        <value>
-          <option name="containerStateName" value="" />
-        </value>
-      </option>
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="generated-requests#6" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" path="$APPLICATION_CONFIG_DIR$/scratches/generated-requests.http" index="6" runType="运行单个请求">
       <method v="2" />
     </configuration>
@@ -236,6 +225,25 @@
       <workItem from="1614677926964" duration="2768000" />
       <workItem from="1614855292938" duration="128000" />
       <workItem from="1614855449365" duration="705000" />
+      <workItem from="1615283038476" duration="14000" />
+      <workItem from="1615283069556" duration="1518000" />
+      <workItem from="1615289278299" duration="2600000" />
+      <workItem from="1615467698436" duration="926000" />
+      <workItem from="1615468854300" duration="47000" />
+      <workItem from="1615471144883" duration="4000" />
+      <workItem from="1615472319443" duration="599000" />
+      <workItem from="1615621354252" duration="11000" />
+      <workItem from="1615721883100" duration="28000" />
+      <workItem from="1615722064926" duration="9000" />
+      <workItem from="1615722197539" duration="30000" />
+      <workItem from="1615905069849" duration="1493000" />
+      <workItem from="1616311333387" duration="68000" />
+      <workItem from="1616311456505" duration="1669000" />
+      <workItem from="1616669040636" duration="86000" />
+      <workItem from="1616669137476" duration="1261000" />
+      <workItem from="1616804344703" duration="64000" />
+      <workItem from="1617160712955" duration="124000" />
+      <workItem from="1617160865729" duration="30000" />
     </task>
     <servers />
   </component>

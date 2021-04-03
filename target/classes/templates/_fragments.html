@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+
+    <head th:fragment="head(title)">
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1.0">
+        <title th:replace="${title}">详情</title>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome/css/font-awesome.min.css"/>
+        <link rel="stylesheet" href="../static/css/typo.css" th:href = "@{/css/typo.css}">
+        <link rel="stylesheet" href="../static/css/animate.css" th:href = "@{/css/animate.css}">
+        <link rel="stylesheet" href="../static/lib/prism/prism.css" th:href = "@{/lib/prism/prism.css}">
+        <link rel="stylesheet" href="../static/lib/tocbot/tocbot.css" th:href = "@{/lib/tocbot/tocbot.css}">
+        <link rel="stylesheet" href="../static/css/meCs.css" th:href = "@{/css/meCs.css}">
+    </head>
+
+    <body>
+
+        <!--导航-->
+        <nav th:fragment="menu(n)" class="ui inverted attached segment m-padded-tb-mini m-shadow-small">
+            <div class="ui container">
+                <div class="ui inverted secondary stackable menu">
+                    <h2 class="ui teal header item">Guest Island</h2>
+                    <a href="#" th:href="@{/}" class="m-item item m-mobile-hide " th:classappend="${n==1} ? 'active'"><i class="home icon"></i>首页</a>
+                    <a href="#" th:href="@{/types/-1}" class="m-item item m-mobile-hide" th:classappend="${n==2} ? 'active'"><i class="idea icon"></i>分类</a>
+                    <a href="#" th:href="@{/tags/-1}" class="m-item item m-mobile-hide" th:classappend="${n==3} ? 'active'"><i class="tags icon"></i>标签</a>
+                    <a href="#" th:href="@{/archives}" class="m-item item m-mobile-hide" th:classappend="${n==4} ? 'active'"><i class="clone icon"></i>归档</a>
+                    <a href="#" th:href="@{/about}" class="m-item item m-mobile-hide" th:classappend="${n==5} ? 'active'"><i class="info icon"></i>关于我</a>
+                    <a href="../admin" th:href="@{/admin}" class="m-item item m-mobile-hide"><i class="user icon"></i>后台管理</a>
+                    <!--搜索栏-->
+                    <div class="right m-item item m-mobile-hide">
+                        <form name="search" action="#" th:action="@{/search}" method="post" target="_blank">
+                            <div class="ui icon inverted transparent input m-margin-tb-tiny">
+                                <input type="text" name="query" placeholder="Search...." th:value="${query}">
+                                <i onclick="document.forms['search'].submit()" class="search link icon"></i>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <a href="#" class="ui menu toggle black icon button m-right-top m-mobile-show">
+                <i class="sidebar icon"></i>
+            </a>
+        </nav>
+
+        <!--底部-->
+        <footer th:fragment="footer" class="ui inverted vertical segment m-padded-tb-massivs">
+            <div class="ui center aligned container">
+                <div class="ui inverted divided stackable grid">
+                    <div class="three wide column">
+                        <div class="ui inverted link list">
+                            <div class="item">
+                                <img src="../static/images/WX_Arvin.jpg" th:src = "@{/images/WX_Arvin.jpg}" class="ui rounded image" alt="Guest Island" style="width: 100px">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="three wide column">
+                        <h4 class="ui inverted header m-text-thin m-text-spaced">最新博客</h4>
+                        <div id="newblog-container">
+                            <div class="ui inverted link list" th:fragment="newblogList">
+                                <a href="#" th:href="@{/blog/{id}(id=${blog.id})}" target="_blank" class="item" th:each="blog : ${newblogs}" th:text="${blog.title}">用户故事 (User Story) </a>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="three wide column">
+                        <h4 class="ui inverted header m-text-thin m-text-spaced">关于我</h4>
+                        <div class="ui inverted link list">
+                            <a href="#" class="item" th:text="#{index.email}">Email: 2644266656@qq.com</a>
+                            <a href="#" class="item" th:text="#{index.qq}">QQ: 2644266656</a>
+                        </div>
+                    </div>
+                    <div class="seven wide column">
+                        <h4 class="ui inverted header m-text-thin m-text-spaced" th:text="#{index.titlename}">Guest Island</h4>
+                        <p class="m-text-thin m-text-spaced m-opacity-mini" th:text="#{index.tagcontext}">南有孤岛北有亡梦，南柯一梦终是虚无。</p>
+                    </div>
+                </div>
+                <div class="ui inverted section divider"></div>
+                <p class="m-text-thin m-text-spaced m-opacity-tiny">Copyright © 2020-2021 陕ICP备2021001975号</p>
+            </div>
+        </footer>
+
+        <!--script-->
+
+        <th:block th:fragment="script">
+            <script src="https://cdn.jsdelivr.net/npm/jquery@3.2/dist/jquery.min.js"></script>
+            <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
+
+            <!--播放器-->
+            <script src="https://myhkw.cn/player/js/player.js" id="myhk" key="demo" m="1"></script>
+
+            <!--看板娘-->
+            <script src="https://cdn.jsdelivr.net/gh/stevenjoezhang/live2d-widget@latest/autoload.js"></script>
+
+            <!--引入资源-->
+            <script src="/lib/prism/prism.js" th:src="@{/lib/prism/prism.js}"></script>
+            <script src="/lib/tocbot/tocbot.min.js" th:src="@{/lib/tocbot/tocbot.min.js}"></script>
+            <script src="/lib/qrcode/qrcode.min.js" th:src="@{/lib/qrcode/qrcode.min.js}"></script>
+            <script src="/lib/scrollTo/jquery.scrollTo.min.js" th:src="@{/lib/scrollTo/jquery.scrollTo.min.js}"></script>
+            <script src="/lib/waypoint/jquery.waypoints.min.js" th:src="@{/lib/waypoint/jquery.waypoints.min.js}"></script>
+            <script src="/lib/picture/js/jkresponsivegallery.js" th:src="@{/lib/picture/js/jkresponsivegallery.js}"></script>
+
+            <!--    表情包js-->
+            <script src="/js/jquery.emoji.js"></script>
+            <script src="/js/emoji.list.js"></script>
+            <script>
+                $('#newblog-container').load(/*/footer/newblog*/"/footer/newblog");
+            </script>
+
+            <!--适配移动端和电脑端-->
+            <script type="text/javascript">
+                var browser = {
+                    versions: function () {
+                        var u = navigator.userAgent, app = navigator.appVersion;
+                        return {     //移动终端浏览器版本信息
+                            trident: u.indexOf('Trident') > -1, //IE内核
+                            presto: u.indexOf('Presto') > -1, //opera内核
+                            webKit: u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核
+                            gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1, //火狐内核
+                            mobile: !!u.match(/AppleWebKit.*Mobile.*/), //是否为移动终端
+                            ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
+                            android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或uc浏览器
+                            iPhone: u.indexOf('iPhone') > -1, //是否为iPhone或者QQHD浏览器
+                            iPad: u.indexOf('iPad') > -1, //是否iPad
+                            webApp: u.indexOf('Safari') == -1 //是否web应用程序，没有头部与底部
+                        };
+                    }(),
+                    language: (navigator.browserLanguage || navigator.language).toLowerCase()
+                }
+                if (browser.versions.mobile) {
+                    //执行移动端的相关代码
+                    alert("移动端");
+                    //设置移动端不显示网易云音乐插件
+                    onload = function () {
+                        var MusicDivShow = document.getElementById('netEasy-music');//获取指定div中的元素
+                        MusicDivShow.style.display = 'none';//控制层隐藏
+                    };
+                }else if(!browser.versions.mobile){ //非移动端，动态加载js和div
+                    //设置电脑端显示网易云音乐插件
+                    onload = function () {
+                        var MusicDivShow = document.getElementById('netEasy-music');//获取指定div中的元素
+                        MusicDivShow.style.display = 'block';//控制层显示
+                    };
+                    var script1 = document.createElement('script');
+                    script1.type = 'text/javascript';
+                    script1.src = '\\js\\snow.js';
+
+                    <!-- 天气预报 -->
+                    WIDGET = {FID: 'EtgqPWMbdv'}
+                    var script4 = document.createElement('script');
+                    script4.type = 'text/javascript';
+                    script4.src = 'https://apip.weatherdt.com/float/static/js/r.js?v=1111';
+
+                    var script2 = document.createElement('script');
+                    script2.type = 'text/javascript';
+                    script2.src = '\\js\\click_show_text.js';
+
+                    var script3 = document.createElement('script');
+                    script3.type = 'text/javascript';
+                    script3.color = '220,220,220';
+                    script3.opacity = '0.7';//透明度
+                    script3.zIndex = '-2';
+                    script3.count = '200';
+                    script3.src = '//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js';
+
+                    /*live-2D*/
+                    var script5 = document.createElement('script');
+                    script5.type = 'text/javascript';
+                    script5.src = '\\js\\autoload.js';
+
+                    $('body').append(script5);
+                    $('body').append(script1);``
+                    $('body').append(script4);
+                    $('body').append(script2);
+                    $('body').append(script3);
+                }
+            </script>
+
+            <script data-pjax>
+                $(function () {
+                    coor.affix('.affix_div');
+                    coor.nightMode();
+                    coor.aplayerAlone();
+                    coor.createTarget_for_post_a();
+                    coor.complete_ui();
+                    coor.verifyPasswordForm();
+                    coor.likes_journal();
+                    coor.photos_waterFall('https://cdn.jsdelivr.net/gh/cetr/cdn@master/blog/img/loading-2.gif');
+                    coor.zoomImage('https://cdn.jsdelivr.net/gh/cetr/cdn@master/blog/img/loading-3.svg');
+                    coor.lazyload('img.lazy.lazyImg', 'https://cdn.jsdelivr.net/gh/cetr/cdn@master/blog/img/loading-1.svg');
+                });
+            </script>
+
+            <script src="//cdn.jsdelivr.net/npm/jquery.scrollto@2.1.2/jquery.scrollTo.min.js"></script>
+            <script src="../static/lib/prism/prism.js" th:src="@{/lib/prism/prism.js}"></script>
+            <script src="../static/lib/tocbot/tocbot.min.js" th:src="@{/lib/tocbot/tocbot.min.js}"></script>
+            <script src="../static/lib/qrcode/qrcode.min.js" th:src="@{/lib/qrcode/qrcode.min.js}"></script>
+            <script src="../static/lib/waypoints/jquery.waypoints.min.js" th:src="@{/lib/waypoints/jquery.waypoints.min.js}"></script>
+            <script>
+                $('#newblog-container').load(/*[[@{/footer/newblog}]]*/"/footer/newblog");
+            </script>
+        </th:block>
+
+    </body>
+
+</html>

@@ -41,6 +41,6 @@ public class MD5Utils {
     }
 
     public static void main(String[] args) {
-        System.out.println(code("grasswind0211"));
+        System.out.println(code("1917723401Syc"));
     }
 }
