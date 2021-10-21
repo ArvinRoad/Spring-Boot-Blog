@@ -4,16 +4,19 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4736151a-36f0-44e2-a211-54c2471fc4df" name="默认的" comment="" />
+    <list default="true" id="4736151a-36f0-44e2-a211-54c2471fc4df" name="默认的" comment="默认的">
+      <change afterPath="$PROJECT_DIR$/.idea/runConfigurations.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/5d984924-732e-4a38-aba2-5c854b66571b.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/5d984924-732e-4a38-aba2-5c854b66571b.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/aa92a4eb-7989-4ed2-b225-ccd1ce682ee2.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/aa92a4eb-7989-4ed2-b225-ccd1ce682ee2.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spring-Boot-bolg.iml" beforeDir="false" afterPath="$PROJECT_DIR$/Spring-Boot-bolg.iml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
-  </component>
-  <component name="DatabaseLocalColorSettings">
-    <colors>
-      <entry key="5d984924-732e-4a38-aba2-5c854b66571b" value="Yellow" />
-    </colors>
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -43,6 +46,22 @@
       </set>
     </option>
   </component>
+  <component name="JpbToolWindowState">
+    <option name="myId2FirstActivated">
+      <map>
+        <entry key="JPA Inspector" value="true" />
+        <entry key="JPA Palette" value="true" />
+        <entry key="JPA Structure" value="true" />
+      </map>
+    </option>
+    <option name="myId2Visible">
+      <map>
+        <entry key="JPA Inspector" value="true" />
+        <entry key="JPA Palette" value="true" />
+        <entry key="JPA Structure" value="false" />
+      </map>
+    </option>
+  </component>
   <component name="ProjectId" id="1ny6rYNeKAdnDQYuUieYVaRS9XX" />
   <component name="ProjectViewState">
     <option name="autoscrollToSource" value="true" />
@@ -50,7 +69,8 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
-    <property name="DatabaseDriversLRU" value="mysql.8&#10;mysql" />
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
+    <property name="DatabaseDriversLRU" value="mysql.8&#10;mysql&#10;azure" />
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="RequestMappingsPanelOrder0" value="0" />
     <property name="RequestMappingsPanelOrder1" value="1" />
@@ -58,21 +78,22 @@
     <property name="RequestMappingsPanelWidth1" value="75" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="G:/SpringBoot实战-博客/Blog-完整功能源代码/blog" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
     <property name="node.js.path.for.package.tslint" value="project" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
+    <property name="nodejs_package_manager_path" value="npm" />
     <property name="project.structure.last.edited" value="问题" />
     <property name="project.structure.proportion" value="0.15429688" />
     <property name="project.structure.side.proportion" value="0.49947312" />
-    <property name="restartRequiresConfirmation" value="false" />
     <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
-    <property name="settings.editor.selected.configurable" value="File.Encoding" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -90,20 +111,7 @@
       <recent name="com.cxkj.blog.util" />
     </key>
   </component>
-  <component name="RunManager" selected="Spring Boot.BolgApplication">
-    <configuration name="MD5Utils (1)" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="com.cxkj.blog.util.MD5Utils" />
-      <module name="Spring-Boot-bolg" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.cxkj.blog.util.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
+  <component name="RunManager" selected="JUnit.BlogApplicationTests">
     <configuration name="MarkdownUtils" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.cxkj.blog.util.MarkdownUtils" />
       <module name="Spring-Boot-bolg" />
@@ -117,15 +125,21 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="generated-requests#6" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" path="$APPLICATION_CONFIG_DIR$/scratches/generated-requests.http" index="6" runType="运行单个请求">
-      <method v="2" />
-    </configuration>
-    <configuration name="generated-requests#9" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" path="$APPLICATION_CONFIG_DIR$/scratches/generated-requests.http" index="9" runType="运行单个请求">
-      <method v="2" />
-    </configuration>
-    <configuration name="blog-0.0.1-SNAPSHOT.jar" type="JarApplication" temporary="true">
-      <option name="JAR_PATH" value="$PROJECT_DIR$/target/blog-0.0.1-SNAPSHOT.jar" />
-      <method v="2" />
+    <configuration name="BlogApplicationTests" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="Spring-Boot-bolg" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.cxkj.blog.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.cxkj.blog" />
+      <option name="MAIN_CLASS_NAME" value="com.cxkj.blog.BlogApplicationTests" />
+      <option name="METHOD_NAME" value="" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
     </configuration>
     <configuration name="BolgApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
       <module name="Spring-Boot-bolg" />
@@ -134,13 +148,15 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <list>
+      <item itemvalue="JUnit.BlogApplicationTests" />
+      <item itemvalue="Spring Boot.BolgApplication" />
+      <item itemvalue="应用程序.MarkdownUtils" />
+    </list>
     <recent_temporary>
       <list>
-        <item itemvalue="JAR 应用程序.blog-0.0.1-SNAPSHOT.jar" />
-        <item itemvalue="HTTP 请求.generated-requests#9" />
-        <item itemvalue="HTTP 请求.generated-requests#6" />
+        <item itemvalue="JUnit.BlogApplicationTests" />
         <item itemvalue="应用程序.MarkdownUtils" />
-        <item itemvalue="应用程序.MD5Utils (1)" />
       </list>
     </recent_temporary>
   </component>
@@ -244,6 +260,49 @@
       <workItem from="1616804344703" duration="64000" />
       <workItem from="1617160712955" duration="124000" />
       <workItem from="1617160865729" duration="30000" />
+      <workItem from="1618039911929" duration="130000" />
+      <workItem from="1618040161195" duration="104000" />
+      <workItem from="1618200898044" duration="48000" />
+      <workItem from="1618200959446" duration="16000" />
+      <workItem from="1619333379763" duration="57000" />
+      <workItem from="1619333449947" duration="1199000" />
+      <workItem from="1620550587029" duration="69000" />
+      <workItem from="1620692466341" duration="76000" />
+      <workItem from="1620692628575" duration="496000" />
+      <workItem from="1621179976981" duration="983000" />
+      <workItem from="1622291481042" duration="26000" />
+      <workItem from="1622291522762" duration="20000" />
+      <workItem from="1622291584518" duration="204000" />
+      <workItem from="1622637402351" duration="2000" />
+      <workItem from="1626152560229" duration="37000" />
+      <workItem from="1626152724737" duration="182000" />
+      <workItem from="1626275328012" duration="25000" />
+      <workItem from="1626275370618" duration="47000" />
+      <workItem from="1626511080266" duration="14000" />
+      <workItem from="1630743128436" duration="470000" />
+      <workItem from="1630941256716" duration="325000" />
+      <workItem from="1631024243716" duration="6000" />
+      <workItem from="1631024366758" duration="210000" />
+      <workItem from="1631262254002" duration="46000" />
+      <workItem from="1631262338558" duration="1642000" />
+      <workItem from="1631264013480" duration="2007000" />
+      <workItem from="1631716535238" duration="454000" />
+      <workItem from="1631784041369" duration="409000" />
+      <workItem from="1634203890856" duration="251000" />
+      <workItem from="1634620381340" duration="190000" />
+      <workItem from="1634620620763" duration="22000" />
+      <workItem from="1634725305233" duration="83000" />
+      <workItem from="1634725630678" duration="432000" />
+      <workItem from="1634726248027" duration="455000" />
+      <workItem from="1634826085787" duration="439000" />
+      <workItem from="1634826541004" duration="463000" />
+      <workItem from="1634827031377" duration="413000" />
+      <workItem from="1634827504702" duration="1396000" />
+      <workItem from="1634828924202" duration="385000" />
+      <workItem from="1634829337007" duration="29000" />
+      <workItem from="1634829386425" duration="330000" />
+      <workItem from="1634829736314" duration="447000" />
+      <workItem from="1634830218428" duration="253000" />
     </task>
     <servers />
   </component>
@@ -295,6 +354,9 @@
     </option>
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
+  <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+  </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
@@ -305,6 +367,10 @@
         <breakpoint enabled="true" type="java-exception">
           <properties class="org.springframework.expression.spel.SpelEvaluationException" package="org.springframework.expression.spel" />
           <option name="timeStamp" value="2" />
+        </breakpoint>
+        <breakpoint enabled="true" type="java-exception">
+          <properties class="java.sql.SQLException" package="java.sql" />
+          <option name="timeStamp" value="3" />
         </breakpoint>
       </breakpoints>
     </breakpoint-manager>
