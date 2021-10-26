@@ -1,6 +1,6 @@
-2021-10-26 21:17:18.734  INFO 12488 --- [main] com.cxkj.blog.BlogApplicationTests       : Starting BlogApplicationTests using Java 1.8.0_275 on Arvin-Service with PID 12488 (started by Arvin in F:\Spring-Boot-Blog)
-2021-10-26 21:17:18.738  INFO 12488 --- [main] com.cxkj.blog.BlogApplicationTests       : The following profiles are active: pro
-2021-10-26 21:17:24.775 ERROR 12488 --- [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Exception during pool initialization.
+2021-10-20 18:33:27.788  INFO 16296 --- [main] com.cxkj.blog.BlogApplicationTests       : Starting BlogApplicationTests using Java 1.8.0_275 on Arvin-Service with PID 16296 (started by Arvin in F:\Spring-Boot-Blog)
+2021-10-20 18:33:27.793  INFO 16296 --- [main] com.cxkj.blog.BlogApplicationTests       : The following profiles are active: pro
+2021-10-20 18:33:33.142 ERROR 16296 --- [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Exception during pool initialization.
 
 com.mysql.cj.jdbc.exceptions.CommunicationsException: Communications link failure
 
@@ -153,7 +153,7 @@ Caused by: java.net.ConnectException: Connection refused: connect
 	at com.mysql.cj.protocol.a.NativeSocketConnection.connect(NativeSocketConnection.java:63)
 	... 119 common frames omitted
 
-2021-10-26 21:17:24.782  WARN 12488 --- [main] o.h.e.j.e.i.JdbcEnvironmentInitiator     : HHH000342: Could not obtain connection to query metadata
+2021-10-20 18:33:33.148  WARN 16296 --- [main] o.h.e.j.e.i.JdbcEnvironmentInitiator     : HHH000342: Could not obtain connection to query metadata
 
 com.mysql.cj.jdbc.exceptions.CommunicationsException: Communications link failure
 
@@ -306,9 +306,9 @@ Caused by: java.net.ConnectException: Connection refused: connect
 	at com.mysql.cj.protocol.a.NativeSocketConnection.connect(NativeSocketConnection.java:63)
 	... 119 common frames omitted
 
-2021-10-26 21:17:24.789 ERROR 12488 --- [main] j.LocalContainerEntityManagerFactoryBean : Failed to initialize JPA EntityManagerFactory: Unable to create requested service [org.hibernate.engine.jdbc.env.spi.JdbcEnvironment]
-2021-10-26 21:17:24.789  WARN 12488 --- [main] o.s.w.c.s.GenericWebApplicationContext   : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'entityManagerFactory' defined in class path resource [org/springframework/boot/autoconfigure/orm/jpa/HibernateJpaConfiguration.class]: Invocation of init method failed; nested exception is org.hibernate.service.spi.ServiceException: Unable to create requested service [org.hibernate.engine.jdbc.env.spi.JdbcEnvironment]
-2021-10-26 21:17:24.815 ERROR 12488 --- [main] o.s.boot.SpringApplication               : Application run failed
+2021-10-20 18:33:33.153 ERROR 16296 --- [main] j.LocalContainerEntityManagerFactoryBean : Failed to initialize JPA EntityManagerFactory: Unable to create requested service [org.hibernate.engine.jdbc.env.spi.JdbcEnvironment]
+2021-10-20 18:33:33.154  WARN 16296 --- [main] o.s.w.c.s.GenericWebApplicationContext   : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'entityManagerFactory' defined in class path resource [org/springframework/boot/autoconfigure/orm/jpa/HibernateJpaConfiguration.class]: Invocation of init method failed; nested exception is org.hibernate.service.spi.ServiceException: Unable to create requested service [org.hibernate.engine.jdbc.env.spi.JdbcEnvironment]
+2021-10-20 18:33:33.181 ERROR 16296 --- [main] o.s.boot.SpringApplication               : Application run failed
 
 org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'entityManagerFactory' defined in class path resource [org/springframework/boot/autoconfigure/orm/jpa/HibernateJpaConfiguration.class]: Invocation of init method failed; nested exception is org.hibernate.service.spi.ServiceException: Unable to create requested service [org.hibernate.engine.jdbc.env.spi.JdbcEnvironment]
 	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1788)
@@ -424,7 +424,7 @@ Caused by: org.hibernate.HibernateException: Access to DialectResolutionInfo can
 	at org.hibernate.service.internal.AbstractServiceRegistryImpl.createService(AbstractServiceRegistryImpl.java:263)
 	... 100 common frames omitted
 
-2021-10-26 21:17:24.819 ERROR 12488 --- [main] o.s.test.context.TestContextManager      : Caught exception while allowing TestExecutionListener [org.springframework.test.context.web.ServletTestExecutionListener@235ecd9f] to prepare test instance [com.cxkj.blog.BlogApplicationTests@136ccbfe]
+2021-10-20 18:33:33.185 ERROR 16296 --- [main] o.s.test.context.TestContextManager      : Caught exception while allowing TestExecutionListener [org.springframework.test.context.web.ServletTestExecutionListener@235ecd9f] to prepare test instance [com.cxkj.blog.BlogApplicationTests@49e2b3c5]
 
 java.lang.IllegalStateException: Failed to load ApplicationContext
 	at org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.loadContext(DefaultCacheAwareContextLoaderDelegate.java:132)
